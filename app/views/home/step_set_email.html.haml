@@ -1,0 +1,9 @@
+.jumbotron
+	= render 'layouts/messages'
+	%h1 2) Give us your email
+	%p.lead We will send all the inquiries, questions and petitions to:
+	= form_tag "set_email" do
+		.input-prepend
+			%span.add-on email
+			= text_field_tag :email, params[:email]
+		= submit_tag "Continue", :class => "btn btn-large btn-success"

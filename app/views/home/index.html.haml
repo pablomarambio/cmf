@@ -1,4 +1,5 @@
-%h3 Home
-- @users.each do |user|
-  %p
-    User: #{link_to user.name, user}
+.jumbotron
+	= render 'layouts/messages'
+	%h1 Set a price tag, commit to answering.
+	%p.lead You get a lot of bogus offers, so you set a threshold of, say, $5. Someone really interested in contacting you pays for the chance of doing so. You answer his inquiry in a timely manner.
+	=link_to "Set your threshold", set_threshold_path, :class=> "btn btn-large btn-success"

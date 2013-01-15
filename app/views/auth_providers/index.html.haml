@@ -1,0 +1,26 @@
+#deviseauth
+	%h2 Authentication Services - Setting
+	#currservices
+		%h3	
+			The following
+			= @auth_providers.count == 1 ? 'account is' : 'accounts are'
+			connected with your local account at CommunityGuides:
+		- @auth_providers.each do |ap|
+			.services_used  
+				.line
+					Name:
+					= ap.user_id
+					(ID: 
+					= ap.uid
+					)  
+				.line
+					Email:
+					= ap.uemail != '' ? ap.uemail : 'not set'
+				.line
+					- @auth_providers.count == 1 ? @msg = 'Removing the last account linked might lock you out of your account if you do not know the email/password sign-in of your local account!' : @msg = ''
+					= link_to "Remove this service", ap, :confirm => 'Are you sure you want to remove this authentication service? ' + @msg, :method => :delete, :class => "remove"
+	#availableservices
+		%h3 You can connect more services to your account:
+		#services
+			=link_to "Facebook", "/auth/facebook", :class=>"services"
+			=link_to "Twitter", "/auth/twitter", :class=>"services"
