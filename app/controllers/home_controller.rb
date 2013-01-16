@@ -22,7 +22,24 @@ class HomeController < ApplicationController
 		end
 
 		session[:email] = email
+		# jumps to auth_providers_controller
 		redirect_to set_identity_path
+	end
+
+	def set_statement
+		statement = params[:user][:comment]
+		name = params[:user][:name]
+
+		unless statement and name
+			flash.now[:notice] = "Please enter your name and statement"
+			render :step_name_and_statement and return
+		end
+
+		current_user.comment = statement
+		current_user.name = name
+		current_user.save
+
+		redirect_to set_social_networks_path
 	end
 
 end

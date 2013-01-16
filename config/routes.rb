@@ -22,6 +22,10 @@ Cmf::Application.routes.draw do
   get "setup/set_statement" => "home#step_name_and_statement", :as => "set_statement"
   post "setup/set_statement" => "home#set_statement", :as => "set_statement"
 
+  # Setup flow: link social networks
+  get "setup/set_social_networks" => "home#step_set_social_networks", :as => "set_social_networks"
+  post "setup/set_social_networks" => "home#set_social_networks", :as => "set_social_networks"
+
   root :to => "home#index"
 
   devise_for :users, :controllers => {:registrations => "registrations"}
