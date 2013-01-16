@@ -18,6 +18,10 @@ Cmf::Application.routes.draw do
   get "setup/set_identity" => "home#step_sign_up", :as => "set_identity"
   post "setup/set_identity" => "home#set_identity", :as => "set_identity"
 
+  # Setup flow: name and statement
+  get "setup/set_statement" => "home#step_name_and_statement", :as => "set_statement"
+  post "setup/set_statement" => "home#set_statement", :as => "set_statement"
+
   root :to => "home#index"
 
   devise_for :users, :controllers => {:registrations => "registrations"}

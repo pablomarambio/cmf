@@ -21,6 +21,7 @@ class AuthProvidersController < ApplicationController
 		# get the full hash from omniauth
 		omniauth = request.env['omniauth.auth']
 
+		Rails.logger.debug omniauth.to_yaml
 		# continue only if hash and parameter exist
 		if omniauth and params[:provider]
 			
@@ -95,7 +96,7 @@ class AuthProvidersController < ApplicationController
 						redirect_to auth_providers_path
 					else
 						flash[:notice] = provider_route.capitalize + ' is already linked to your account.'
-						redirect_to auth_providers_path
+						sign_in_and_redirect(:user, current_user)
 					end  
 				end  
 			else
