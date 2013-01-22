@@ -1,0 +1,19 @@
+.jumbotron
+	= render 'layouts/messages'
+	%h1 3) Sign up
+	%p.lead You will need to log in to edit your settings, withdraw your money, etc.
+
+.row-fluid
+	.span4
+		= link_to image_tag("authicons/facebook_256.png"), "/auth/facebook"
+	.span4
+		= link_to image_tag("authicons/twitter_256.png"), "/auth/twitter"
+	.span4
+		= link_to image_tag("authicons/linkedin_256.png"), "#"
+.row-fluid
+	.span4
+		=raw "&nbsp;"
+	.span4
+		= link_to image_tag("authicons/google_256.png"), "#"
+	.span4
+		=raw "&nbsp;"
