@@ -3,6 +3,10 @@ class HomeController < ApplicationController
 		@users = User.all
 	end
 
+  def step_set_threshold
+    @user = User.new
+  end
+
 	def set_threshold
 		threshold = params[:threshold]
 		unless threshold
