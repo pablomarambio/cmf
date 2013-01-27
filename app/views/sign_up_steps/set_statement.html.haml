@@ -4,8 +4,8 @@
   %p.lead 
     This is your message to whoever visits your profile
   %hr
-  = form_for(current_user, :url => set_statement_path, :method => :post, :html => { :class => 'form-vertical' }) do |f|
-    = display_base_errors current_user
+  = form_for @user, url: wizard_path, :html => { :class => 'form-vertical' } do |f|
+    = display_base_errors @user
     .input-prepend
       %span.add-on Name
       = f.text_field :name, :placeholder => "John Doe"

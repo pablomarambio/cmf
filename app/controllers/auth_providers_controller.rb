@@ -1,4 +1,6 @@
 class AuthProvidersController < ApplicationController
+  include Wicked::Wizard
+  before_filter :find_user
 	before_filter :authenticate_user!, :except => [:create]
 
 	def index
@@ -82,7 +84,7 @@ class AuthProvidersController < ApplicationController
 							end
 						else
 							flash[:error] =  provider_route.capitalize + ' can not be used to sign-up on CommunityGuides as no valid email address has been provided. Please use another authentication provider or use local sign-up. If you already have an account, please sign-in and add ' + provider_route.capitalize + ' from your profile.'
-							redirect_to new_user_session_path
+              redirect_to next_wizard_path
 						end
 					end
 				else
