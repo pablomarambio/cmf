@@ -5,7 +5,7 @@
     This is your message to whoever visits your profile
   %hr
   = form_for @user, url: wizard_path, :html => { :class => 'form-vertical' } do |f|
-    = display_base_errors @user
+    = render :partial => "shared/model_error_messages", :locals => {:model => @user}
     .input-prepend
       %span.add-on Name
       = f.text_field :name, :placeholder => "John Doe"
