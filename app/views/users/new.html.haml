@@ -2,7 +2,8 @@
   = render 'layouts/messages'
   %h1 1) Set a price tag
   %p.lead I commit to answer to anyone who pays...
-  = form_for @user do |f|
+  = form_for @user, url: sign_up_steps_path do |f|
+    = render :partial => "shared/model_error_messages", :locals => {:model => @user}
     .input-prepend.input-append
       %span.add-on $
       = f.text_field :threshold
