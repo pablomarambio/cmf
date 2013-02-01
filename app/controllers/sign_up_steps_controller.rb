@@ -27,7 +27,6 @@ class SignUpStepsController < ApplicationController
   end
 
   def set_email
-    @user = current_user
   end
 
   def set_statement
@@ -52,7 +51,7 @@ class SignUpStepsController < ApplicationController
 				omniauth['extra']['raw_info']['id'] ?  uid =  omniauth['extra']['raw_info']['id'] : uid = ''
 				omniauth['provider'] ? provider =  omniauth['provider'] : provider = ''
 			elsif provider_route == 'twitter'
-				email = @user.email   # Twitter API never returns the email address
+				email = @user.nil? ? '' : @user.email   # Twitter API never returns the email address
 				omniauth['info']['name'] ? name =  omniauth['info']['name'] : name = ''
 				omniauth['uid'] ?  uid =  omniauth['uid'] : uid = ''
 				omniauth['provider'] ? provider =  omniauth['provider'] : provider = ''
