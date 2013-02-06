@@ -1,4 +1,6 @@
 class HomeController < ApplicationController
+  before_filter :find_user, :only => [:profile]
+
 	def index
 		@users = User.all
 	end
@@ -45,5 +47,8 @@ class HomeController < ApplicationController
 
 		redirect_to set_social_networks_path
 	end
+
+  def profile
+  end
 
 end

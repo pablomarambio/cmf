@@ -85,7 +85,7 @@ class SignUpStepsController < ApplicationController
 								existinguser.auth_providers.create(:provider => provider, :uid => uid, :uname => name, :uemail => email, :image => image)
 								flash[:notice] = 'Sign in via ' + provider.capitalize + ' has been added to your account ' + existinguser.email + '. Signed in successfully!'
                 sign_in existinguser
-                redirect_to wizard_path(:set_statement)
+                redirect_to wizard_path(:complete_profile)
 								#sign_in_and_redirect(:user, existinguser)
 							else
 								# let's create a new user: register this user and add this authentication method for this user
