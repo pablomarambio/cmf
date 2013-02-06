@@ -36,7 +36,7 @@ class User < ActiveRecord::Base
   end
   
   def active_or_comment?
-    status.include?('set_statement') || active?
+    status.include?('complete_profile') || active?
   end
   
 

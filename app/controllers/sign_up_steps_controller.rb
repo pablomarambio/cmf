@@ -1,7 +1,7 @@
 class SignUpStepsController < ApplicationController
   include Wicked::Wizard
   before_filter :find_user, :except => [:create]
-  steps :set_email, :set_social_networks, :set_statement
+  steps :set_email, :set_social_networks, :complete_profile
 
   def show
     render_wizard 
@@ -53,6 +53,8 @@ class SignUpStepsController < ApplicationController
 			elsif provider_route == 'twitter'
 				email = @user.nil? ? '' : @user.email   # Twitter API never returns the email address
 				omniauth['info']['name'] ? name =  omniauth['info']['name'] : name = ''
+        puts "------#{omniauth['info']['image']}--------"
+				omniauth['info']['image'] ? image =  omniauth['info']['image'] : image = ''
 				omniauth['uid'] ?  uid =  omniauth['uid'] : uid = ''
 				omniauth['provider'] ? provider =  omniauth['provider'] : provider = ''
 			else
@@ -80,8 +82,9 @@ class SignUpStepsController < ApplicationController
 							existinguser = User.find_by_email(email)
 							if existinguser
 								# map this new login method via a authentication provider to an existing account if the email address is the same
-								existinguser.auth_providers.create(:provider => provider, :uid => uid, :uname => name, :uemail => email)
+								existinguser.auth_providers.create(:provider => provider, :uid => uid, :uname => name, :uemail => email, :image => image)
 								flash[:notice] = 'Sign in via ' + provider.capitalize + ' has been added to your account ' + existinguser.email + '. Signed in successfully!'
+                sign_in existinguser
                 redirect_to wizard_path(:set_statement)
 								#sign_in_and_redirect(:user, existinguser)
 							else
