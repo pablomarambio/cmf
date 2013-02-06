@@ -2,6 +2,8 @@ Cmf::Application.routes.draw do
   match "auth/:provider/callback" => "sign_up_steps#auth_provider_create"
   resources :auth_providers, :only => [:index, :create, :destroy]
 
+  get "profile" => "home#profile"
+
   resources :sign_up_steps
   authenticated :user do
     root :to => 'home#index'

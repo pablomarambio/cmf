@@ -1,0 +1,32 @@
+.jumbotron
+  = render 'layouts/messages'
+  %h3 Welcome #{@user.auth_providers.first.uname}! now check and complete your profile.
+  %hr
+  = form_for @user, url: wizard_path, :html => { :class => 'form-vertical' } do |f|
+    = render :partial => "shared/model_error_messages", :locals => {:model => @user}
+    .input-prepend
+      %span.add-on Name
+      = f.text_field :name, :value => @user.auth_providers.first.uname
+    .input-prepend
+      %span.add-on Picture from fb/tw here
+      = image_tag @user.auth_providers.first.image
+    .input{:style=>"margin-top:20px;"}
+      %span.help-block 
+        This is where you make your statement.
+      = f.text_area :comment, :placeholder => "I swear I read every message", :size => "160x3"
+      %span.help-block
+        Examples:
+        %em "I'm open to job offers,"
+        %em "Will answer in less than 48 hours,"
+        or
+        %em "Send me your phone so I can call you back"
+    = f.submit 'Continue', :class => "btn btn-large btn-success"
+  .row-fluid
+    .span12
+      %em Linking more social networks will improve the probability of someone paying to contact you.
+  .row-fluid 
+    .span4
+      = link_to image_tag("authicons/facebook_256.png"), "/auth/facebook"
+    .span4
+      = link_to image_tag("authicons/twitter_256.png"), "/auth/twitter"
+

@@ -25,12 +25,17 @@ class UsersController < ApplicationController
   end
   
   def update
-    authorize! :update, @user, :message => 'Not authorized as an administrator.'
     @user = User.find(params[:id])
-    if @user.update_attributes(params[:user], :as => :admin)
-      redirect_to users_path, :notice => "User updated."
+    authorize! :update, @user, :message => 'Not authorized as an administrator.'
+    if @user.update_attributes(params[:user])
+      flash[:notice] = "Profile updated."
     else
-      redirect_to users_path, :alert => "Unable to update user."
+      flash[:alert] = "Unable to update profile"
+    end
+    if @user.has_role? :admin
+      redirect_to users_path
+    else
+      redirect_to profile_path
     end
   end
     
