@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130127134525) do
+ActiveRecord::Schema.define(:version => 20130205233953) do
 
   create_table "auth_providers", :force => true do |t|
     t.integer  "user_id"
@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(:version => 20130127134525) do
     t.datetime "updated_at", :null => false
     t.boolean  "display"
     t.string   "uname"
+    t.string   "image"
   end
 
   create_table "roles", :force => true do |t|
@@ -52,6 +53,7 @@ ActiveRecord::Schema.define(:version => 20130127134525) do
     t.boolean  "haslocalpw",             :default => true, :null => false
     t.string   "comment"
     t.float    "threshold"
+    t.string   "status"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
