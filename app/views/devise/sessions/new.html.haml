@@ -1,13 +1,7 @@
 %h2 Sign in
-= simple_form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => {:class => 'form-vertical' }) do |f|
-	= f.input :email, :autofocus => true
-	= f.input :password
-	= f.input :remember_me, :as => :boolean if devise_mapping.rememberable?
-	= f.button :submit, "Sign in", :class => 'btn-primary'
-
 #remote
 	#services.form-vertical
-		= link_to "Facebook", "/auth/facebook"
-		= link_to "Twitter", "/auth/twitter"
+		= link_to image_tag("authicons/facebook_256.png"), "/auth/facebook"
+		= link_to image_tag("authicons/twitter_256.png"), "/auth/twitter"
 
 = render "devise/shared/links"

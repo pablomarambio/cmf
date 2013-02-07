@@ -55,7 +55,8 @@ class AuthProvidersController < ApplicationController
 					auth = AuthProvider.find_by_provider_and_uid(provider, uid)
 					if auth
 						flash[:notice] = 'Signed in successfully via ' + provider.capitalize + '.'
-						sign_in_and_redirect(:user, auth.user)
+						sign_in auth.user
+            redirect_to profile_path
 					else
 						# check if this user is already registered with this email address; get out if no email has been provided
 						if email != ''
@@ -65,7 +66,8 @@ class AuthProvidersController < ApplicationController
 								# map this new login method via a authentication provider to an existing account if the email address is the same
 								existinguser.auth_providers.create(:provider => provider, :uid => uid, :uname => name, :uemail => email)
 								flash[:notice] = 'Sign in via ' + provider.capitalize + ' has been added to your account ' + existinguser.email + '. Signed in successfully!'
-								sign_in_and_redirect(:user, existinguser)
+								sign_in existinguser
+                redirect_to profile_path
 							else
 								# let's create a new user: register this user and add this authentication method for this user
 								name = name[0, 39] if name.length > 39             # otherwise our user validation will hit us
