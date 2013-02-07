@@ -74,7 +74,8 @@ class SignUpStepsController < ApplicationController
 					auth = AuthProvider.find_by_provider_and_uid(provider, uid)
 					if auth
 						flash[:notice] = 'Signed in successfully via ' + provider.capitalize + '.'
-						sign_in_and_redirect(:user, auth.user)
+						sign_in auth.user
+            redirect_to profile_path
 					else
 						# check if this user is already registered with this email address; get out if no email has been provided
 						if email != ''
@@ -116,7 +117,7 @@ class SignUpStepsController < ApplicationController
 					if !auth
 						current_user.auth_providers.create(:provider => provider, :uid => uid, :uname => name, :uemail => email)
 						flash[:notice] = 'Sign in via ' + provider.capitalize + ' has been added to your account.'
-						redirect_to auth_providers_path
+						redirect_to profile_path
 					else
 						flash[:notice] = provider_route.capitalize + ' is already linked to your account.'
 						sign_in_and_redirect(:user, current_user)
