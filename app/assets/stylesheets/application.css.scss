@@ -23,3 +23,17 @@
   -moz-box-shadow: 0 1px 2px rgba(0,0,0,.15);
   box-shadow: 0 1px 2px rgba(0,0,0,.15);
 }
+
+.disabled {
+  opacity: 0.40;
+}
+
+#services img{
+  width: 100px;
+  opacity: 0.80;
+}
+
+#services img:hover {
+  opacity: 1.0;
+}
+
