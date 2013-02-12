@@ -84,6 +84,8 @@ class SignUpStepsController < ApplicationController
 							if existinguser
 								# map this new login method via a authentication provider to an existing account if the email address is the same
 								existinguser.auth_providers.create(:provider => provider, :uid => uid, :uname => name, :uemail => email, :image => image)
+                existinguser.main_picture = image
+                existinguser.save
 								flash[:notice] = 'Sign in via ' + provider.capitalize + ' has been added to your account ' + existinguser.email + '. Signed in successfully!'
                 sign_in existinguser
                 redirect_to wizard_path(:complete_profile)
@@ -93,7 +95,7 @@ class SignUpStepsController < ApplicationController
 								name = name[0, 39] if name.length > 39             # otherwise our user validation will hit us
 
 								# new user, set email, a random password and take the name from the authentication provider
-								user = User.new :email => email, :password => SecureRandom.hex(10), :name => name, :haslocalpw => false
+								user = User.new :email => email, :password => SecureRandom.hex(10), :name => name, :haslocalpw => false, :main_picture => image
 
 								# add this authentication provider to our new user
 								user.auth_providers.build(:provider => provider, :uid => uid, :user_id => name, :uemail => email)
