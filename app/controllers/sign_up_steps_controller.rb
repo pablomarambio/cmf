@@ -85,6 +85,7 @@ class SignUpStepsController < ApplicationController
 								# map this new login method via a authentication provider to an existing account if the email address is the same
 								existinguser.auth_providers.create(:provider => provider, :uid => uid, :uname => name, :uemail => email, :image => image)
                 existinguser.main_picture = image
+                existinguser.username = email.split("@")[0].gsub(".","")
                 existinguser.save
 								flash[:notice] = 'Sign in via ' + provider.capitalize + ' has been added to your account ' + existinguser.email + '. Signed in successfully!'
                 sign_in existinguser

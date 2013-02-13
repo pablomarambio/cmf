@@ -1,6 +1,8 @@
 .jumbotron
   = render 'layouts/messages'
   %h3  Profile
+  %span.help-block
+    Your link for mythreshold.com: http://mythreshold.com/#{@user.username}
   %hr
   = form_for @user, :html => { :class => 'form-horizontal' } do |f|
     = render :partial => "shared/model_error_messages", :locals => {:model => @user}
@@ -8,6 +10,9 @@
       .control-group
         %label.control-label Name
         = f.text_field :name, :value => @user.auth_providers.first.uname
+      .control-group
+        %label.control-label Username
+        = f.text_field :username
       .control-group
         %label.control-label Your threshold
         = f.text_field :threshold
