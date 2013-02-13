@@ -3,6 +3,7 @@ Cmf::Application.routes.draw do
   resources :auth_providers, :only => [:index, :create, :destroy]
 
   get "profile" => "home#profile"
+  get "profile/:username" => "home#public_profile"
 
   resources :sign_up_steps
   authenticated :user do

@@ -51,4 +51,8 @@ class HomeController < ApplicationController
   def profile
   end
 
+  def public_profile
+    @user = User.find_by_username(params[:username])
+  end
+
 end
