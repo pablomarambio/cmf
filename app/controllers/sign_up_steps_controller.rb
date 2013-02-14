@@ -46,15 +46,17 @@ class SignUpStepsController < ApplicationController
 			
 			# map the returned hashes to our variables first - the hashes differ for every authentication provider
 			if provider_route == 'facebook'
-				omniauth['extra']['raw_info']['email'] ? email =  omniauth['extra']['raw_info']['email'] : email = ''
+				omniauth['info']['email'] ? email =  omniauth['info']['email'] : email = ''
 				omniauth['extra']['raw_info']['name'] ? name =  omniauth['extra']['raw_info']['name'] : name = ''
 				omniauth['extra']['raw_info']['id'] ?  uid =  omniauth['extra']['raw_info']['id'] : uid = ''
+				omniauth['extra']['raw_info']['username'] ?  username =  omniauth['extra']['raw_info']['username'] : username = ''
+				omniauth['info']['image'] ? image =  omniauth['info']['image'] : image = ''
 				omniauth['provider'] ? provider =  omniauth['provider'] : provider = ''
 			elsif provider_route == 'twitter'
 				email = @user.nil? ? '' : @user.email   # Twitter API never returns the email address
 				omniauth['info']['name'] ? name =  omniauth['info']['name'] : name = ''
-        puts "------#{omniauth['info']['image']}--------"
 				omniauth['info']['image'] ? image =  omniauth['info']['image'] : image = ''
+				omniauth['info']['nickname'] ?  username =  omniauth['info']['nickname'] : username = ''
 				omniauth['uid'] ?  uid =  omniauth['uid'] : uid = ''
 				omniauth['provider'] ? provider =  omniauth['provider'] : provider = ''
 			else
@@ -85,27 +87,16 @@ class SignUpStepsController < ApplicationController
 								# map this new login method via a authentication provider to an existing account if the email address is the same
 								existinguser.auth_providers.create(:provider => provider, :uid => uid, :uname => name, :uemail => email, :image => image)
                 existinguser.main_picture = image
-                existinguser.username = email.split("@")[0].gsub(".","")
                 existinguser.save
 								flash[:notice] = 'Sign in via ' + provider.capitalize + ' has been added to your account ' + existinguser.email + '. Signed in successfully!'
                 sign_in existinguser
                 redirect_to wizard_path(:complete_profile)
 								#sign_in_and_redirect(:user, existinguser)
 							else
+                #Usuario no se registra con el mismo correo que su red social
 								# let's create a new user: register this user and add this authentication method for this user
-								name = name[0, 39] if name.length > 39             # otherwise our user validation will hit us
-
-								# new user, set email, a random password and take the name from the authentication provider
-								user = User.new :email => email, :password => SecureRandom.hex(10), :name => name, :haslocalpw => false, :main_picture => image
-
-								# add this authentication provider to our new user
-								user.auth_providers.build(:provider => provider, :uid => uid, :user_id => name, :uemail => email)
-
-								user.save!
-
-								# flash and sign in
-								flash[:myinfo] = 'Your account on CommunityGuides has been created via ' + provider.capitalize + '. In your profile you can change your personal information and add a local password.'
-								sign_in_and_redirect(:user, user)
+                flash[:error] = "Account email and social network email must be the same"
+                redirect_to previous_wizard_path
 							end
 						else
 							flash[:error] =  provider_route.capitalize + ' can not be used to sign-up on CommunityGuides as no valid email address has been provided. Please use another authentication provider or use local sign-up. If you already have an account, please sign-in and add ' + provider_route.capitalize + ' from your profile.'
