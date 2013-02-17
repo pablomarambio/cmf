@@ -11,18 +11,20 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130213205621) do
+ActiveRecord::Schema.define(:version => 20130217203739) do
 
   create_table "auth_providers", :force => true do |t|
     t.integer  "user_id"
     t.string   "provider"
     t.string   "uid"
     t.string   "uemail"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
     t.boolean  "display"
     t.string   "uname"
     t.string   "image"
+    t.string   "username"
+    t.string   "profile_uri"
   end
 
   create_table "roles", :force => true do |t|

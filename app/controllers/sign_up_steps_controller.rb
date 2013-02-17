@@ -50,6 +50,7 @@ class SignUpStepsController < ApplicationController
 				omniauth['extra']['raw_info']['name'] ? name =  omniauth['extra']['raw_info']['name'] : name = ''
 				omniauth['extra']['raw_info']['id'] ?  uid =  omniauth['extra']['raw_info']['id'] : uid = ''
 				omniauth['extra']['raw_info']['username'] ?  username =  omniauth['extra']['raw_info']['username'] : username = ''
+				omniauth['extra']['raw_info']['link'] ?  url =  omniauth['extra']['raw_info']['link'] : url = ''
 				omniauth['info']['image'] ? image =  omniauth['info']['image'] : image = ''
 				omniauth['provider'] ? provider =  omniauth['provider'] : provider = ''
 			elsif provider_route == 'twitter'
@@ -57,6 +58,7 @@ class SignUpStepsController < ApplicationController
 				omniauth['info']['name'] ? name =  omniauth['info']['name'] : name = ''
 				omniauth['info']['image'] ? image =  omniauth['info']['image'] : image = ''
 				omniauth['info']['nickname'] ?  username =  omniauth['info']['nickname'] : username = ''
+				omniauth['info']['urls']['Twitter'] ?  url =  omniauth['info']['urls']['Twitter'] : url = ''
 				omniauth['uid'] ?  uid =  omniauth['uid'] : uid = ''
 				omniauth['provider'] ? provider =  omniauth['provider'] : provider = ''
 			else
@@ -85,7 +87,14 @@ class SignUpStepsController < ApplicationController
 							existinguser = User.find_by_email(email)
 							if existinguser
 								# map this new login method via a authentication provider to an existing account if the email address is the same
-								existinguser.auth_providers.create(:provider => provider, :uid => uid, :uname => name, :uemail => email, :image => image)
+								existinguser.auth_providers.create(
+									:provider => provider, 
+									:uid => uid, 
+									:uname => name, 
+									:uemail => email,
+									:username => username,
+									:image => image,
+									:profile_uri => url)
                 existinguser.main_picture = image
                 existinguser.save
 								flash[:notice] = 'Sign in via ' + provider.capitalize + ' has been added to your account ' + existinguser.email + '. Signed in successfully!'
@@ -109,7 +118,15 @@ class SignUpStepsController < ApplicationController
 					# check if this authentication provider is already linked to his/her account, if not, add it
 					auth = AuthProvider.find_by_provider_and_uid(provider, uid)
 					if !auth
-						current_user.auth_providers.create(:provider => provider, :uid => uid, :uname => name, :uemail => email)
+						current_user.auth_providers.create(
+							:provider => provider, 
+							:uid => uid, 
+							:uname => name, 
+							:uemail => email,
+							:username => username,
+							:image => image,
+							:profile_uri => url)
+
 						flash[:notice] = 'Sign in via ' + provider.capitalize + ' has been added to your account.'
 						redirect_to profile_path
 					else
