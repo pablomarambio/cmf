@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130205233953) do
+ActiveRecord::Schema.define(:version => 20130213205621) do
 
   create_table "auth_providers", :force => true do |t|
     t.integer  "user_id"
@@ -54,6 +54,8 @@ ActiveRecord::Schema.define(:version => 20130205233953) do
     t.string   "comment"
     t.float    "threshold"
     t.string   "status"
+    t.string   "main_picture"
+    t.string   "username"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
