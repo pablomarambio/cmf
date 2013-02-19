@@ -1,25 +1,20 @@
 .jumbotron
   = render 'layouts/messages'
-  %h3  #{@user.name.titleize} Profile
-  %hr
-    %fieldset
-      .control-group
-        %label.control-label Name:
-        = @user.name
-      .control-group
-        %label.control-label Price:
-        = @user.threshold
-      .control-group
-        %label.control-label Picture
-        = image_tag @user.main_picture || "authicons/user.png" 
-      .control-group
-        %label.control-label #{@user.name} message:
-        = @user.comment
+  .thumbnail
+    = image_tag @user.main_picture || "authicons/user.png" 
+    .caption
+      %h3=@user.name.titleize
+      %dl.dl-horizontal
+        %dt Price:
+        %dd= @user.threshold
+        %dt Message:
+        %dd= @user.comment
+      .well 
+        %b Social networks:
+        - @user.auth_providers.each do |ap|
+          = link_to image_tag("authicons/#{ap.provider}_100.png"), ap.profile_uri 
+  %br
   .row-fluid
     .span12
-      %em Linking more social networks will improve the probability of someone paying to contact you.
-  .row-fluid 
-    .span4
-      - @user.auth_providers.each do |ap|
-        = link_to image_tag("authicons/#{ap.provider}_100.png"), "http://#{ap.provider}.com/NOMBREUSUARIO"
+      = button_to "Pay", root_path, :class => "btn btn-primary"
 
