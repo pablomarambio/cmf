@@ -21,11 +21,12 @@
         = f.text_field :email
       .control-group
         %label.control-label Select your picture
-        = image_tag @user.main_picture || "authicons/user.png" , :class => "selected_pic"
-        = f.hidden_field :main_picture, :value => @user.main_picture
-        - @user.auth_providers.each do |ap|
-          - unless ap.image == @user.main_picture
-            = image_tag ap.image, :class => "social_network_pic", :onclick => "select_picture();"
+        #pics
+          = image_tag @user.main_picture || "authicons/user.png" , :class => "selected_pic"
+          = f.hidden_field :main_picture, :value => @user.main_picture
+          - @user.auth_providers.each do |ap|
+            - unless ap.image == @user.main_picture
+              = image_tag ap.image, :class => "social_network_pic"
       .control-group
         %label.control-label Set your statement
         = f.text_area :comment, :placeholder => "I swear I read every message", :size => "160x3"
