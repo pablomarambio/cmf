@@ -1,4 +1,7 @@
 Cmf::Application.routes.draw do
+  resources :messages
+
+
   match "auth/:provider/callback" => "sign_up_steps#auth_provider_create"
   resources :auth_providers, :only => [:index, :create, :destroy]
 

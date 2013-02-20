@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
   attr_accessible :name, :email, :password, :password_confirmation, :remember_me, :haslocalpw, :comment, :threshold, :status, :main_picture, :username
 
   has_many :auth_providers, :dependent => :destroy
+  has_many :messages
 
   validates :threshold, :numericality => true, :if => :active_or_threshold?
 
