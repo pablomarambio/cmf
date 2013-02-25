@@ -20,6 +20,7 @@ class MessagesController < ApplicationController
     @message = Message.new(params[:message])
     @message.user = User.find_by_username(params[:username])
     if @message.save
+      UserMailer.receiver_notification(@message.user.id,@message.id).deliver
       redirect_to root_path, notice: 'Message was successfully created.'
     else
       render action: "new" 
