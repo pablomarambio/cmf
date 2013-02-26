@@ -1,0 +1,11 @@
+= simple_form_for(@answer) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :message_id, :as => "hidden", :input_html => { :value => @message.id }
+    = f.input :text, :as => "text", :input_html => { :rows => 5 }
+    = f.input :utility
+    = f.input :response_time
+
+  .form-actions
+    = f.button :submit
