@@ -1,4 +1,7 @@
 Cmf::Application.routes.draw do
+  resources :answers, :except => :new
+  get "answers/:username/:message_id" => "answers#new", :as => "new_answer"
+
   resources :messages
 
 

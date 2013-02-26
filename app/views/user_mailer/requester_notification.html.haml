@@ -1,0 +1,6 @@
+.hero-unit
+  %h1 Your request has been answered
+  %p
+    = truncate(@answer.text, :length => 30, :omission => '...')
+  = link_to "Evaluate the answer, Here", "#"
+

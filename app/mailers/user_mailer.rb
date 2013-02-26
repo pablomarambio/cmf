@@ -7,8 +7,8 @@ class UserMailer < ActionMailer::Base
     mail(:to => @user.email, :subject => "[My Threshold] You have a new message")
   end
 
-  def applicant_notification(user_email,message)
-    @message = message
+  def requester_notification(user_email,answer_id)
+    @answer = Answer.find(answer_id)
     mail(:to => user_email, :subject => "[My Threshold] Your petition has been answered")
   end
 
