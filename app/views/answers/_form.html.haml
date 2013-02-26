@@ -1,0 +1,9 @@
+= simple_form_for(@answer) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :message_id, :as => "hidden", :input_html => { :value => @message.id }
+    = f.input :text, :as => "text", :label => "Write your Answer" ,:input_html => { :rows => 5 }
+
+  .form-actions
+    = f.button :submit, "Send Answer", :class => "btn btn-primary"

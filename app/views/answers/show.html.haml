@@ -1,0 +1,18 @@
+%p#notice= notice
+
+%p
+  %b Message:
+  = @answer.message_id
+%p
+  %b Text:
+  = @answer.text
+%p
+  %b Utility:
+  = @answer.utility
+%p
+  %b Response time:
+  = @answer.response_time
+
+= link_to 'Edit', edit_answer_path(@answer)
+\|
+= link_to 'Back', answers_path
