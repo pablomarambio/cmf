@@ -44,6 +44,15 @@ class AnswersController < ApplicationController
   def evaluate_answer
   end
 
+  def set_evaluation
+    @message = @answer.message
+    if @answer.update_attributes(params[:answer])
+      redirect_to root_path, notice: 'Thanks for evaluate the experience!'
+    else
+      render action: "evaluate_answer"
+    end
+  end
+
   def find_answer
     @answer = Answer.find(params[:id])
   end

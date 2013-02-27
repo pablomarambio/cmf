@@ -1,6 +1,8 @@
 Cmf::Application.routes.draw do
   resources :answers, :except => :new
   get "answers/:username/:message_id" => "answers#new", :as => "new_answer"
+  get "evaluate/:id" => "answers#evaluate_answer", :as => "evaluate_answer"
+  put "set_evaluation/:id" => "answers#set_evaluation", :as => "set_evaluation"
 
   resources :messages
 
