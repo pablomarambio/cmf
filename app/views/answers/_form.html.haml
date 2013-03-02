@@ -1,9 +1,12 @@
 = simple_form_for(@answer) do |f|
   = f.error_notification
-
-  .form-inputs
-    = f.input :message_id, :as => "hidden", :input_html => { :value => @message.id }
-    = f.input :text, :as => "text", :label => "Write your Answer" ,:input_html => { :rows => 5 }
-
-  .form-actions
-    = f.button :submit, "Send Answer", :class => "btn btn-primary"
+  %p
+    .form-inputs.form-horizontal
+      = hidden_field_tag :username, params[:username], :name => "username"
+      .control-group
+        = f.input :message_id, :as => "hidden", :input_html => { :value => @message.id }
+      .control-group
+        = f.input :text, :as => "text", :label => "Write your Answer" ,:input_html => { :rows => 5, :style => "width:380px" }
+    .row
+      .span4.offset2
+        = f.button :submit, "Send Answer", :class => "btn btn-primary btn-large"
