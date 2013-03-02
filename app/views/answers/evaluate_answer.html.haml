@@ -5,8 +5,11 @@
     %h3 Evaluate this answer:
     .alert.alert-info.small=@answer.text
     %p
-    .form-inputs
-      = f.input :utility, collection: 1..5, prompt: "Select your evaluation"
-      = f.input :response_time, collection: 1..5, prompt: "Select your evaluation"
-    %p
-      = f.button :submit, "Evaluate the Answer" ,:class => "btn btn-primary"
+    .form-inputs.form-horizontal
+      .control-group.evaluation_radio
+        = f.input :utility, collection: 1..5, prompt: "Select your evaluation", :as => :radio
+      .control-group.evaluation_radio
+        = f.input :response_time, collection: 1..5, prompt: "Select your evaluation", :as => :radio
+    .row
+      .span4.offset2
+        = f.button :submit, "Evaluate the Answer" ,:class => "btn btn-success btn-large"
