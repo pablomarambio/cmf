@@ -1,10 +1,12 @@
 = simple_form_for(@message) do |f|
   = f.error_notification
-  .form-inputs
-
-    = hidden_field_tag :username, params[:username], :name => "username"
-    = f.input :message, :as => :text, :input_html => {:rows => 5}
-    = f.input :requester_email, :as => :email
-
-  .well
-    = f.button :submit, :value => "Send Message",:class => "btn btn-success"
+  %p
+    .form-inputs.form-horizontal
+      = hidden_field_tag :username, params[:username], :name => "username"
+      .control-group
+        = f.input :message, :as => :text, :input_html => {:rows => 5}
+      .control-group
+        = f.input :requester_email, :as => :email
+  .row
+    .span4.offset2
+      = f.button :submit, :value => "Send Message",:class => "btn btn-success btn-large"
