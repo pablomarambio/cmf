@@ -92,10 +92,12 @@ class SignUpStepsController < ApplicationController
 									:uid => uid, 
 									:uname => name, 
 									:uemail => email,
-									:username => username,
+									:username => username.downcase,
 									:image => image,
 									:profile_uri => url)
                 existinguser.main_picture = image
+                existinguser.username = username.downcase
+                existinguser.name = name
                 existinguser.save
 								flash[:notice] = 'Sign in via ' + provider.capitalize + ' has been added to your account ' + existinguser.email + '. Signed in successfully!'
                 sign_in existinguser
@@ -108,7 +110,7 @@ class SignUpStepsController < ApplicationController
                 redirect_to previous_wizard_path
 							end
 						else
-							flash[:error] =  provider_route.capitalize + ' can not be used to sign-up on CommunityGuides as no valid email address has been provided. Please use another authentication provider or use local sign-up. If you already have an account, please sign-in and add ' + provider_route.capitalize + ' from your profile.'
+							flash[:error] =  provider_route.capitalize + ' can not be used to sign-up on Mythreshold.com as no valid email address has been provided. Please use another authentication provider or use local sign-up. If you already have an account, please sign-in and add ' + provider_route.capitalize + ' from your profile.'
               redirect_to next_wizard_path
 						end
 					end
