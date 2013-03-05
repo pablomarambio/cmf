@@ -92,11 +92,11 @@ class SignUpStepsController < ApplicationController
 									:uid => uid, 
 									:uname => name, 
 									:uemail => email,
-									:username => username,
+									:username => username.downcase,
 									:image => image,
 									:profile_uri => url)
                 existinguser.main_picture = image
-                existinguser.username = username
+                existinguser.username = username.downcase
                 existinguser.name = name
                 existinguser.save
 								flash[:notice] = 'Sign in via ' + provider.capitalize + ' has been added to your account ' + existinguser.email + '. Signed in successfully!'
