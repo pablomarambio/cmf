@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130225235807) do
+ActiveRecord::Schema.define(:version => 20130306232039) do
 
   create_table "answers", :force => true do |t|
     t.integer  "message_id"
@@ -42,6 +42,15 @@ ActiveRecord::Schema.define(:version => 20130225235807) do
     t.string   "requester_email"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
+  end
+
+  create_table "payments", :force => true do |t|
+    t.float    "amount"
+    t.integer  "random",     :default => 74519
+    t.string   "status",     :default => "pending"
+    t.integer  "user_id"
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
   end
 
   create_table "roles", :force => true do |t|
