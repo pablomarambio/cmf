@@ -2,10 +2,6 @@
   = render 'layouts/messages'
   %h1 1) Set a price tag
   %p.lead I commit to answer to anyone who pays...
-  = form_for @user, url: sign_up_steps_path do |f|
-    = render :partial => "shared/model_error_messages", :locals => {:model => @user}
-    .input-prepend.input-append
-      %span.add-on $
-      = f.text_field :threshold
-      %span.add-on .00
+  = simple_form_for(@user, :url => sign_up_steps_path) do |f|
+    = f.input :threshold, placeholder: "$ 1.00", label: "Put your price here"
     = f.submit "Continue", :class => "btn btn-large btn-success"
