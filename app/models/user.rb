@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
 
   has_many :auth_providers, :dependent => :destroy
   has_many :messages
+  has_many :payments
 
   validates :threshold, :numericality => true, :if => :active_or_threshold?
 

@@ -2,9 +2,6 @@
   = render 'layouts/messages'
   %h1 2) Give us your email
   %p.lead We will send all the inquiries, questions and petitions to:
-  = form_for @user, url: wizard_path do |f|
-    = render :partial => "shared/model_error_messages", :locals => {:model => @user}
-    .input-prepend
-      %span.add-on email
-      = f.text_field :email
+  = simple_form_for(@user, :url => wizard_path) do |f|
+    = f.input :email, :as => "email"
     = f.submit "Continue", :class => "btn btn-large btn-success"
