@@ -19,6 +19,8 @@ class PaymentsController < ApplicationController
       @payment.save
       redirect_to new_message_path(:username => @payment.user.username), :flash => { :notice => "Your payment was successful, now write your petition" }
     else
+      @payment.status = "error"
+      @payment.save
       redirect_to root_path, :flash => { :error => "Your payment has failed, retry" } 
     end
   end

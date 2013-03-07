@@ -6,6 +6,8 @@ Cmf::Application.routes.draw do
   post "payment/create" => "payments#create", :as => "new_payment"
   get "payment_result/:id/:random" => "payments#payment_router", :as => "payment_router"
 
+  get "users_profile" => "home#users_profile", :as => "users_profile"
+
   resources :messages
 
 

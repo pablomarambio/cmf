@@ -55,4 +55,8 @@ class HomeController < ApplicationController
     @user = User.find_by_username(params[:username])
   end
 
+  def users_profile
+    @users = User.all
+  end
+
 end

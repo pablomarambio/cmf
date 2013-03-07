@@ -1,0 +1,14 @@
+%h3 Users
+.span8
+  %table.table.table-condensed
+    %thead
+      %tr
+        %th Name
+        %th Public Profile URL
+        %th
+        %th
+    %tbody
+      - @users.each do |user|
+        %tr
+          %td= user.name
+          %td= link_to "/profile/#{user.username}", "/profile/#{user.username}"
