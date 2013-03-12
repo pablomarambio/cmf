@@ -8,7 +8,8 @@ Cmf::Application.routes.draw do
 
   get "users_profile" => "home#users_profile", :as => "users_profile"
 
-  resources :messages
+  resources :messages, :except => [:new]
+  get "message/new/:username/:payment_id/:payment_random" => "messages#new", :as => "new_message"
 
 
   match "auth/:provider/callback" => "sign_up_steps#auth_provider_create"
