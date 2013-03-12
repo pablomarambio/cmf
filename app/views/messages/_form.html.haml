@@ -5,8 +5,10 @@
       = hidden_field_tag :username, params[:username], :name => "username"
       .control-group
         = f.input :message, :as => :text, :input_html => {:rows => 5}
+        = hidden_field_tag :payment_id, params[:payment_id]
+        = hidden_field_tag :payment_random, params[:payment_random]
       .control-group
-        = f.input :requester_email, :as => :email
+        = f.input :requester_email, :as => :email, :label => "Your email"
   .row
     .span4.offset2
       = f.button :submit, :value => "Send Message",:class => "btn btn-success btn-large"

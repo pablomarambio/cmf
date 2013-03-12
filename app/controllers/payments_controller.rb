@@ -17,7 +17,7 @@ class PaymentsController < ApplicationController
     if params[:status] == "ok"
       @payment.status = "done"
       @payment.save
-      redirect_to new_message_path(:username => @payment.user.username), :flash => { :notice => "Your payment was successful, now write your petition" }
+      redirect_to new_message_path(:username => @payment.user.username, :payment_id => @payment.id, :payment_random => @payment.random), :flash => { :notice => "Your payment was successful, now write your petition" }
     else
       @payment.status = "error"
       @payment.save

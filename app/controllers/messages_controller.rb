@@ -19,11 +19,17 @@ class MessagesController < ApplicationController
   def create
     @message = Message.new(params[:message])
     @message.user = User.find_by_username(params[:username])
-    if @message.save
-      UserMailer.receiver_notification(@message.user.id,@message.id).deliver
-      redirect_to root_path, notice: 'Message was successfully created.'
+    @payment = Payment.find_by_id_and_random(params[:payment_id],params[:payment_random])
+    if @payment.paid? && @payment.user_id == @message.user.id
+      @message.payment_id = @payment.id
+      if @message.save
+        UserMailer.receiver_notification(@message.user.id,@message.id).deliver
+        redirect_to root_path, notice: 'Message was successfully created.'
+      else
+        render action: "new" 
+      end
     else
-      render action: "new" 
+      redirect_to root_path, :flash => { :error => "Your payment was not be found, retry."}
     end
   end
 
