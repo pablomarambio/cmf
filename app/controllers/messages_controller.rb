@@ -10,6 +10,9 @@ class MessagesController < ApplicationController
 
   def new
     @message = Message.new
+    user = User.find_by_username(params[:username])
+    payment = Payment.find_by_id_and_random(params[:payment_id],params[:payment_random])
+    redirect_to root_path, :flash => { :error => "Your payment was not be found, Retry."} unless payment && payment.paid? && user
   end
 
   def edit
@@ -22,6 +25,7 @@ class MessagesController < ApplicationController
     @payment = Payment.find_by_id_and_random(params[:payment_id],params[:payment_random])
     if @payment.paid? && @payment.user_id == @message.user.id
       @message.payment_id = @payment.id
+      @message.secure_token = SecureRandom.hex(8)
       if @message.save
         UserMailer.receiver_notification(@message.user.id,@message.id).deliver
         redirect_to root_path, notice: 'Message was successfully created.'
@@ -29,7 +33,7 @@ class MessagesController < ApplicationController
         render action: "new" 
       end
     else
-      redirect_to root_path, :flash => { :error => "Your payment was not be found, retry."}
+      redirect_to root_path, :flash => { :error => "Your payment was not be found, Retry."}
     end
   end
 

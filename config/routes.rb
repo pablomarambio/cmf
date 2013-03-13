@@ -1,7 +1,7 @@
 Cmf::Application.routes.draw do
   resources :answers, :except => :new
-  get "answers/:username/:message_id" => "answers#new", :as => "new_answer"
-  get "evaluate/:id" => "answers#evaluate_answer", :as => "evaluate_answer"
+  get "answers/:username/:token" => "answers#new", :as => "new_answer"
+  get "evaluate/:id/:token" => "answers#evaluate_answer", :as => "evaluate_answer"
   put "set_evaluation/:id" => "answers#set_evaluation", :as => "set_evaluation"
   post "payment/create" => "payments#create", :as => "new_payment"
   get "payment_result/:id/:random" => "payments#payment_router", :as => "payment_router"
