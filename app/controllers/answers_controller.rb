@@ -1,5 +1,5 @@
 class AnswersController < ApplicationController
-  before_filter :find_answer, :except => [:index, :new, :create]
+  before_filter :find_answer, :except => [:index, :new, :create, :evaluate_answer]
 
   def index
     @answers = Answer.all
@@ -9,7 +9,7 @@ class AnswersController < ApplicationController
   end
 
   def new
-    @message = Message.find(params[:message_id])
+    @message = Message.find_by_secure_token(params[:token])
     @user = User.find_by_username(params[:username])
     @answer = Answer.new
   end
@@ -42,9 +42,13 @@ class AnswersController < ApplicationController
   end
 
   def evaluate_answer
+    @answer = Answer.find(params[:id])
+    @message = Message.find_by_secure_token(params[:token])
+    redirect_to root_path, :flash => { :error => "Sorry, couldn't find your petition" } if @answer.message.id != @message.id
   end
 
   def set_evaluation
+    @answer = Answer.find(params[:id])
     @message = @answer.message
     if @answer.update_attributes(params[:answer])
       redirect_to root_path, notice: 'Thanks for evaluate the experience!'

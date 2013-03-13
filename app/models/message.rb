@@ -1,5 +1,5 @@
 class Message < ActiveRecord::Base
-  attr_accessible :message, :requester_email, :user_id
+  attr_accessible :message, :requester_email, :user_id, :secure_token
   
   belongs_to :user
   has_one :answer
