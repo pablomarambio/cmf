@@ -2,5 +2,5 @@
   %h1 You have a new message
   %p
     = truncate(@message.message, :length => 10, :omission => '...')
-  = link_to "Answer Now", new_answer_url(:username => @user.username, :message_id => @message.id)
+  = link_to "Answer Now", new_answer_url(:username => @user.username, :token => @message.secure_token)
 

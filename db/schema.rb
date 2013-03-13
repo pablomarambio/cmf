@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130308225913) do
+ActiveRecord::Schema.define(:version => 20130313230543) do
 
   create_table "answers", :force => true do |t|
     t.integer  "message_id"
@@ -40,9 +40,10 @@ ActiveRecord::Schema.define(:version => 20130308225913) do
     t.integer  "user_id"
     t.string   "message"
     t.string   "requester_email"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at",                                      :null => false
+    t.datetime "updated_at",                                      :null => false
     t.integer  "payment_id"
+    t.string   "secure_token",    :default => "fad65dc39b6dc420"
   end
 
   create_table "payments", :force => true do |t|
