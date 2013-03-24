@@ -12,6 +12,8 @@
  *= require_tree .
 */
 
+
+// INICIO : CSS aplicacion (Reemplazable)
 .content {
   background-color: #eee;
   padding: 20px;
@@ -24,6 +26,7 @@
   box-shadow: 0 1px 2px rgba(0,0,0,.15);
 }
 
+// INICIO Logos de redes sociales
 .disabled {
   opacity: 0.40;
 }
@@ -36,7 +39,9 @@
 #services img:hover {
   opacity: 1.0;
 }
+// FIN Logos de redes sociales
 
+// INICIO Clases para imagen de perfil publico del usuario
 .selected_pic{
   max-width: 60px;
   opacity: 1.0;
@@ -48,9 +53,13 @@
   margin: 0 5px 0 5px;
   
 }
+// FIN Clases para imagen de perfil publico del usuario
 
+// Estilo para la vista de evaluacion de respuesta(evaluate_answer)
 .evaluation_radio label {
   float:left;
   padding-left: 35px;
   padding-top:5px;
 }
+
+// FIN : CSS aplicacion (Reemplazable)
