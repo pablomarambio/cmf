@@ -15,6 +15,8 @@ class AuthProvidersController < ApplicationController
 
 		raise "Invalid uid" unless h[:id]
 		auth = AuthProvider.find_by_provider_and_uid(provider, h[:id])
+		Rails.logger.debug "Auth provider found for user #{auth.user_id}" if auth
+		Rails.logger.debug "No auth provider found for [#{provider}-#{h[:id]}]" if auth.nil?
 
 		if user_signed_in?
 			# if this authentication provider is not linked to the account, add it
@@ -22,14 +24,14 @@ class AuthProvidersController < ApplicationController
 				@user.add_auth_provider h
 				flash[:notice] = 'Sign in via ' + provider.capitalize + ' has been added to your account.'
 			else
-				flash[:notice] = provider_route.capitalize + ' is already linked to your account.'
+				flash[:notice] = provider + ' is already linked to your account.'
 			end
 			redirect_to profile_path
 		else
 			# check if user has already signed in using this authentication provider and continue with sign in process if yes
 			if auth
 				flash[:notice] = 'Welcome back, ' + auth.username
-				sign_in auth.user
+				sign_in auth.user and return
 			end
 			# at this point we are facing a new user... so he must be signing up
 			raise "Unknown user trying to log in" unless signing_up?
