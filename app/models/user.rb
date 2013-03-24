@@ -65,13 +65,17 @@ class User < ActiveRecord::Base
     end
   end
 
+  def can_move_to_signed_up?
+    email? and name? and username? and comment?
+  end
+
   def add_auth_provider(h)
     raise "Invalid auth hash" unless h
     # if the user already has this provider linked
-    existing_provider = self.auth_providers.first { |ap| ap.provider == h[:provider] }
+    existing_provider = self.auth_providers.where( 'provider = ?', h[:provider_name] ).first
     existing_provider.destroy if existing_provider
     self.auth_providers.create(
-      :provider => provider,
+      :provider => h[:provider_name],
       :uid => h[:id], 
       :uname => h[:real_name], 
       :uemail => h[:email],
@@ -85,6 +89,5 @@ class User < ActiveRecord::Base
       self.save!
     end
   end
-  
 
 end
