@@ -1,35 +1,24 @@
 class SignUpStepsController < ApplicationController
-  include Wicked::Wizard
-  before_filter :find_user, :except => [:create]
-  steps :set_email, :set_social_networks, :complete_profile
+  before_filter :find_user, :except => [:enter_wizard, :step_set_threshold]
 
-  def show
-    render_wizard 
+  def enter_wizard
+  	if current_user
+  		flash[:notice] = "If you wish to register another user, sign out first"
+  		redirect_to user_path and return 
+  	end
+  	redirect_to step_set_threshold_path
   end
 
-  def create
+  def step_set_threshold
+  	return unless threshold = params[:threshold]
     @user = User.new(params[:user])
-    @user.status = "threshold"
-    if @user.save
-      puts @user.inspect
-      session[:user_id] = @user.id
-      redirect_to wizard_path(steps.first, :user_id => @user.id)
-    else
-      render "users/new"
-    end
+    @user.threshold = threshold
+    raise "Couldn't save" unless @user.save
+    session[:user_id] = @user.id
+    redirect_to step_set_network
   end
 
-  def update
-    params[:user][:status] = step.to_s
-    params[:user][:status] = 'active' if step == steps.last
-    @user.update_attributes(params[:user])
-    render_wizard @user
+  def step_set_network
   end
 
-  def set_email
-  end
-
-  def set_statement
-  end
-  
 end

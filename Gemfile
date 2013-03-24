@@ -1,7 +1,6 @@
 source 'https://rubygems.org'
 gem "rails", "3.2.11"
 gem "pg"
-gem "wicked"
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'uglifier', '>= 1.0.3'
@@ -31,4 +30,5 @@ gem "binding_of_caller", ">= 0.6.8", :group => :development
 gem "omniauth"
 gem "omniauth-facebook"
 gem "omniauth-twitter"
+gem "omniauth-github"
 gem "sqlite3"

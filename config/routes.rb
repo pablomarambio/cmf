@@ -12,7 +12,7 @@ Cmf::Application.routes.draw do
 
   # --- Home --- #
   get "users_profile" => "home#users_profile", :as => "users_profile"
-  get "profile" => "home#profile"
+  get "profile" => "home#profile", :as => "profile"
   get "profile/:username" => "home#public_profile", :constraints  => { :username => /[\w_\-\.]+/}
 
   # --- Messages --- #
@@ -21,10 +21,14 @@ Cmf::Application.routes.draw do
 
   # --- Auth Providers --- #
   match "auth/:provider/callback" => "auth_providers#auth_callback"
-  resources :auth_providers, :only => [:index, :create, :destroy]
 
   # --- Register(Sign Up) --- #
-  resources :sign_up_steps
+  scope "r" do
+    get   "signup"    =>  "sign_up_steps#enter_wizard"      ,  :as => "signup_wizard"
+    get   "threshold" =>  "sign_up_steps#step_set_threshold",  :as => "step_set_threshold"
+    post  "threshold" =>  "sign_up_steps#step_set_threshold",  :as => "step_set_threshold"
+    get   "network"   =>  "sign_up_steps#step_set_network",    :as => "step_set_network"
+  end
 
   # --- Users --- #
   resources :users
