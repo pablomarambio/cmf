@@ -77,9 +77,16 @@ class AuthProvidersController < ApplicationController
 		hash
 	end
 
-	def auth_hash_for_google omniauth
+	def auth_hash_for_google_oauth2 omniauth
 		hash = {}
-		
+		hash[:id] = omniauth['uid']
+		hash[:email] = omniauth['info']['email']
+		hash[:real_name] = omniauth['info']['name']
+		hash[:avatar] = omniauth['info']['image']
+		# el username será su nombre combinado
+		hash[:username] = hash[:real_name].gsub(/[\*\-_\.]/,"").gsub(/\b/, "_")
+		hash[:profile_uri] = omniauth['extra']['raw_info']['link']
+		hash[:provider_name] = omniauth['provider']
 		hash
 	end
 
