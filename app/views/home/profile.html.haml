@@ -9,7 +9,7 @@
     %fieldset
       .control-group
         %label.control-label Name
-        = f.text_field :name, :value => @user.auth_providers.first.uname
+        = f.text_field :name
       .control-group
         %label.control-label Username
         = f.text_field :username
@@ -43,7 +43,14 @@
   .row-fluid 
     .span4
       - user_providers = @user.auth_providers.collect(&:provider)
-      = link_to image_tag("authicons/facebook_100.png", :class => "#{user_providers.include?('facebook') ? 'enabled' : 'disabled'} "), "/auth/facebook"
+      = link_to image_tag("authicons/facebook_128.png", :class => "#{user_providers.include?('facebook') ? 'enabled' : 'disabled'} "), "/auth/facebook"
     .span4
-      = link_to image_tag("authicons/twitter_100.png", :class => "#{user_providers.include?('twitter') ? 'enabled' : 'disabled'} "), "/auth/twitter"
+      = link_to image_tag("authicons/twitter_128.png", :class => "#{user_providers.include?('twitter') ? 'enabled' : 'disabled'} "), "/auth/twitter"
+    .span4
+      = link_to image_tag("authicons/linkedin_128.png", :class => "#{user_providers.include?('linkedin') ? 'enabled' : 'disabled'} "), "/auth/linkedin"
+  .row-fluid
+    .span4
+      = link_to image_tag("authicons/google_128.png", :class => "#{user_providers.include?('google') ? 'enabled' : 'disabled'} "), "/auth/google"
+    .span4
+      = link_to image_tag("authicons/github_128.png", :class => "#{user_providers.include?('github') ? 'enabled' : 'disabled'} "), "/auth/github"
 
