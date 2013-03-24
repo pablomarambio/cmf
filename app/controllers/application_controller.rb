@@ -12,4 +12,9 @@ class ApplicationController < ActionController::Base
       @user = User.find(session[:user_id])
     end
   end
+
+  def signing_up?
+    session[:user_id]
+  end
+  
 end

@@ -20,7 +20,7 @@ Cmf::Application.routes.draw do
   get "message/new/:username/:payment_id/:payment_random" => "messages#new", :as => "new_message", :constraints  => { :username => /[\w_\-\.]*/}
 
   # --- Auth Providers --- #
-  match "auth/:provider/callback" => "sign_up_steps#auth_provider_create"
+  match "auth/:provider/callback" => "auth_providers#auth_callback"
   resources :auth_providers, :only => [:index, :create, :destroy]
 
   # --- Register(Sign Up) --- #

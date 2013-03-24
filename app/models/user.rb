@@ -40,6 +40,27 @@ class User < ActiveRecord::Base
   def active_or_comment?
     status.include?('complete_profile') || active?
   end
+
+  def add_auth_provider(h)
+    raise "Invalid auth hash" unless h
+    # if the user already has this provider linked
+    existing_provider = self.auth_providers.first { |ap| ap.provider == h[:provider] }
+    existing_provider.destroy if existing_provider
+    self.auth_providers.create(
+      :provider => provider,
+      :uid => h[:id], 
+      :uname => h[:real_name], 
+      :uemail => h[:email],
+      :username => h[:username],
+      :image => h[:avatar],
+      :profile_uri => h[:profile_uri])
+    if self.auth_providers.count == 1
+      # If this is this user's only auth provider, we set his username and avatar
+      self.main_picture = h[:avatar]
+      self.username = h[:username].downcase
+      self.save!
+    end
+  end
   
 
 end
