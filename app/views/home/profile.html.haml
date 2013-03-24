@@ -50,7 +50,7 @@
       = link_to image_tag("authicons/linkedin_128.png", :class => "#{user_providers.include?('linkedin') ? 'enabled' : 'disabled'} "), "/auth/linkedin"
   .row-fluid
     .span4
-      = link_to image_tag("authicons/google_128.png", :class => "#{user_providers.include?('google') ? 'enabled' : 'disabled'} "), "/auth/google"
+      = link_to image_tag("authicons/google_128.png", :class => "#{user_providers.include?('google_oauth2') ? 'enabled' : 'disabled'} "), "/auth/google_oauth2"
     .span4
       = link_to image_tag("authicons/github_128.png", :class => "#{user_providers.include?('github') ? 'enabled' : 'disabled'} "), "/auth/github"
 
