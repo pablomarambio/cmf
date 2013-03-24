@@ -6,6 +6,7 @@ Rails.application.config.middleware.use OmniAuth::Builder do
   provider :twitter, 'PQEPJB8yLrsgvXpD8vxOaA', 'DppfJtzvgzD98rRWhV7gS2FuI6TIt8mJesFODncw4ro'
   provider :github, '69892830880bb291b062', '4e2a9023098129d2c04b2396c19f9d9a47f87867'
   provider :google_oauth2, '859120276641.apps.googleusercontent.com', 'lDOLq0jivII65XhbBozJjhko'
+  provider :linkedin, 'h98gvbofk1ye', 'hbJXOxWKQjpE5bDY'
 
   OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
   
