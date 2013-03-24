@@ -31,6 +31,7 @@ Cmf::Application.routes.draw do
   end
 
   # --- Users --- #
+  resources :users, :only => :update
   authenticated :user do
     root :to => 'home#index'
   end
