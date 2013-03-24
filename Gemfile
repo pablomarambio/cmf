@@ -5,6 +5,7 @@ group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'uglifier', '>= 1.0.3'
 end
+gem 'state_machine', '1.1.2'
 gem 'jquery-rails'
 gem "thin", ">= 1.5.0"
 gem "haml", ">= 3.1.7"

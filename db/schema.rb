@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130313230543) do
+ActiveRecord::Schema.define(:version => 20130324193941) do
 
   create_table "answers", :force => true do |t|
     t.integer  "message_id"
@@ -43,12 +43,12 @@ ActiveRecord::Schema.define(:version => 20130313230543) do
     t.datetime "created_at",                                      :null => false
     t.datetime "updated_at",                                      :null => false
     t.integer  "payment_id"
-    t.string   "secure_token",    :default => "fad65dc39b6dc420"
+    t.string   "secure_token",    :default => "63df878c7279382b"
   end
 
   create_table "payments", :force => true do |t|
     t.float    "amount"
-    t.integer  "random",     :default => 74519
+    t.integer  "random",     :default => 95890
     t.string   "status",     :default => "pending"
     t.integer  "user_id"
     t.datetime "created_at",                        :null => false
@@ -88,7 +88,6 @@ ActiveRecord::Schema.define(:version => 20130313230543) do
     t.string   "username"
   end
 
-  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 
   create_table "users_roles", :id => false, :force => true do |t|

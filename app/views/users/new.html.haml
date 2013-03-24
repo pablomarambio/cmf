@@ -1,7 +1,0 @@
-.jumbotron
-  = render 'layouts/messages'
-  %h1 1) Set a price tag
-  %p.lead I commit to answer to anyone who pays...
-  = simple_form_for(@user, :url => sign_up_steps_path) do |f|
-    = f.input :threshold, placeholder: "$ 1.00", label: "Put your price here"
-    = f.submit "Continue", :class => "btn btn-large btn-success"

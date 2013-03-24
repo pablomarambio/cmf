@@ -13,32 +13,56 @@ class User < ActiveRecord::Base
   has_many :messages, :dependent => :destroy
   has_many :payments, :dependent => :destroy
 
-  validates :threshold, :numericality => true, :if => :active_or_threshold?
+  validates :threshold, :numericality => true, :if => :should_check_threshold?
+  validates :email, :uniqueness => true, :presence => true, :format => {:with => /(?>(?:[0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+)[a-zA-Z]{2,9}/}, :if => :should_check_email?
+  validates :comment, :presence => true, :if => :should_check_comment?
+  validates :name, :presence => true, :if => :should_check_email?
+  validates :bank_account, :presence => true, :if => :should_check_bank_account?
 
-  validates :email, :uniqueness => true, :presence => true, :format => {:with => /(?>(?:[0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+)[a-zA-Z]{2,9}/}, :if => :active_or_email?
+  state_machine :status, :initial => :idle do
+    event :set_threshold do
+      transition :idle => :signing_up
+    end
 
-  validates :comment, :presence => true, :if => :active_or_comment?
+    event :complete_profile do
+      transition :signing_up => :signed_up
+    end
 
-  validates :name, :presence => true, :if => :active_or_name?
+    event :set_bank_account do
+      transition :registered => :ready
+    end
 
-  def active?
-    status == 'active'
-  end
-  
-  def active_or_threshold?
-    status.include?('threshold') || active?
-  end
+    state :idle do
+      def should_check_email?; false; end
+      def should_check_comment?; false; end
+      def should_check_name?; false; end
+      def should_check_threshold?; false; end
+      def should_check_bank_account?; false; end
+    end
 
-  def active_or_name?
-    status.include?('set_statement') || active?
-  end
-  
-  def active_or_email?
-    status.include?('set_email') || active?
-  end
-  
-  def active_or_comment?
-    status.include?('complete_profile') || active?
+    state :signing_up do
+      def should_check_email?; false; end
+      def should_check_comment?; false; end
+      def should_check_name?; false; end
+      def should_check_threshold?; true; end
+      def should_check_bank_account?; false; end
+    end
+
+    state :signed_up do
+      def should_check_email?; true; end
+      def should_check_comment?; true; end
+      def should_check_name?; true; end
+      def should_check_threshold?; true; end
+      def should_check_bank_account?; false; end
+    end
+
+    state :ready do
+      def should_check_email?; true; end
+      def should_check_comment?; true; end
+      def should_check_name?; true; end
+      def should_check_threshold?; true; end
+      def should_check_bank_account?; true; end
+    end
   end
 
   def add_auth_provider(h)
