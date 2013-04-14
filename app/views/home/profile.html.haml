@@ -1,56 +1,191 @@
-.jumbotron
-  = render 'layouts/messages'
-  %h3  Profile
-  %span.help-block
-    Your link for mythreshold.com: http://mythreshold.com/#{@user.username}
-  %hr
-  = form_for @user, :html => { :class => 'form-horizontal' } do |f|
-    = render :partial => "shared/model_error_messages", :locals => {:model => @user}
-    %fieldset
-      .control-group
-        %label.control-label Name
-        = f.text_field :name
-      .control-group
-        %label.control-label Username
-        = f.text_field :username
-      .control-group
-        %label.control-label Your threshold
-        = f.text_field :threshold
-      .control-group
-        %label.control-label Your email
-        = f.text_field :email
-      .control-group
-        %label.control-label Select your picture
-        #pics
-          = image_tag @user.main_picture || "authicons/user.png" , :class => "selected_pic"
-          = f.hidden_field :main_picture, :value => @user.main_picture
-          - @user.auth_providers.each do |ap|
-            - unless ap.image == @user.main_picture
-              = image_tag ap.image, :class => "social_network_pic"
-      .control-group
-        %label.control-label Set your statement
-        = f.text_area :comment, :placeholder => "I swear I read every message", :size => "160x3"
-        %span.help-block
-          Examples:
-          %em "I'm open to job offers,"
-          %em "Will answer in less than 48 hours,"
-          or
-          %em "Send me your phone so I can call you back"
-      = f.submit 'Save', :class => "btn btn-large btn-success"
-  .row-fluid
-    .span12
-      %em Linking more social networks will improve the probability of someone paying to contact you.
-  .row-fluid 
-    .span4
-      - user_providers = @user.auth_providers.collect(&:provider)
-      = link_to image_tag("authicons/facebook_128.png", :class => "#{user_providers.include?('facebook') ? 'enabled' : 'disabled'} "), "/auth/facebook"
-    .span4
-      = link_to image_tag("authicons/twitter_128.png", :class => "#{user_providers.include?('twitter') ? 'enabled' : 'disabled'} "), "/auth/twitter"
-    .span4
-      = link_to image_tag("authicons/linkedin_128.png", :class => "#{user_providers.include?('linkedin') ? 'enabled' : 'disabled'} "), "/auth/linkedin"
-  .row-fluid
-    .span4
-      = link_to image_tag("authicons/google_128.png", :class => "#{user_providers.include?('google_oauth2') ? 'enabled' : 'disabled'} "), "/auth/google_oauth2"
-    .span4
-      = link_to image_tag("authicons/github_128.png", :class => "#{user_providers.include?('github') ? 'enabled' : 'disabled'} "), "/auth/github"
+!!!
+%html
+  %head
+    %meta{:name => "charset", :content => "utf-8" }/
+    %title Perfil de Usuario
+    %meta{:name => "viewport", :content => "width=device-width, initial-scale=1.0" }/
+    %meta{:name => "description", :content => "omg" }/
+    %meta{:name => "author", :content => "omg" }/
+
+    = stylesheet_link_tag "application"
+    %link{:href => "http://fonts.googleapis.com/css?family=Oxygen:400,300,700&subset=latin,latin-ext", :rel => "stylesheet"}/
+    /[if lt IE 9]
+      %script{:type => "text/javascript", :src => "js/html5shiv.js"}
+    %link{:href => "img/apple-touch-icon-144-precomposed.png", :sizes => "144x144", :rel => "apple-touch-icon-precomposed"}
+    %link{:href => "img/apple-touch-icon-114-precomposed.png", :sizes => "114x114", :rel => "apple-touch-icon-precomposed"}
+    %link{:href => "img/apple-touch-icon-72-precomposed.png", :sizes => "72x72", :rel => "apple-touch-icon-precomposed"}
+    %link{:href => "img/apple-touch-icon-57-precomposed.png", :rel => "apple-touch-icon-precomposed"}
+    %link{:rel => "shortcut icon", :href => asset_path("favicon.png")}
+  %body
+    .navbar.navbar-fixed-top.menu-principal
+      .navbar-inner
+        .container
+          %button.btn.btn-navbar{"data-target" => ".nav-collapse", "data-toggle" => "collapse", :type => "button"}
+            %span.icon-bar
+            %span.icon-bar
+            %span.icon-bar
+        %a.brand{:href=>"#"} Threshold
+        .nav-collapse.collapse
+          %ul.nav
+            %li.active
+              %a{:href => "#"} Home
+            %li
+              %a{:href => "#"} Item Dos
+            %li
+              %a{:href => "#"} Item Tres
+            %li
+              %a{:href => "#"} Item Cuatro
+          %ul.nav.pull-right
+            %li#fat-menu.dropdown
+              %a#drop3.dropdown-toggle{"data-toggle" => "dropdown", :href => "#", :role => "button"}
+                Login
+                %b.caret
+              %ul.dropdown-menu{"aria-labelledby" => "drop3", :role => "menu"}
+                %li{:role => "presentation"}
+                  %a{:href => "#", :role => "menuitem", :tabindex => "-1"} Action
+                %li{:role => "presentation"}
+                  %a{:href => "#", :role => "menuitem", :tabindex => "-1"} Another action
+                %li{:role => "presentation"}
+                  %a{:href => "#", :role => "menuitem", :tabindex => "-1"} Something else here
+                %li.divider{:role => "presentation"}
+                %li{:role => "presentation"}
+                  %a{:href => "#", :role => "menuitem", :tabindex => "-1"} Separated link
+    .bg.breadcrumb
+      .container
+        %ul.breadcrumb
+          %li
+            %a{:href => "#"} Home
+            %span.divider /
+          %li.active Edit Perfil
+    .container.page
+      .row-fluid
+        %legend 
+          Edit profile
+        .well.box-perfil
+          %form
+            .perfil.edit
+              .span2
+                .img-perfil
+                  = image_tag @user.main_picture, :class=>".img-rounded", :height => "170", :width => "170"
+                .social-images
+                  .row-fluid.full-width
+                    .span12
+                      Select social image
+                      %hr/
+                      .row-fluid
+                        .span4.well
+                        .span4.well
+                        .span4.well
+                        .span4.well.no-margin-left
+                        .span4.well
+                        .span4.well
+                .clearfix
+              .span10.nombre-perfil
+                %label Edit your name
+                %select.span5
+                  %option 1
+                  %option 2
+                  %option 3
+                  %option 4
+                  %option 5
+                .clearfix
+              .span10.descripcion-personalizable
+                .control-group
+                  %label.control-label{:for => "inputMessage"} Edit message
+                  .controls
+                    %textarea#inputMessage.span12{:placeholder => "Message", :rows => "3"}
+                .clearfix
+              .span5.precio
+                .control-group
+                  %label.control-label{:for => "inputPrice"} Edit price
+                  .controls
+                    %input#inputPrice.span12{:placeholder => "$", :type => "text"}/
+                .clearfix
+              .span5.contacto
+                .control-group
+                  %label.control-label{:for => "inputEmail"} Edit em@il
+                  .controls
+                    %input#inputEmail.span12{:placeholder => "Email", :type => "text"}/
+              .span10.redes.pull-right
+                .span2
+                  %a.facebook.active{:href => "/"} red
+                .span2
+                  %a.twitter.active{:href => "/"} red
+                .span2
+                  %a.linkedin{:href => "/"} red
+                .span2
+                  %a.googleplus.active{:href => "/"} red
+                .span2
+                  %a.github{:href => "/"} red
+                .span2
+                  %a.add-more{:href => "/"} red
+              .span10.contacto.pull-right
+                %button.btn.btn-site{:type => "button"} Save
+          .clearfix
+        .clearfix
+      %footer
+        %p Treshhold 2013
+      .clearfix
+    /
+      Le javascript
+      \==================================================
+      Placed at the end of the document so the pages load faster
+    = stylesheet_link_tag "application"
+
+/
+  .jumbotron
+    = render 'layouts/messages'
+    %h3  Profile
+    %span.help-block
+      Your link for mythreshold.com: http://mythreshold.com/#{@user.username}
+    %hr
+    = form_for @user, :html => { :class => 'form-horizontal' } do |f|
+      = render :partial => "shared/model_error_messages", :locals => {:model => @user}
+      %fieldset
+        .control-group
+          %label.control-label Name
+          = f.text_field :name
+        .control-group
+          %label.control-label Username
+          = f.text_field :username
+        .control-group
+          %label.control-label Your threshold
+          = f.text_field :threshold
+        .control-group
+          %label.control-label Your email
+          = f.text_field :email
+        .control-group
+          %label.control-label Select your picture
+          #pics
+            = image_tag @user.main_picture || "authicons/user.png" , :class => "selected_pic"
+            = f.hidden_field :main_picture, :value => @user.main_picture
+            - @user.auth_providers.each do |ap|
+              - unless ap.image == @user.main_picture
+                = image_tag ap.image, :class => "social_network_pic"
+        .control-group
+          %label.control-label Set your statement
+          = f.text_area :comment, :placeholder => "I swear I read every message", :size => "160x3"
+          %span.help-block
+            Examples:
+            %em "I'm open to job offers,"
+            %em "Will answer in less than 48 hours,"
+            or
+            %em "Send me your phone so I can call you back"
+        = f.submit 'Save', :class => "btn btn-large btn-success"
+    .row-fluid
+      .span12
+        %em Linking more social networks will improve the probability of someone paying to contact you.
+    .row-fluid 
+      .span4
+        - user_providers = @user.auth_providers.collect(&:provider)
+        = link_to image_tag("authicons/facebook_128.png", :class => "#{user_providers.include?('facebook') ? 'enabled' : 'disabled'} "), "/auth/facebook"
+      .span4
+        = link_to image_tag("authicons/twitter_128.png", :class => "#{user_providers.include?('twitter') ? 'enabled' : 'disabled'} "), "/auth/twitter"
+      .span4
+        = link_to image_tag("authicons/linkedin_128.png", :class => "#{user_providers.include?('linkedin') ? 'enabled' : 'disabled'} "), "/auth/linkedin"
+    .row-fluid
+      .span4
+        = link_to image_tag("authicons/google_128.png", :class => "#{user_providers.include?('google_oauth2') ? 'enabled' : 'disabled'} "), "/auth/google_oauth2"
+      .span4
+        = link_to image_tag("authicons/github_128.png", :class => "#{user_providers.include?('github') ? 'enabled' : 'disabled'} "), "/auth/github"
 

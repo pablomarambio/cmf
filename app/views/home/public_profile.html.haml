@@ -59,47 +59,50 @@
           %li.active Edit Perfil
     .container.page
       .row-fluid
+        %lengend
+          = "#{@user.name}'s profile"
         .well.box-perfil
-          .perfil
-            .span2
-              .img-perfil
-                = image_tag @user.main_picture, :class=>".img-rounded", :height => "170", :width => "170"
-              .votacion
-                %h2 Rate
-                %hr/
-                .rate X X X X X
-            .span10.nombre-perfil
-              = @user.name
-            .span10.descripcion-personalizable
-              %span.comillas> "
-              = @user.comment
-              %span.comillas "
-            .span5.precio
-              = number_to_currency @user.threshold, :precision => 0
-            .span5.contacto
-              %button.btn.btn-site{:type => "button"} Contact
-            .span10.redes
+          %form
+            .perfil
               .span2
-                =link_to "/", "Facebook", :class => "facebook active"
-                %span Facebook
-              .span2
-                =link_to "/", "Twitter", :class => "twitter active"
-                %span Twitter
-              .span2
-                =link_to "/", "Linkedin", :class => "linkedin"
-                %span Linkedin
-              .span2
-                =link_to "/", "Google+", :class => "googleplus active"
-                %span Google +
-              .span2
-                =link_to "/", "Github", :class => "github"
-                %span Github
-              .span2
-                =link_to "/", "Other", :class => "add-more"
-                %span Add Another
-            .span10.contacto
-              %button.btn.btn-site{:type => "button"} Contact
-          .clearfix
+                .img-perfil
+                  = image_tag @user.main_picture, :class=>".img-rounded", :height => "170", :width => "170"
+                .votacion
+                  %h2 Rate
+                  %hr/
+                  .rate X X X X X
+              .span10.nombre-perfil
+                = @user.name
+              .span10.descripcion-personalizable
+                %span.comillas> "
+                = @user.comment
+                %span.comillas "
+              .span5.precio
+                = number_to_currency @user.threshold, :precision => 0
+              .span5.contacto
+                %button.btn.btn-site{:type => "button"} Contact
+              .span10.redes
+                .span2
+                  =link_to "/", "Facebook", :class => "facebook active"
+                  %span Facebook
+                .span2
+                  =link_to "/", "Twitter", :class => "twitter active"
+                  %span Twitter
+                .span2
+                  =link_to "/", "Linkedin", :class => "linkedin"
+                  %span Linkedin
+                .span2
+                  =link_to "/", "Google+", :class => "googleplus active"
+                  %span Google +
+                .span2
+                  =link_to "/", "Github", :class => "github"
+                  %span Github
+                .span2
+                  =link_to "/", "Other", :class => "add-more"
+                  %span Add Another
+              .span10.contacto
+                %button.btn.btn-site{:type => "button"} Contact
+            .clearfix
         .clearfix
       %footer
         %p Treshhold 2013

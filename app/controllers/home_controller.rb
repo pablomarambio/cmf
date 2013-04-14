@@ -49,6 +49,7 @@ class HomeController < ApplicationController
 	end
 
   def profile
+    render :layout => false
   end
 
   def public_profile
