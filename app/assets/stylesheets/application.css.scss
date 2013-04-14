@@ -9,7 +9,7 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require "bootstrap"
- *= require "bootstrap-responsive"
+ *= require bootstrap-responsive-cb
  *= require_self
 */
 
@@ -19,9 +19,6 @@
 @media (min-width: 1200px) { 
 
 body { background-color: white; }
-html, body { 
-padding: 0;
-}
 
 /*Perfil*/
 .perfil .img-perfil { 
@@ -37,16 +34,19 @@ float: left;
 
 .row-fluid .no-margin-left { margin-left: 0; }
 
-.bg.breadcrumb { margin: 43px 0 0 0; }
+.bg.breadcrumb { margin: 0; }
 
-.page { padding-top: 0; }
+
 
 }
 
 /* Portrait tablet to landscape and desktop */
 @media (min-width: 768px) and (max-width: 979px) {
 
-body { background-color: red; }
+body { 
+background-color: red; 
+padding-top: 80px; 
+}
 
 .social-images .span4.well { width: 40%; margin-left: 0; }
 .social-images .span4.well+.span4.well { margin-left: 18%; }
@@ -55,8 +55,6 @@ body { background-color: red; }
 .social-images .span4.well+.span4.well+.span4.well+.span4.well+.span4.well { margin-left: 0; }
 .social-images .span4.well+.span4.well+.span4.well+.span4.well+.span4.well+.span4.well { margin-left: 18%; }
 .bg.breadcrumb { margin: 0; }
-
-
 
 }
 
@@ -76,7 +74,7 @@ text-align: center;
 }
 
 .redes .span2 {
-float: left;  
+float: left;	
 width: 16.6666667%;
 }
 
@@ -107,17 +105,16 @@ margin-left: 8%;
 }
 
 .bg.breadcrumb {
+right: 0;
 left: 0;
 width: 100%;
 position: absolute;
 padding: 8px 0;
+top: 42px;
 }
 
 .bg.breadcrumb ul.breadcrumb { padding-left:20px; }
 
-.page {
-padding-top: 36px;
-}
 
 }
 
@@ -131,7 +128,7 @@ body { background-color: yellow; }
 width: 16.6666667%;
 }
 .redes img {
-float: none;  
+float: none;	
 }
 
 .social-images .row-fluid .span4 + .span4  {
@@ -153,6 +150,8 @@ color: #999;
 font-size: 12px;
 background-color: #f1f1f1;
 }
+
+body { padding-top: 80px; }
 
 hr { margin: 10px 0; }
 
@@ -374,10 +373,16 @@ transition: background-position 0.1s linear;
 .social-images { text-align: center; }
 
 .bg.breadcrumb {
-padding-left: 0;
+right: 0;
+left: 0;
+width: 100%;
+position: absolute;
+padding: 8px 0;
+top: 42px;
 background-color: #fff;
 -webkit-border-radius: 0; /* Android ��� 1.6, iOS 1-3.2, Safari 3-4 */
          border-radius: 0; /* Android 2.1+, Chrome, Firefox 4+, IE 9+, iOS 4+, Opera 10.50+, Safari 5+ */
+
 }
 
 .bg ul.breadcrumb {
@@ -470,3 +475,88 @@ margin-bottom: 0;
 }
 
 label { color: #999; }
+
+.navbar {
+margin-bottom: 0;
+}
+
+.navbar-inner {
+-webkit-border-radius: 0; /* Android ��� 1.6, iOS 1-3.2, Safari 3-4 */
+         border-radius: 0; /* Android 2.1+, Chrome, Firefox 4+, IE 9+, iOS 4+, Opera 10.50+, Safari 5+ */
+border: none;          
+}
+
+.menu-principal {
+width: 100%;
+position: absolute;
+left: 0;
+top: 0;
+}
+
+
+/*home*/
+/*.home { max-width: 380px; }
+*/
+.logo {
+margin-top: 20px;
+line-height: 80px;
+text-align: center;
+font-size: 100px;
+}
+
+
+.txt-one {
+margin: 0 auto;
+width: 380px;
+text-align: center; 
+}
+
+.txt-one h1 {
+font-weight: 400;
+font-size: 22px;
+}
+
+.txt-one h2 {
+font-weight: 300;
+line-height: 20px;
+font-size: 14px;
+}
+
+.peephole {
+margin: 0 auto;
+width: 380px;
+}
+
+.btn-home { 
+margin: 20px auto;
+width: 380px;
+}
+
+.btn-home .btn {
+padding: 15px 0;
+width: 100%;
+-webkit-border-radius: 0;
+border-radius: 0;
+color: #fff;
+text-shadow: 0 0 0 #fff;
+font-size: 12px;
+border-color: #59b129;
+}
+
+.navbar .nav li.dropdown.open > .dropdown-toggle, .navbar .nav li.dropdown.active > .dropdown-toggle, .navbar .nav li.dropdown.open.active > .dropdown-toggle {
+background-color: #59b129;
+color: #fff;
+border-bottom: 2px solid #fff;
+-webkit-box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.125);
+-moz-box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.125);
+box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.125);
+}
+
+.dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus, .dropdown-submenu:hover > a, .dropdown-submenu:focus > a {
+background-color: #59b129;
+background-image: -webkit-gradient(linear, left top, left bottom, from(#6dc732), to(#59b129)); /* Chrome, Safari 4+ */
+background-image: -webkit-linear-gradient(top, #6dc732, #59b129); /* Chrome 10-25, iOS 5+, Safari 5.1+ */
+background-image:    -moz-linear-gradient(top, #6dc732, #59b129); /* Firefox 3.6-15 */
+background-image:      -o-linear-gradient(top, #6dc732, #59b129); /* Opera 11.10-12.00 */
+background-image:         linear-gradient(to bottom, #6dc732, #59b129); /* Chrome 26, Firefox 16+, IE 10+, Opera 12.50+ */
+}
