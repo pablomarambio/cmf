@@ -46,6 +46,7 @@ class AuthProvidersController < ApplicationController
 
 	def auth_hash_for_facebook omniauth
 		hash = {}
+		hash[:raw] = omniauth.to_s
 		hash[:id] = omniauth['extra']['raw_info']['id']
 		hash[:email] = omniauth['info']['email']
 		hash[:real_name] = omniauth['info']['name']
@@ -59,6 +60,7 @@ class AuthProvidersController < ApplicationController
 
 	def auth_hash_for_twitter omniauth
 		hash = {}
+		hash[:raw] = omniauth.to_s
 		hash[:id] = omniauth['uid']
 		hash[:email] = nil # Twitter API never returns the email address
 		hash[:real_name] = omniauth['info']['name']
@@ -71,6 +73,7 @@ class AuthProvidersController < ApplicationController
 
 	def auth_hash_for_linkedin omniauth
 		hash = {}
+		hash[:raw] = omniauth.to_s
 		hash[:id] = omniauth['uid']
 		hash[:email] = omniauth['info']['email']
 		hash[:real_name] = omniauth['info']['nickname']
@@ -83,6 +86,7 @@ class AuthProvidersController < ApplicationController
 
 	def auth_hash_for_github omniauth
 		hash = {}
+		hash[:raw] = omniauth.to_s
 		hash[:id] = omniauth['uid']
 		hash[:email] = nil # GH API never returns the email address
 		hash[:real_name] = omniauth['info']['image']
@@ -95,6 +99,7 @@ class AuthProvidersController < ApplicationController
 
 	def auth_hash_for_google_oauth2 omniauth
 		hash = {}
+		hash[:raw] = omniauth.to_s
 		hash[:id] = omniauth['uid']
 		hash[:email] = omniauth['info']['email']
 		hash[:real_name] = omniauth['info']['name']
