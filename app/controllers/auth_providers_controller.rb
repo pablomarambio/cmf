@@ -89,7 +89,7 @@ class AuthProvidersController < ApplicationController
 		hash[:raw] = omniauth.to_xml
 		hash[:id] = omniauth['uid']
 		hash[:email] = nil # GH API never returns the email address
-		hash[:real_name] = omniauth['info']['image']
+		hash[:real_name] = omniauth['info']['nickname']
 		hash[:avatar] = omniauth['info']['image']
 		hash[:username] = omniauth['info']['nickname']
 		hash[:profile_uri] = omniauth['info']['urls']['GitHub']
