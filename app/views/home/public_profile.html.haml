@@ -1,18 +1,21 @@
 !!!
 %html
   %head
-    %title Perfil de Usuario
     %meta{:name => "charset", :content => "utf-8" }/
-    %meta{:content => "application/xhtml+xml", "http-equiv" => "Content-Type"}/
+    %title Perfil de Usuario
     %meta{:name => "viewport", :content => "width=device-width, initial-scale=1.0" }/
+    %meta{:name => "description", :content => "omg" }/
+    %meta{:name => "author", :content => "omg" }/
+
     = stylesheet_link_tag "application"
     %link{:href => "http://fonts.googleapis.com/css?family=Oxygen:400,300,700&subset=latin,latin-ext", :rel => "stylesheet"}/
-    /[if IE 9]
+    /[if lt IE 9]
       %script{:type => "text/javascript", :src => "js/html5shiv.js"}
     %link{:href => "img/apple-touch-icon-144-precomposed.png", :sizes => "144x144", :rel => "apple-touch-icon-precomposed"}
     %link{:href => "img/apple-touch-icon-114-precomposed.png", :sizes => "114x114", :rel => "apple-touch-icon-precomposed"}
     %link{:href => "img/apple-touch-icon-72-precomposed.png", :sizes => "72x72", :rel => "apple-touch-icon-precomposed"}
     %link{:href => "img/apple-touch-icon-57-precomposed.png", :rel => "apple-touch-icon-precomposed"}
+    %link{:rel => "shortcut icon", :href => asset_path("favicon.png")}
   %body
     .navbar.navbar-fixed-top.menu-principal
       .navbar-inner
@@ -32,7 +35,6 @@
               %a{:href => "#"} Item Tres
             %li
               %a{:href => "#"} Item Cuatro
-        .nav-collapse.collapse
           %ul.nav.pull-right
             %li#fat-menu.dropdown
               %a#drop3.dropdown-toggle{"data-toggle" => "dropdown", :href => "#", :role => "button"}
@@ -71,22 +73,22 @@
               %button.btn.btn-site{:type => "button"} Contact
             .span10.redes
               .span2
-                =image_tag "social_networks/facebook.png", :alt => "Facebook"
+                =link_to "/", "Facebook", :class => "facebook active"
                 %span Facebook
               .span2
-                =image_tag "social_networks/twitter.png", :alt => "Twitter"
+                =link_to "/", "Twitter", :class => "twitter active"
                 %span Twitter
               .span2
-                =image_tag "social_networks/linkedin.png", :alt => "Linkedin"
+                =link_to "/", "Linkedin", :class => "linkedin"
                 %span Linkedin
               .span2
-                =image_tag "social_networks/googleplus.png", :alt => "Google +"
+                =link_to "/", "Google+", :class => "googleplus active"
                 %span Google +
               .span2
-                =image_tag "social_networks/github.png", :alt => "Github"
+                =link_to "/", "Github", :class => "github"
                 %span Github
               .span2
-                =image_tag "social_networks/add-more.png", :alt => "Add More"
+                =link_to "/", "Other", :class => "add-more"
                 %span Add Another
             .span10.contacto
               %button.btn.btn-site{:type => "button"} Contact
@@ -100,33 +102,3 @@
       \==================================================
       Placed at the end of the document so the pages load faster
     = stylesheet_link_tag "application"
-
-/
-  .jumbotron
-    = render 'layouts/messages'
-    .thumbnail
-      = image_tag @user.main_picture || "authicons/user.png" 
-      .caption
-        %h3=@user.name.titleize
-        %dl.dl-horizontal
-          %dt Price:
-          %dd= @user.threshold
-          %dt Message:
-          %dd= @user.comment
-        .well 
-          %b Social networks:
-          - @user.auth_providers.each do |ap|
-            = link_to image_tag("authicons/#{ap.provider}_100.png"), ap.profile_uri 
-    %br
-    .row-fluid
-      .span12
-        = form_tag new_payment_path do
-          = hidden_field_tag :user_id, @user.id
-          = hidden_field_tag :status, "ok"
-          = submit_tag "Pay", :class => "btn btn-primary"
-      - if Rails.env.development?
-        .span12
-          = form_tag new_payment_path do
-            = hidden_field_tag :user_id, @user.id
-            = hidden_field_tag :status, "nok"
-            = submit_tag "Pay failure (Development)", :class => "btn btn-danger"
