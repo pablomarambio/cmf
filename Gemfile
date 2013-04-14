@@ -34,4 +34,4 @@ gem "omniauth-twitter"
 gem "omniauth-github"
 gem "omniauth-linkedin"
 gem "omniauth-google-oauth2"
-gem "sqlite3"
+gem "sqlite3", :group => :development
