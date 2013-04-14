@@ -53,6 +53,7 @@ class HomeController < ApplicationController
 
   def public_profile
     @user = User.find_by_username(params[:username])
+    render :layout => false
   end
 
   def users_profile

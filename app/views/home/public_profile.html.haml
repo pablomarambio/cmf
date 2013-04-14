@@ -1,29 +1,132 @@
-.jumbotron
-  = render 'layouts/messages'
-  .thumbnail
-    = image_tag @user.main_picture || "authicons/user.png" 
-    .caption
-      %h3=@user.name.titleize
-      %dl.dl-horizontal
-        %dt Price:
-        %dd= @user.threshold
-        %dt Message:
-        %dd= @user.comment
-      .well 
-        %b Social networks:
-        - @user.auth_providers.each do |ap|
-          = link_to image_tag("authicons/#{ap.provider}_100.png"), ap.profile_uri 
-  %br
-  .row-fluid
-    .span12
-      = form_tag new_payment_path do
-        = hidden_field_tag :user_id, @user.id
-        = hidden_field_tag :status, "ok"
-        = submit_tag "Pay", :class => "btn btn-primary"
-    - if Rails.env.development?
+!!!
+%html
+  %head
+    %title Perfil de Usuario
+    %meta{:name => "charset", :content => "utf-8" }/
+    %meta{:content => "application/xhtml+xml", "http-equiv" => "Content-Type"}/
+    %meta{:name => "viewport", :content => "width=device-width, initial-scale=1.0" }/
+    = stylesheet_link_tag "application"
+    %link{:href => "http://fonts.googleapis.com/css?family=Oxygen:400,300,700&subset=latin,latin-ext", :rel => "stylesheet"}/
+    /[if IE 9]
+      %script{:type => "text/javascript", :src => "js/html5shiv.js"}
+    %link{:href => "img/apple-touch-icon-144-precomposed.png", :sizes => "144x144", :rel => "apple-touch-icon-precomposed"}
+    %link{:href => "img/apple-touch-icon-114-precomposed.png", :sizes => "114x114", :rel => "apple-touch-icon-precomposed"}
+    %link{:href => "img/apple-touch-icon-72-precomposed.png", :sizes => "72x72", :rel => "apple-touch-icon-precomposed"}
+    %link{:href => "img/apple-touch-icon-57-precomposed.png", :rel => "apple-touch-icon-precomposed"}
+  %body
+    .navbar.navbar-fixed-top.menu-principal
+      .navbar-inner
+        .container
+          %button.btn.btn-navbar{"data-target" => ".nav-collapse", "data-toggle" => "collapse", :type => "button"}
+            %span.icon-bar
+            %span.icon-bar
+            %span.icon-bar
+        %a.brand{:href=>"#"} Threshold
+        .nav-collapse.collapse
+          %ul.nav
+            %li.active
+              %a{:href => "#"} Home
+            %li
+              %a{:href => "#"} Item Dos
+            %li
+              %a{:href => "#"} Item Tres
+            %li
+              %a{:href => "#"} Item Cuatro
+        .nav-collapse.collapse
+          %ul.nav.pull-right
+            %li#fat-menu.dropdown
+              %a#drop3.dropdown-toggle{"data-toggle" => "dropdown", :href => "#", :role => "button"}
+                Login
+                %b.caret
+              %ul.dropdown-menu{"aria-labelledby" => "drop3", :role => "menu"}
+                %li{:role => "presentation"}
+                  %a{:href => "#", :role => "menuitem", :tabindex => "-1"} Action
+                %li{:role => "presentation"}
+                  %a{:href => "#", :role => "menuitem", :tabindex => "-1"} Another action
+                %li{:role => "presentation"}
+                  %a{:href => "#", :role => "menuitem", :tabindex => "-1"} Something else here
+                %li.divider{:role => "presentation"}
+                %li{:role => "presentation"}
+                  %a{:href => "#", :role => "menuitem", :tabindex => "-1"} Separated link
+    .container.page
+      .row-fluid
+        .well.box-perfil
+          .perfil
+            .span2
+              .img-perfil
+                = image_tag @user.main_picture, :class=>".img-rounded", :height => "170", :width => "170"
+              .votacion
+                %h2 Rate
+                %hr/
+                .rate X X X X X
+            .span10.nombre-perfil
+              = @user.name
+            .span10.descripcion-personalizable
+              %span.comillas> "
+              = @user.comment
+              %span.comillas "
+            .span5.precio
+              = number_to_currency @user.threshold, :precision => 0
+            .span5.contacto
+              %button.btn.btn-site{:type => "button"} Contact
+            .span10.redes
+              .span2
+                =image_tag "social_networks/facebook.png", :alt => "Facebook"
+                %span Facebook
+              .span2
+                =image_tag "social_networks/twitter.png", :alt => "Twitter"
+                %span Twitter
+              .span2
+                =image_tag "social_networks/linkedin.png", :alt => "Linkedin"
+                %span Linkedin
+              .span2
+                =image_tag "social_networks/googleplus.png", :alt => "Google +"
+                %span Google +
+              .span2
+                =image_tag "social_networks/github.png", :alt => "Github"
+                %span Github
+              .span2
+                =image_tag "social_networks/add-more.png", :alt => "Add More"
+                %span Add Another
+            .span10.contacto
+              %button.btn.btn-site{:type => "button"} Contact
+          .clearfix
+        .clearfix
+      %footer
+        %p Treshhold 2013
+    .clearfix
+    /
+      Le javascript
+      \==================================================
+      Placed at the end of the document so the pages load faster
+    = stylesheet_link_tag "application"
+
+/
+  .jumbotron
+    = render 'layouts/messages'
+    .thumbnail
+      = image_tag @user.main_picture || "authicons/user.png" 
+      .caption
+        %h3=@user.name.titleize
+        %dl.dl-horizontal
+          %dt Price:
+          %dd= @user.threshold
+          %dt Message:
+          %dd= @user.comment
+        .well 
+          %b Social networks:
+          - @user.auth_providers.each do |ap|
+            = link_to image_tag("authicons/#{ap.provider}_100.png"), ap.profile_uri 
+    %br
+    .row-fluid
       .span12
         = form_tag new_payment_path do
           = hidden_field_tag :user_id, @user.id
-          = hidden_field_tag :status, "nok"
-          = submit_tag "Pay failure (Development)", :class => "btn btn-danger"
-
+          = hidden_field_tag :status, "ok"
+          = submit_tag "Pay", :class => "btn btn-primary"
+      - if Rails.env.development?
+        .span12
+          = form_tag new_payment_path do
+            = hidden_field_tag :user_id, @user.id
+            = hidden_field_tag :status, "nok"
+            = submit_tag "Pay failure (Development)", :class => "btn btn-danger"

@@ -8,58 +8,427 @@
  * You're free to add application-wide styles to this file and they'll appear at the top of the
  * compiled file, but it's generally better to create a new file per style scope.
  *
- *= require_self
  *= require_tree .
+ *= require_self
 */
 
+/*Trehhold*/
 
-// INICIO : CSS aplicacion (Reemplazable)
-.content {
-  background-color: #eee;
-  padding: 20px;
-  margin: 0 -20px; /* negative indent the amount of the padding to maintain the grid system */
-  -webkit-border-radius: 0 0 6px 6px;
-  -moz-border-radius: 0 0 6px 6px;
-  border-radius: 0 0 6px 6px;
-  -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.15);
-  -moz-box-shadow: 0 1px 2px rgba(0,0,0,.15);
-  box-shadow: 0 1px 2px rgba(0,0,0,.15);
+/* Large desktop */
+@media (min-width: 1200px) { 
+
+body { background-color: white; }
+html, body { 
+padding: 0;
 }
 
-// INICIO Logos de redes sociales
-.disabled {
-  opacity: 0.40;
+/*Perfil*/
+.perfil .img-perfil { 
+height: 170px;
 }
 
-#services img{
-  width: 100px;
-  opacity: 0.80;
+.perfil .redes img{ 
+width: 32px; 
+margin: 0 auto; 
+display: block;
+float: left;
 }
 
-#services img:hover {
-  opacity: 1.0;
-}
-// FIN Logos de redes sociales
 
-// INICIO Clases para imagen de perfil publico del usuario
-.selected_pic{
-  max-width: 60px;
-  opacity: 1.0;
+
+}
+ 
+/* Portrait tablet to landscape and desktop */
+@media (min-width: 768px) and (max-width: 979px) {
+
+body { background-color: red; }
+
+.social-images .span4.well { width: 100%; }
+
+
+}
+ 
+/* Landscape phone to portrait tablet */
+@media (max-width: 767px) { 
+
+body { background-color: green; }
+
+/*Perfil*/
+.perfil .img-perfil {
+margin: 0 auto;
+width: 183px;
+height: 183px;
+}
+.nombre-perfil, .descripcion-personalizable { 
+text-align: center;
 }
 
-.social_network_pic{
-  max-width: 60px;
-  opacity: 0.5;
-  margin: 0 5px 0 5px;
-  
-}
-// FIN Clases para imagen de perfil publico del usuario
-
-// Estilo para la vista de evaluacion de respuesta(evaluate_answer)
-.evaluation_radio label {
-  float:left;
-  padding-left: 35px;
-  padding-top:5px;
+.redes .span2 {
+float: left;  
+width: 16.6666667%;
 }
 
-// FIN : CSS aplicacion (Reemplazable)
+.redes img {
+margin: 0 auto;
+display: block;
+float: none;
+}
+
+.redes span {
+display: none;
+}
+
+.social-images .row-fluid { 
+width: 50%; 
+float: left;
+}
+
+.social-images .span4.well { 
+width: 20%; 
+float: left;
+}
+
+
+
+}
+ 
+/* Landscape phones and down */
+@media (max-width: 480px) { 
+
+body { background-color: yellow; }
+
+/*Perfil*/
+.redes .span2 {
+width: 16.6666667%;
+}
+.redes img {
+float: none;  
+}
+
+
+
+}
+
+
+
+/*Estilos generales*/
+
+html, body { 
+font-family: 'Oxygen', sans-serif;
+font-weight: 300;
+height: 100%;
+color: #999;
+font-size: 12px;
+/*background-color: #f1f1f1;
+*/}
+
+.page { padding-top: 20px; }
+
+hr { margin: 10px 0; }
+
+footer { text-align: center; }
+
+/*input*/
+select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
+padding: 10px;
+font-family: 'Oxygen', sans-serif;
+font-weight: 300;
+font-size: 12px;
+}
+
+
+input, button, select, textarea {
+font-family: 'Oxygen', sans-serif;
+font-weight: 300;
+font-size: 12px;
+}
+.navbar-form input, .navbar-form select, .navbar-form .radio, .navbar-form .checkbox { margin-top: 0; }
+
+
+
+/*menu-principal*/
+
+.menu-principal { background-color: #fff; }
+.menu-principal .container, .navbar-static-top .container, .navbar-fixed-top .container, .navbar-fixed-bottom .container{ padding: 0; }
+
+/*perfil*/
+
+.well {
+background-color: #fff;
+
+}
+
+.perfil {
+-webkit-border-radius: 4px 0 0 4px; /* Android ≤ 1.6, iOS 1-3.2, Safari 3-4 */
+        border-radius: 4px 0 0 4px; /* Android 2.1+, Chrome, Firefox 4+, IE 9+, iOS 4+, Opera 10.50+, Safari 5+ */
+line-height: 32px;
+}
+
+.perfil .nombre-perfil { 
+font-size: 16px;
+border-bottom: 1px solid #eeeeee;
+font-weight: 700;
+color: #000;
+clear: both;
+}
+
+.perfil .img-perfil img.img-rounded {
+-webkit-border-radius: 50%;
+border-radius: 50%;
+border: 6px solid #f1f1f1;
+}
+
+.perfil .precio {
+font-size: 16px;
+font-weight: 700;
+text-align: center;
+padding-top: 10px;
+padding-bottom: 10px;
+}
+
+.perfil .descripcion-personalizable {
+padding-bottom: 10px;
+padding-top: 10px;
+font-size: 22px;
+border-bottom: 1px solid #eeeeee;
+}
+
+.perfil .descripcion-personalizable span.comillas {
+font-size: 26px;
+font-weight: 700;
+color: #000;
+}
+
+.box-perfil {
+height: auto;
+}
+
+.box-perfil h2 {
+margin: 0;
+font-size: 16px;
+padding: 0;
+line-height:  20px;
+}
+
+.perfil .redes {
+padding-top: 10px;
+padding-bottom: 10px;
+border-top: 1px solid #eeeeee;
+height: 53px;
+}
+
+.perfil .redes span{ 
+float: left;
+padding-left: 10px;
+}
+
+.perfil .votacion {
+text-align: center;
+padding-top: 10px;
+padding-bottom: 10px;
+}
+
+.perfil .contacto {
+text-align: center;
+}
+
+.perfil .rate {
+margin: 0;
+padding: 0;
+}
+
+.navbar-inner {
+background-color: #0082c8;
+background-image: -webkit-gradient(linear, left top, left bottom, from(#0082c8), to(#0082c8)); /* Chrome, Safari 4+ */
+background-image: -webkit-linear-gradient(top, #0082c8, #0082c8); /* Chrome 10-25, iOS 5+, Safari 5.1+ */
+background-image:    -moz-linear-gradient(top, #0082c8, #0082c8); /* Firefox 3.6-15 */
+background-image:      -o-linear-gradient(top, #0082c8, #0082c8); /* Opera 11.10-12.00 */
+background-image:         linear-gradient(to bottom, #0082c8, #0082c8); /* Chrome 26, Firefox 16+, IE 10+, Opera 12.50+ */
+}
+
+
+
+.navbar .brand {
+display: block;
+float: left;
+padding: 10px 20px 10px;
+margin-left: -20px;
+font-size: 20px;
+font-weight: 200;
+color: #fff;
+text-shadow: 0 1px 0 #999999;
+}
+
+.navbar .nav > li > a {
+float: none;
+padding: 10px 15px 10px;
+color: #ffffff;
+text-decoration: none;
+text-shadow: 0 0 0 #000000;
+}
+
+.navbar .nav > .active > a, .navbar .nav > .active > a:hover, .navbar .nav > .active > a:focus {
+color: #ffffff;
+text-decoration: none;
+background-color: #0082c8;
+border-bottom: 2px solid #fff;
+}
+
+
+ .navbar-inner {
+  background-color: #59b129;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#6dc732), to(#59b129)); /* Chrome, Safari 4+ */
+  background-image: -webkit-linear-gradient(top, #6dc732, #59b129); /* Chrome 10-25, iOS 5+, Safari 5.1+ */
+  background-image:    -moz-linear-gradient(top, #6dc732, #59b129); /* Firefox 3.6-15 */
+  background-image:      -o-linear-gradient(top, #6dc732, #59b129); /* Opera 11.10-12.00 */
+  background-image:         linear-gradient(to bottom, #6dc732, #59b129); /* Chrome 26, Firefox 16+, IE 10+, Opera 12.50+ */
+}
+
+.navbar .nav > .active > a, .navbar .nav > .active > a:hover, .navbar .nav > .active > a:focus {
+background-color: #59b129;
+color: #fff;
+border-bottom: 2px solid #fff;
+
+}
+
+.navbar .nav > li > a:focus, .navbar .nav > li > a:hover {
+background-color: #59b129;
+color: #fff;
+border-bottom: 2px solid #fff;
+
+}
+
+.perfil .btn {
+padding: 15px 0;
+width: 100%;
+-webkit-border-radius: 0;
+border-radius: 0;
+color: #fff;
+text-shadow: 0 0 0 #fff;
+font-size: 12px;
+border-color: #59b129; 
+}
+
+.btn-site {
+  background-color: #59b129;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#6dc732), to(#59b129)); /* Chrome, Safari 4+ */
+  background-image: -webkit-linear-gradient(top, #6dc732, #59b129); /* Chrome 10-25, iOS 5+, Safari 5.1+ */
+  background-image:    -moz-linear-gradient(top, #6dc732, #59b129); /* Firefox 3.6-15 */
+  background-image:      -o-linear-gradient(top, #6dc732, #59b129); /* Opera 11.10-12.00 */
+  background-image:         linear-gradient(to bottom, #6dc732, #59b129); /* Chrome 26, Firefox 16+, IE 10+, Opera 12.50+ */
+}
+
+.btn-site:hover, .btn-site:focus {
+background-color: #59b129;
+background-image: -webkit-gradient(linear, left top, left bottom, from(#59b129), to(#6dc732)); /* Chrome, Safari 4+ */
+background-image: -webkit-linear-gradient(top, #59b129, #6dc732); /* Chrome 10-25, iOS 5+, Safari 5.1+ */
+background-image:    -moz-linear-gradient(top, #59b129, #6dc732); /* Firefox 3.6-15 */
+background-image:      -o-linear-gradient(top, #59b129, #6dc732); /* Opera 11.10-12.00 */
+background-image:         linear-gradient(to bottom, #59b129, #6dc732); /* Chrome 26, Firefox 16+, IE 10+, Opera 12.50+ */
+background-position: 0;
+-webkit-transition: background-position 0.1s linear;
+-moz-transition: background-position 0.1s linear;
+-o-transition: background-position 0.1s linear;
+transition: background-position 0.1s linear;
+}
+
+.perfil.edit .precio label { text-align: left; }
+.perfil.edit .precio input, textarea, .uneditable-input { float: left; }
+
+.perfil.edit .contacto { padding-top: 10px; }
+.perfil.edit .contacto label { text-align: left; }
+.perfil.edit .contacto input, textarea, .uneditable-input { float: left; }
+
+.social-images { text-align: center; }
+
+.bg.breadcrumb {
+margin: 43px 0 0 0;
+padding-left: 0;
+background-color: #fff;
+}
+
+.bg .breadcrumb {
+margin: 0;
+padding: 0;
+background-color: #fff; 
+}
+
+.redes a { 
+text-indent: -9000px; 
+display: block; 
+}
+
+.redes a.facebook { 
+background-image: url(../img/facebook.png); 
+background-position: center bottom; 
+background-repeat:  no-repeat; 
+}
+
+.redes a.facebook:hover { 
+background-image: url(../img/facebook.png); 
+background-position: center top; 
+background-repeat:  no-repeat; 
+}
+
+
+.redes a.twitter { 
+background-image: url(../img/twitter.png); 
+background-position: center bottom; 
+background-repeat:  no-repeat; 
+}
+
+.redes a.twitter:hover { 
+background-image: url(../img/twitter.png); 
+background-position: center top; 
+background-repeat:  no-repeat; 
+}
+
+.redes a.linkedin { 
+background-image: url(../img/linkedin.png); 
+background-position: center bottom; 
+background-repeat:  no-repeat; 
+}
+
+.redes a.linkedin:hover { 
+background-image: url(../img/linkedin.png); 
+background-position: center top; 
+background-repeat:  no-repeat; 
+}
+
+.redes a.googleplus { 
+background-image: url(../img/googleplus.png); 
+background-position: center bottom; 
+background-repeat:  no-repeat; 
+}
+
+.redes a.googleplus:hover { 
+background-image: url(../img/googleplus.png); 
+background-position: center top; 
+background-repeat:  no-repeat; 
+}
+
+.redes a.github { 
+background-image: url(../img/github.png); 
+background-position: center bottom; 
+background-repeat:  no-repeat; 
+}
+
+.redes a.github:hover { 
+background-image: url(../img/github.png); 
+background-position: center top; 
+background-repeat:  no-repeat; 
+}
+
+.redes a.add-more { 
+background-image: url(../img/add-more.png); 
+background-position: center bottom; 
+background-repeat:  no-repeat; 
+}
+
+.redes a.add-more:hover { 
+background-image: url(../img/add-more.png); 
+background-position: center top; 
+background-repeat:  no-repeat; 
+}
+
+.redes a.active { background-position: center top; }
