@@ -73,12 +73,10 @@
                       Select social image
                       %hr/
                       .row-fluid
-                        .span4.well
-                        .span4.well
-                        .span4.well
-                        .span4.well.no-margin-left
-                        .span4.well
-                        .span4.well
+                        - @user.auth_providers.each do |ap|
+                          - unless ap.image == @user.main_picture
+                            .span4.well
+                              = image_tag ap.image, :alt => @user.name
                 .clearfix
               .span10.nombre-perfil
                 %label Edit your name
@@ -108,17 +106,22 @@
                     %input#inputEmail.span12{:placeholder => "Email", :type => "text"}/
               .span10.redes.pull-right
                 .span2
-                  %a.facebook.active{:href => "/"} red
+                  - classes = "facebook #{has_facebook? ? 'active':''}"
+                  = link_to "Facebook", "/auth/facebook", :class => classes
                 .span2
-                  %a.twitter.active{:href => "/"} red
+                  - classes = "twitter #{has_twitter? ? 'active':''}"
+                  = link_to "twitter", "/auth/twitter", :class => classes
                 .span2
-                  %a.linkedin{:href => "/"} red
+                  - classes = "github #{has_github? ? 'active':''}"
+                  = link_to "github", "/auth/github", :class => classes
                 .span2
-                  %a.googleplus.active{:href => "/"} red
+                  - classes = "googleplus #{has_googleplus? ? 'active':''}"
+                  = link_to "googleplus", "/auth/google_oauth2", :class => classes
                 .span2
-                  %a.github{:href => "/"} red
+                  - classes = "linkedin #{has_linkedin? ? 'active':''}"
+                  = link_to "linkedin", "/auth/linkedin", :class => classes
                 .span2
-                  %a.add-more{:href => "/"} red
+                  = link_to "Add More", "#", :class => "add-more"
               .span10.contacto.pull-right
                 %button.btn.btn-site{:type => "button"} Save
           .clearfix
