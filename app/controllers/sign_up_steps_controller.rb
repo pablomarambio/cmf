@@ -1,5 +1,7 @@
 class SignUpStepsController < ApplicationController
-  before_filter :find_user, :except => [:enter_wizard, :step_set_threshold]
+
+  def index
+  end
 
   def enter_wizard
   	if current_user

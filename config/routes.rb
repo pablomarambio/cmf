@@ -11,9 +11,9 @@ Cmf::Application.routes.draw do
   get "payment_result/:id/:random" => "payments#payment_router", :as => "payment_router"
 
   # --- Home --- #
-  get "users_profile" => "home#users_profile", :as => "users_profile"
-  get "profile" => "home#profile", :as => "profile"
-  get "profile/:username" => "home#public_profile", :constraints  => { :username => /[\w_\-\.]+/}
+  get "users_profile" => "profile#users_profile", :as => "users_profile"
+  get "profile" => "profile#profile", :as => "profile"
+  get "profile/:username" => "profile#public_profile", :constraints  => { :username => /[\w_\-\.]+/}
 
   # --- Messages --- #
   resources :messages, :except => [:new]
@@ -33,9 +33,9 @@ Cmf::Application.routes.draw do
   # --- Users --- #
   resources :users, :only => :update
   authenticated :user do
-    root :to => 'home#index'
+    root :to => 'profile#profile'
   end
 
-  root :to => "home#index"
+  root :to => "sign_up_steps#index"
   devise_for :users, :path => "auth"
 end
