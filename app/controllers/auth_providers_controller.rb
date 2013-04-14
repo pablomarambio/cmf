@@ -31,12 +31,13 @@ class AuthProvidersController < ApplicationController
 			# check if user has already signed in using this authentication provider and continue with sign in process if yes
 			if auth
 				flash[:notice] = 'Welcome back, ' + auth.username
-				sign_in auth.user and return
+				sign_in auth.user
+			else
+				# at this point we are facing a new user... so he must be signing up
+				raise "Unknown user trying to log in" unless signing_up?
+				@user.add_auth_provider h
+				sign_in @user
 			end
-			# at this point we are facing a new user... so he must be signing up
-			raise "Unknown user trying to log in" unless signing_up?
-			@user.add_auth_provider h
-			sign_in @user
       redirect_to profile_path
 		end
 	end
@@ -49,8 +50,8 @@ class AuthProvidersController < ApplicationController
 		hash[:email] = omniauth['info']['email']
 		hash[:real_name] = omniauth['info']['name']
 		# el username será su nombre combinado
-		hash[:username] = hash[:real_name].gsub(/[\*\-_\.]/,"").gsub(/\b/, "_")
-		hash[:profile_uri] = omniauth['extra']['urls']['public_profile']
+		hash[:username] = hash[:real_name].gsub(/[\*\-_\.]/,"").gsub(/ /, "_")
+		hash[:profile_uri] = omniauth['info']['urls']['Facebook']
 		hash[:avatar] = omniauth['info']['image']
 		hash[:provider_name] = omniauth['provider']
 		hash
@@ -72,8 +73,8 @@ class AuthProvidersController < ApplicationController
 		hash = {}
 		hash[:id] = omniauth['uid']
 		hash[:email] = omniauth['info']['email']
-		hash[:real_name] = omniauth['extra']['raw_info']['name']
-		hash[:username] = omniauth['extra']['raw_info']['username']
+		hash[:real_name] = omniauth['info']['nickname']
+		hash[:username] = hash[:real_name].gsub(/[\*\-_\.]/,"").gsub(/ /, "_")
 		hash[:profile_uri] = omniauth['extra']['raw_info']['link']
 		hash[:avatar] = omniauth['info']['image']
 		hash[:provider_name] = omniauth['provider']
@@ -99,7 +100,7 @@ class AuthProvidersController < ApplicationController
 		hash[:real_name] = omniauth['info']['name']
 		hash[:avatar] = omniauth['info']['image']
 		# el username será su nombre combinado
-		hash[:username] = hash[:real_name].gsub(/[\*\-_\.]/,"").gsub(/\b/, "_")
+		hash[:username] = hash[:real_name].gsub(/[\*\-_\.]/,"").gsub(/ /, "_")
 		hash[:profile_uri] = omniauth['extra']['raw_info']['link']
 		hash[:provider_name] = omniauth['provider']
 		hash
