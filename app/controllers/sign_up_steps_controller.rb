@@ -1,6 +1,7 @@
 class SignUpStepsController < ApplicationController
 
   def index
+    render :layout => false
   end
 
   def enter_wizard
