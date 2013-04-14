@@ -17,7 +17,7 @@
     %link{:href => "img/apple-touch-icon-57-precomposed.png", :rel => "apple-touch-icon-precomposed"}
     %link{:rel => "shortcut icon", :href => asset_path("favicon.png")}
   %body
-    .navbar.navbar-fixed-top.menu-principal
+    .navbar.menu-principal
       .navbar-inner
         .container
           %button.btn.btn-navbar{"data-target" => ".nav-collapse", "data-toggle" => "collapse", :type => "button"}
@@ -80,12 +80,7 @@
                 .clearfix
               .span10.nombre-perfil
                 %label Edit your name
-                %select.span5
-                  %option 1
-                  %option 2
-                  %option 3
-                  %option 4
-                  %option 5
+                = select_tag :uname, options_for_select(name_options)
                 .clearfix
               .span10.descripcion-personalizable
                 .control-group

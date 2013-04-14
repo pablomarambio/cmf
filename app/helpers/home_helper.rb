@@ -19,4 +19,8 @@ module HomeHelper
 	def has_social_network? sn_name
 		@user.auth_providers.any? {|ap| ap.provider == sn_name}
 	end
+
+	def name_options
+		@user.auth_providers.map {|ap| ["#{ap.uname} (#{ap.provider})", ap.provider]}
+	end
 end
