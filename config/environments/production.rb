@@ -31,7 +31,7 @@ Cmf::Application.configure do
   # config.force_ssl = true
 
   # See everything in the log (default is :info)
-  config.logger.level = Logger.const_get((ENV["LOG_LEVEL"] || "INFO").upcase)
+  config.logger.level = Logger.const_get((ENV["LOG_LEVEL"] || "INFO").upcase) unless config.logger.nil?
 
   # Prepend all log lines with the following tags
   # config.log_tags = [ :subdomain, :uuid ]
