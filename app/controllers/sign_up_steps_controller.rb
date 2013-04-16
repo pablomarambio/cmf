@@ -1,7 +1,7 @@
 class SignUpStepsController < ApplicationController
+  layout "public"
 
   def index
-    render :layout => false
   end
 
   def enter_wizard

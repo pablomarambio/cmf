@@ -1,114 +1,50 @@
-!!!
-%html
-  %head
-    %meta{:name => "charset", :content => "utf-8" }/
-    %title Perfil de Usuario
-    %meta{:name => "viewport", :content => "width=device-width, initial-scale=1.0" }/
-    %meta{:name => "description", :content => "omg" }/
-    %meta{:name => "author", :content => "omg" }/
-
-    = stylesheet_link_tag "application"
-    %link{:href => "http://fonts.googleapis.com/css?family=Oxygen:400,300,700&subset=latin,latin-ext", :rel => "stylesheet"}/
-    /[if lt IE 9]
-      %script{:type => "text/javascript", :src => "js/html5shiv.js"}
-    %link{:href => "img/apple-touch-icon-144-precomposed.png", :sizes => "144x144", :rel => "apple-touch-icon-precomposed"}
-    %link{:href => "img/apple-touch-icon-114-precomposed.png", :sizes => "114x114", :rel => "apple-touch-icon-precomposed"}
-    %link{:href => "img/apple-touch-icon-72-precomposed.png", :sizes => "72x72", :rel => "apple-touch-icon-precomposed"}
-    %link{:href => "img/apple-touch-icon-57-precomposed.png", :rel => "apple-touch-icon-precomposed"}
-    %link{:rel => "shortcut icon", :href => asset_path("favicon.png")}
-  %body
-    .navbar.menu-principal
-      .navbar-inner
-        .container
-          %button.btn.btn-navbar{"data-target" => ".nav-collapse", "data-toggle" => "collapse", :type => "button"}
-            %span.icon-bar
-            %span.icon-bar
-            %span.icon-bar
-        %a.brand{:href=>"#"} Threshold
-        .nav-collapse.collapse
-          %ul.nav
-            %li.active
-              %a{:href => "#"} Home
-            %li
-              %a{:href => "#"} Item Dos
-            %li
-              %a{:href => "#"} Item Tres
-            %li
-              %a{:href => "#"} Item Cuatro
-          %ul.nav.pull-right
-            %li#fat-menu.dropdown
-              %a#drop3.dropdown-toggle{"data-toggle" => "dropdown", :href => "#", :role => "button"}
-                Login
-                %b.caret
-              %ul.dropdown-menu{"aria-labelledby" => "drop3", :role => "menu"}
-                %li{:role => "presentation"}
-                  %a{:href => "#", :role => "menuitem", :tabindex => "-1"} Action
-                %li{:role => "presentation"}
-                  %a{:href => "#", :role => "menuitem", :tabindex => "-1"} Another action
-                %li{:role => "presentation"}
-                  %a{:href => "#", :role => "menuitem", :tabindex => "-1"} Something else here
-                %li.divider{:role => "presentation"}
-                %li{:role => "presentation"}
-                  %a{:href => "#", :role => "menuitem", :tabindex => "-1"} Separated link
-    .bg.breadcrumb
-      .container
-        %ul.breadcrumb
-          %li
-            %a{:href => "#"} Home
-            %span.divider /
-          %li.active Edit Perfil
-    .container.page
-      .row-fluid
-        %lengend
-          = "#{@user.name}'s profile"
-        .well.box-perfil
-          %form
-            .perfil
-              .span2
-                .img-perfil
-                  = image_tag @user.main_picture, :class=>".img-rounded", :height => "170", :width => "170"
-                .votacion
-                  %h2 Rate
-                  %hr/
-                  .rate X X X X X
-              .span10.nombre-perfil
-                = @user.name
-              .span10.descripcion-personalizable
-                %span.comillas> "
-                = @user.comment
-                %span.comillas "
-              .span5.precio
-                = number_to_currency @user.threshold, :precision => 0
-              .span5.contacto
-                %button.btn.btn-site{:type => "button"} Contact
-              .span10.redes
-                .span2
-                  =link_to "/", "Facebook", :class => "facebook active"
-                  %span Facebook
-                .span2
-                  =link_to "/", "Twitter", :class => "twitter active"
-                  %span Twitter
-                .span2
-                  =link_to "/", "Linkedin", :class => "linkedin"
-                  %span Linkedin
-                .span2
-                  =link_to "/", "Google+", :class => "googleplus active"
-                  %span Google +
-                .span2
-                  =link_to "/", "Github", :class => "github"
-                  %span Github
-                .span2
-                  =link_to "/", "Other", :class => "add-more"
-                  %span Add Another
-              .span10.contacto
-                %button.btn.btn-site{:type => "button"} Contact
-            .clearfix
+.container.page
+  .row-fluid
+    %lengend
+      = "#{@user.name}'s profile"
+    .well.box-perfil
+      %form
+        .perfil
+          .span2
+            .img-perfil
+              = image_tag @user.main_picture, :class=>".img-rounded", :height => "170", :width => "170"
+            .votacion
+              %h2 Rate
+              %hr/
+              .rate X X X X X
+          .span10.nombre-perfil
+            = @user.name
+          .span10.descripcion-personalizable
+            %span.comillas> "
+            = @user.comment
+            %span.comillas "
+          .span5.precio
+            = number_to_currency @user.threshold, :precision => 0
+          .span5.contacto
+            %button.btn.btn-site{:type => "button"} Contact
+          .span10.redes
+            .span2
+              =link_to "/", "Facebook", :class => "facebook active"
+              %span Facebook
+            .span2
+              =link_to "/", "Twitter", :class => "twitter active"
+              %span Twitter
+            .span2
+              =link_to "/", "Linkedin", :class => "linkedin"
+              %span Linkedin
+            .span2
+              =link_to "/", "Google+", :class => "googleplus active"
+              %span Google +
+            .span2
+              =link_to "/", "Github", :class => "github"
+              %span Github
+            .span2
+              =link_to "/", "Other", :class => "add-more"
+              %span Add Another
+          .span10.contacto
+            %button.btn.btn-site{:type => "button"} Contact
         .clearfix
-      %footer
-        %p Treshhold 2013
     .clearfix
-    /
-      Le javascript
-      \==================================================
-      Placed at the end of the document so the pages load faster
-    = stylesheet_link_tag "application"
+  %footer
+    %p Treshhold 2013
+  .clearfix

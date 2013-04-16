@@ -1,0 +1,62 @@
+!!!
+%html
+  %head
+    %meta{:name => "charset", :content => "utf-8" }/
+    %title TocToc
+    %meta{:name => "viewport", :content => "width=device-width, initial-scale=1.0" }/
+    %meta{:name => "description", :content => "omg" }/
+    %meta{:name => "author", :content => "omg" }/
+
+    = stylesheet_link_tag "application"
+    %link{:href => "http://fonts.googleapis.com/css?family=Oxygen:400,300,700&subset=latin,latin-ext", :rel => "stylesheet"}/
+    /[if lt IE 9]
+      %script{:type => "text/javascript", :src => "js/html5shiv.js"}
+    %link{:href => "img/apple-touch-icon-144-precomposed.png", :sizes => "144x144", :rel => "apple-touch-icon-precomposed"}
+    %link{:href => "img/apple-touch-icon-114-precomposed.png", :sizes => "114x114", :rel => "apple-touch-icon-precomposed"}
+    %link{:href => "img/apple-touch-icon-72-precomposed.png", :sizes => "72x72", :rel => "apple-touch-icon-precomposed"}
+    %link{:href => "img/apple-touch-icon-57-precomposed.png", :rel => "apple-touch-icon-precomposed"}
+    %link{:rel => "shortcut icon", :href => asset_path("favicon.png")}
+  %body
+    .navbar.menu-principal
+      .navbar-inner
+        .container
+          %button.btn.btn-navbar{"data-target" => ".nav-collapse", "data-toggle" => "collapse", :type => "button"}
+            %span.icon-bar
+            %span.icon-bar
+            %span.icon-bar
+        %a.brand{:href=>"#"} TocToc
+        .nav-collapse.collapse
+          %ul.nav
+            %li.active
+              %a{:href => "#"} Home
+            %li
+              %a{:href => "#"} Item Dos
+            %li
+              %a{:href => "#"} Item Tres
+            %li
+              %a{:href => "#"} Item Cuatro
+          %ul.nav.pull-right
+            %li#fat-menu.dropdown
+              %a#drop3.dropdown-toggle{"data-toggle" => "dropdown", :href => "#", :role => "button"}
+                Login
+                %b.caret
+              %ul.dropdown-menu{"aria-labelledby" => "drop3", :role => "menu"}
+                %li{:role => "presentation"}
+                  %a{:href => "#", :role => "menuitem", :tabindex => "-1"} Action
+                %li{:role => "presentation"}
+                  %a{:href => "#", :role => "menuitem", :tabindex => "-1"} Another action
+                %li{:role => "presentation"}
+                  %a{:href => "#", :role => "menuitem", :tabindex => "-1"} Something else here
+                %li.divider{:role => "presentation"}
+                %li{:role => "presentation"}
+                  %a{:href => "#", :role => "menuitem", :tabindex => "-1"} Separated link
+    .bg.breadcrumb
+      .container
+        %ul.breadcrumb
+          %li
+            %a{:href => "#"} Home
+            %span.divider /
+          %li.active Edit Perfil
+    = yield
+    = javascript_include_tag "application"
+    = yield :script
