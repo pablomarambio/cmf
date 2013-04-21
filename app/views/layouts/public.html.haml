@@ -6,6 +6,7 @@
     %meta{:name => "viewport", :content => "width=device-width, initial-scale=1.0" }/
     %meta{:name => "description", :content => "omg" }/
     %meta{:name => "author", :content => "omg" }/
+    = csrf_meta_tags
 
     = stylesheet_link_tag "application"
     %link{:href => "http://fonts.googleapis.com/css?family=Oxygen:400,300,700&subset=latin,latin-ext", :rel => "stylesheet"}/
@@ -59,4 +60,13 @@
           %li.active Edit Perfil
     = yield
     = javascript_include_tag "application"
-    = yield :script
+    :javascript
+      $(function(){
+        csrf = $('meta[name="csrf-token"]').attr('content');
+        $.ajaxSetup({
+          beforeSend: function(xhr) {
+            xhr.setRequestHeader('X-CSRF-Token', csrf);
+          }
+        });
+        #{yield :javascript}
+      });

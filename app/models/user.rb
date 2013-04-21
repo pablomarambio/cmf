@@ -91,4 +91,14 @@ class User < ActiveRecord::Base
     end
   end
 
+  def set_img(provider_name)
+    provider = self.auth_providers.where('provider = ?', provider_name).first
+    raise "No provider called #{provider_name} for #{self.to_s}" unless provider
+    self.main_picture = provider.image
+  end
+
+  def to_s
+    self.name || "User #{self.id}"
+  end
+
 end

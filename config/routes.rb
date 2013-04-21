@@ -12,8 +12,12 @@ Cmf::Application.routes.draw do
 
   # --- Home --- #
   get "users_profile" => "profile#users_profile", :as => "users_profile"
-  get "profile" => "profile#profile", :as => "profile"
-  get "profile/:username" => "profile#public_profile", :constraints  => { :username => /[\w_\-\.]+/}
+  scope "/profile" do
+    get "/" => "profile#profile", :as => "profile"
+    get "/data" => "profile#data", :as => "pf_get_data"
+    post "/img" => "profile#set_img", :as => "pf_set_img", :constraints => { provider: /\w+/ }
+  end
+  get "usr/:username" => "profile#public_profile", :constraints  => { :username => /[\w_\-\.]+/}
 
   # --- Messages --- #
   resources :messages, :except => [:new]

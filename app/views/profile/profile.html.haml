@@ -7,16 +7,17 @@
         .perfil.edit
           .span2
             .img-perfil
-              = image_tag @user.main_picture, :class=>".img-rounded", :height => "170", :width => "170"
+              = image_tag @user.main_picture, :class=>".img-rounded", :height => "170", :width => "170", :id => "main_picture"
             .social-images
               .row-fluid.full-width
                 .span12
                   Select social image
                   %hr/
-                  .row-fluid
+                  .row-fluid#imgoptions
                     - @user.auth_providers.each do |ap|
                       - unless ap.image == @user.main_picture
                         .span4.well
+                          = hidden_field_tag ap.provider, ap.provider
                           = image_tag ap.image, :alt => @user.name
             .clearfix
           .span10.nombre-perfil
@@ -65,3 +66,29 @@
   %footer
     %p Treshhold 2013
   .clearfix
+
+- content_for :javascript do
+  :plain
+    function refresh(){
+      $.ajax({url: "#{pf_get_data_path}",
+        success: function(data){
+          //{img: url, ...}
+          $("img#main_picture").attr("src", data["img"]);
+        }, error: function(){
+          
+        } 
+      }); //ajax
+    }
+
+    $("#imgoptions img").click(function(){
+      provider_name = $(this).siblings("input[type=hidden]").val();
+      $.ajax({url: "#{pf_set_img_path}", type: "post",
+        data: {provider: provider_name},
+        success: function(data){
+          refresh();
+        }, error: function(){
+          alert("change img fail");
+        }
+      }); //ajax
+    });
+        
