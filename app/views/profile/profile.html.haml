@@ -2,7 +2,8 @@
   .row-fluid
     %legend 
       Your profile
-      = link_to "(view as sender)", public_profile_path(@user.username)
+      - if @user.signed_up?
+        = link_to "(view as sender)", public_profile_path(@user.username), :id => "public_profile_link"
     .well.box-perfil
       %form
         .perfil.edit
@@ -131,13 +132,18 @@
     }
 
     function loadProfile(data) {
+      //public profile link
+      public_profile_url = "/usr/" + data["username"];
+      // selected image and alternatives
       $("img#main_picture").attr("src", data["main_picture"]);
-      $("h3#name").text(data["name"]);
       cont = 0;
       $.each($("#imgoptions>div"), function(){
         $("input[type=hidden]", this).val(data["alt_pics"][cont]["provider"]);
         $("img", this).attr("src", data["alt_pics"][cont++]["image"]);
       });
+      // selected name and alternatives
+      $("h3#name").text(data["name"]);
+      if(data["status"] == "signed_up") $("a#public_profile_link").attr("href", public_profile_url);
       $("select#uname option").remove();
       $.each(data["alt_names"], function(idx, op){
         $("select#uname").append(
@@ -147,7 +153,7 @@
       // if the user has just completed the sign up process
       if(data["status"] == "signed_up" && /start/i.test($("button#save").text())) {
         $("button#save").text("Saved! Redirecting...");
-        window.location = "/usr/" + data["username"];
+        window.location = public_profile_url;
       }
       validateProfile();
     }
