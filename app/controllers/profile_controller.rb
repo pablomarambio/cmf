@@ -14,19 +14,22 @@ class ProfileController < ApplicationController
   end
 
   def data
-    images = @user.auth_providers.map do |ap|
-      if @user.main_picture == ap.image
-        nil
-      else
-        { provider: ap.provider, image: ap.image }
-      end 
-    end.compact
-    puts images.inspect
-    render :json => {success: true, main_picture: @user.main_picture, alt_pics: images}
+    render :json => {success: true, 
+      main_picture: @user.main_picture, 
+      alt_pics: @user.alternative_pictures,
+      name: @user.name,
+      alt_names: @user.alternative_names
+    }
   end
 
-  def set_img
-    @user.set_img params[:provider]
+  def set_main_pic
+    @user.set_main_picture params[:provider]
+    @user.save!
+    render :json => {success: true}
+  end
+
+  def set_name
+    @user.set_name params[:provider]
     @user.save!
     render :json => {success: true}
   end

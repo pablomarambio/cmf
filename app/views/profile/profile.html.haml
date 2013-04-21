@@ -21,7 +21,10 @@
                           = image_tag ap.image, :alt => @user.name
             .clearfix
           .span10.nombre-perfil
-            %label Edit your name
+            %label Your name is
+            %h3#name
+              = @user.name
+            %label Select other name
             = select_tag :uname, options_for_select(name_options)
             .clearfix
           .span10.descripcion-personalizable

@@ -15,10 +15,8 @@
           %img{:src => image_path("peephole01.png")}/
   .clearfix
 
-  - content_for :script do
-    :javascript
-      $(function(){
-        $("#start").click(function(){
-          document.location = "#{signup_wizard_path}"
-        });
+  - content_for :javascript do
+    :plain
+      $("#start").click(function(){
+        document.location = "#{signup_wizard_path}"
       });

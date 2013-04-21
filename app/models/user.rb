@@ -85,20 +85,50 @@ class User < ActiveRecord::Base
       :raw => h[:raw])
     if self.auth_providers.count == 1
       # If this is this user's only auth provider, we set his username and avatar
-      self.main_picture = h[:avatar]
+      self.set_main_picture h[:provider_name]
+      self.set_name h[:provider_name]
       self.username = h[:username].downcase
       self.save!
     end
   end
 
-  def set_img(provider_name)
-    provider = self.auth_providers.where('provider = ?', provider_name).first
-    raise "No provider called #{provider_name} for #{self.to_s}" unless provider
+  def set_main_picture(provider_name)
+    provider = get_provider provider_name
     self.main_picture = provider.image
+  end
+
+  # Returns the pictures from the auth providers the user isn't using
+  def alternative_pictures
+    auth_providers.map do |ap|
+      if main_picture == ap.image
+        nil
+      else
+        { provider: ap.provider, image: ap.image }
+      end 
+    end.compact
+  end
+
+  def set_name(provider_name)
+    provider = get_provider provider_name
+    self.name = provider.uname
+  end
+
+  # Returns the names from all auth providers
+  def alternative_names
+    auth_providers.map do |ap|
+      { provider: ap.provider, name: "#{ap.uname} (#{ap.provider})" }
+    end
   end
 
   def to_s
     self.name || "User #{self.id}"
+  end
+
+  private
+  def get_provider provider_name
+    provider = self.auth_providers.where('provider = ?', provider_name).first
+    raise "No provider called #{provider_name} for #{self.to_s}" unless provider
+    provider
   end
 
 end
