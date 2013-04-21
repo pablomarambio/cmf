@@ -17,6 +17,7 @@ Cmf::Application.routes.draw do
     get "/data" => "profile#data", :as => "pf_get_data"
     post "/pic" => "profile#set_main_pic", :as => "pf_set_img", :constraints => { provider: /\w+/ }
     post "/name" => "profile#set_name", :as => "pf_set_name", :constraints => { provider: /\w+/ }
+    post "/save" => "profile#save", :as => "pf_save", :constraints => { name: /\w+/, email: /.+@.+\.\w+/, price: /\d+/ }
   end
   get "usr/:username" => "profile#public_profile", :constraints  => { :username => /[\w_\-\.]+/}
 

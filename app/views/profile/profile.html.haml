@@ -72,7 +72,7 @@
             .span2
               = link_to "Add More", "#", :class => "add-more"
           .span10.contacto.pull-right
-            %button.btn.btn-site{:type => "button"} Save
+            %button#save.btn.btn-site{:type => "button"} Save
       .clearfix
     .clearfix
   %footer
@@ -83,22 +83,23 @@
   :plain
 
     function validateProfile(){
-      validateComment();
-      validateEmail();
-      validatePrice();
+      commentOk = validateComment();
+      emailOk = validateEmail();
+      priceOk = validatePrice();
+      return priceOk && commentOk && emailOk;
     }
 
     function validateComment() {
-      validateInput("textarea#comment", /\w\w+/);
+      return validateInput("textarea#comment", /\w\w+/);
     }
 
     function validateEmail() {
       var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-      validateInput("input#email", re);
+      return validateInput("input#email", re);
     }
 
     function validatePrice() {
-      validateInput("input#price", /^\d+$/);
+      return validateInput("input#price", /^\d+$/);
     }
 
     function validateInput(inputDesc, re) {
@@ -108,9 +109,11 @@
       if(!re.test(input.val())) {
         cGroup.addClass("error");
         errorMsg.show();
+        return false;
       } else {
         cGroup.removeClass("error");
         errorMsg.hide();
+        return true;
       }
     }
 
@@ -186,5 +189,22 @@
       validatePrice();
     }).blur(function(){
       validatePrice();
+    });
+
+    //form save (comment, email and price)
+    $("button#save").click(function(){
+      comment = $("textarea#comment").val();
+      email = $("input#email").val();
+      price = $("input#price").val();
+      if (validateProfile()) {
+        $.ajax({url: "#{pf_save_path}", type: "post",
+          data: {comment: comment, email: email, price: price},
+          success: function(data){
+            refreshProfile();
+          }, error: function(){
+            alert("form save fail");
+          }
+        }); //ajax
+      }
     });
         

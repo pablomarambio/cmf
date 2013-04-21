@@ -34,4 +34,12 @@ class ProfileController < ApplicationController
     render :json => {success: true}
   end
 
+  def save
+    @user.comment = params[:comment]
+    @user.email = params[:email]
+    @user.threshold = params[:price]
+    @user.save!
+    render :json => {success: true}
+  end
+
 end
