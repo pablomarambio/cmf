@@ -11,12 +11,12 @@
             .social-images
               .row-fluid.full-width
                 .span12
-                  Select social image
+                  Select your profile picture
                   %hr/
                   .row-fluid#imgoptions
                     - @user.auth_providers.each do |ap|
                       - unless ap.image == @user.main_picture
-                        .span4.well
+                        .span4.well.no-padding
                           = hidden_field_tag ap.provider, ap.provider
                           = image_tag ap.image, :alt => @user.name
             .clearfix
