@@ -33,16 +33,16 @@
                 = text_area_tag :comment, @user.comment, :rows => "3", :placeholder => "What is it you compromise to do when someone pays #{number_to_currency(@user.threshold, :precision => 0)}?", :class => "span12"
                 %span.help-inline{style: "display:none;"} Please provide a valid message for potential senders.
             .clearfix
-          .span5.precio
+          .span5.precio.pull-right
             .control-group
-              %label.control-label{:for => :price} Users willing to message me must pay:
+              %label.control-label{:for => :price} To write me, senders must pay:
               .controls
                 .input-prepend
                   %span.add-on $
                   = text_field_tag :price, @user.threshold.to_i, :placeholder => "Your price in USD"
                 %span.help-inline{style: "display:none;"} Use only numbers. The price is in USD.
             .clearfix
-          .span5.contacto
+          .span5.contacto.pull-right
             .control-group
               %label.control-label{:for => :email} Send messages to:  
               .controls
@@ -170,15 +170,21 @@
     //change message
     $("textarea#comment").change(function(){
       validateComment();
+    }).blur(function(){
+      validateComment();
     });
 
     //change email
     $("input#email").change(function(){
       validateEmail();
+    }).blur(function(){
+      validateEmail();
     });
 
     //change price
     $("input#price").change(function(){
+      validatePrice();
+    }).blur(function(){
       validatePrice();
     });
         
