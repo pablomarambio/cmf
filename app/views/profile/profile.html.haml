@@ -73,7 +73,12 @@
       $.ajax({url: "#{pf_get_data_path}",
         success: function(data){
           //{img: url, ...}
-          $("img#main_picture").attr("src", data["img"]);
+          $("img#main_picture").attr("src", data["main_picture"]);
+          cont = 0;
+          $.each($("#imgoptions>div"), function(){
+            $("input[type=hidden]", this).val(data["alt_pics"][cont]["provider"]);
+            $("img", this).attr("src", data["alt_pics"][cont++]["image"]);
+          });
         }, error: function(){
           
         } 
