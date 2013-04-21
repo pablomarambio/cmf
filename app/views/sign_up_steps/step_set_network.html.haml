@@ -1,22 +1,25 @@
-.container.home
+.container
   .row-fluid
-    %h1 2) Link your public profiles
-    %p.lead 
-      Displaying links to your public profiles will help proving you're you.
-      %br
-      %strong Important
-      MyThreshold.com does *NOT* post, comment, or create any content whatsoever on your social networks. If you don't tell your acquintances you are here, they won't know it.
+    .well
+      %h1 2) Choose your password
+      %p.lead 
+        Select one of the following as your password.
+        %br
+        %strong Important
+        %em MyThreshold.com does *NOT* post, comment, or create any content whatsoever on your social networks.
 
-  .row-fluid
-    .span12
-      %em Linking more social networks will improve the probability of someone paying to contact you.
-  .row-fluid 
-    .span4
-      = link_to image_tag("authicons/facebook_256.png"), "/auth/facebook"
-    .span4
-      = link_to image_tag("authicons/twitter_256.png"), "/auth/twitter"
-    .span7
-      =raw "&nbsp;"
+        #remote
+          #services.form-vertical
+            = link_to image_tag("authicons/facebook_128.png"), "/auth/facebook"
+            = link_to image_tag("authicons/twitter_128.png"), "/auth/twitter"
+            = link_to image_tag("authicons/google_128.png"), "/auth/google_oauth2"
+            = link_to image_tag("authicons/linkedin_128.png"), "/auth/linkedin"
+            = link_to image_tag("authicons/github_128.png"), "/auth/github"
+
+- content_for :breadcrumbs do
+  %a{:href => "#"} Sign up
+  %span.divider >
+  %a.active{:href => "#"} Log in
 
 
 /

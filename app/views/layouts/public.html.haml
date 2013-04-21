@@ -54,9 +54,12 @@
       .container
         %ul.breadcrumb
           %li
-            %a{:href => "#"} Home
-            %span.divider /
-          %li.active Edit Perfil
+            - if params[:controller] =~ /steps/ and params[:action] == "index"
+              %a{:href => "#"} Home
+            - else
+              %a{:href => "/"} Home
+              %span.divider >
+              = yield :breadcrumbs
     = yield
     = javascript_include_tag "application"
     :javascript

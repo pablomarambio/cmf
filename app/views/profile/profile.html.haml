@@ -1,7 +1,7 @@
 .container.page
   .row-fluid
     %legend 
-      Edit profile
+      Your profile
     .well.box-perfil
       %form
         .perfil.edit
@@ -78,6 +78,9 @@
   %footer
     %p Treshhold 2013
   .clearfix
+
+- content_for :breadcrumbs do
+  %a.active{:href => profile_path} Profile
 
 - content_for :javascript do
   :plain

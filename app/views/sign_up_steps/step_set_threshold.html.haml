@@ -1,14 +1,19 @@
-.container.home
+.container
   .row-fluid
-    %h1 1) Set a price tag
-    %p.lead I commit to answer to anyone who pays...
-    = form_tag step_set_threshold_path do
-      .input-prepend.input-append
-        %span.add-on $
-        = text_field_tag :threshold, params[:threshold]
-        %span.add-on .00
-      = submit_tag "Continue", :class => "btn btn-large btn-success"
+    .well
+      %h1 1) Set a price tag
+      %p.lead I commit to answer to anyone who pays...
+      = form_tag step_set_threshold_path do
+        .input-prepend.input-append
+          %span.add-on $
+          = text_field_tag :threshold, params[:threshold]
+          %span.add-on .00
+        = submit_tag "Continue", :class => "btn btn-large btn-success"
 
+- content_for :breadcrumbs do
+  %a{:href => "#"} Sign up
+  %span.divider >
+  %a.active{:href => "#"} Set price
 
 /
   .jumbotron
