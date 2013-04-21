@@ -77,10 +77,17 @@
         success: function(data){
           //{img: url, ...}
           $("img#main_picture").attr("src", data["main_picture"]);
+          $("h3#name").text(data["name"]);
           cont = 0;
           $.each($("#imgoptions>div"), function(){
             $("input[type=hidden]", this).val(data["alt_pics"][cont]["provider"]);
             $("img", this).attr("src", data["alt_pics"][cont++]["image"]);
+          });
+          $("select#uname option").remove();
+          $.each(data["alt_names"], function(idx, op){
+            $("select#uname").append(
+              "<option value='" + op["provider"] + "'>" + op["name"] + "</option>"
+            );
           });
         }, error: function(){
           
@@ -98,5 +105,18 @@
           alert("change img fail");
         }
       }); //ajax
+    });
+
+    $("select#uname").change(function(){
+      provider_name = $(this).val();
+      $.ajax({url: "#{pf_set_name_path}", type: "post",
+        data: {provider: provider_name},
+        success: function(data){
+          refresh();
+        }, error: function(){
+          alert("change name fail");
+        }
+      }); //ajax
+
     });
         
