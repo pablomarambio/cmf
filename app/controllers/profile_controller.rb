@@ -8,6 +8,7 @@ class ProfileController < ApplicationController
 
   def public_profile
     @user = User.find_by_username(params[:username])
+    @this_is_my_profile = user_signed_in? and @user.id == current_user.id
   end
 
   def all_profiles

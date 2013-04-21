@@ -2,7 +2,7 @@
   .row-fluid
     %lengend
       = "#{@user.name}'s profile"
-      - if user_signed_in? and @user.id == current_user.id
+      - if @this_is_my_profile
         = link_to "(edit mode)", profile_path
     .well.box-perfil
       %form
@@ -23,7 +23,11 @@
           .span5.precio
             = number_to_currency @user.threshold, :precision => 0
           .span5.contacto
-            %button.btn.btn-site{:type => "button"} Contact
+            %button.btn.btn-site{:type => "button"} 
+              - if @this_is_my_profile 
+                Contact (we won't charge you)
+              - else
+                Contact
           .span10.redes
             .span2
               - if has_facebook?
@@ -56,7 +60,11 @@
                 = link_to "network_profile", "#", :class => "github"
               %span Github
           .span10.contacto
-            %button.btn.btn-site{:type => "button"} Contact
+            %button.btn.btn-site{:type => "button"} 
+              - if @this_is_my_profile 
+                Contact (try it out, it's free for you!)
+              - else
+                Contact
         .clearfix
     .clearfix
   %footer
