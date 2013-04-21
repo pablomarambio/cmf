@@ -73,7 +73,11 @@
             .span2
               = link_to "Add More", "#", :class => "add-more"
           .span10.contacto.pull-right
-            %button#save.btn.btn-site{:type => "button"} Save
+            %button#save.btn.btn-site{:type => "button"} 
+              - if @user.signing_up? 
+                Start receiving messages!
+              - else
+                Save
       .clearfix
     .clearfix
   %footer
@@ -81,7 +85,12 @@
   .clearfix
 
 - content_for :breadcrumbs do
-  %a.active{:href => profile_path} Profile
+  - if @user.signing_up?
+    %a{:href => "#"} Sign up
+    %span.divider >
+    %a.active{:href => "#"} Complete your profile
+  - else
+    %a.active{:href => profile_path} Profile
 
 - content_for :javascript do
   :plain
@@ -135,6 +144,11 @@
           "<option value='" + op["provider"] + "'>" + op["name"] + "</option>"
         );
       });
+      // if the user has just completed the sign up process
+      if(data["status"] == "signed_up" && /start/i.test($("button#save").text())) {
+        $("button#save").text("Saved! Redirecting...");
+        window.location = "/usr/" + data["username"];
+      }
       validateProfile();
     }
 

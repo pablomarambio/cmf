@@ -16,6 +16,8 @@ class ProfileController < ApplicationController
 
   def data
     render :json => {success: true, 
+      status: @user.status,
+      username: @user.username,
       main_picture: @user.main_picture, 
       alt_pics: @user.alternative_pictures,
       name: @user.name,
@@ -40,6 +42,7 @@ class ProfileController < ApplicationController
     @user.email = params[:email]
     @user.threshold = params[:price]
     @user.save!
+    @user.complete_profile
     render :json => {success: true}
   end
 
