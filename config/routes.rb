@@ -43,5 +43,5 @@ Cmf::Application.routes.draw do
   end
 
   root :to => "sign_up_steps#index"
-  devise_for :users, :path => "auth"
+  devise_for :users, :path => "auth", :controllers => { sessions: "sessions" }
 end

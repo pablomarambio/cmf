@@ -25,32 +25,31 @@
             %span.icon-bar
             %span.icon-bar
             %span.icon-bar
-        %a.brand{:href=>"#"} TocToc
+        %a.brand{:href=>"/"} TocToc
         .nav-collapse.collapse
           %ul.nav
-            %li.active
-              %a{:href => "#"} Home
-            %li
-              %a{:href => "#"} Item Dos
-            %li
-              %a{:href => "#"} Item Tres
-            %li
-              %a{:href => "#"} Item Cuatro
-          %ul.nav.pull-right
-            %li#fat-menu.dropdown
-              %a#drop3.dropdown-toggle{"data-toggle" => "dropdown", :href => "#", :role => "button"}
-                Login
-                %b.caret
-              %ul.dropdown-menu{"aria-labelledby" => "drop3", :role => "menu"}
-                %li{:role => "presentation"}
-                  %a{:href => "#", :role => "menuitem", :tabindex => "-1"} Action
-                %li{:role => "presentation"}
-                  %a{:href => "#", :role => "menuitem", :tabindex => "-1"} Another action
-                %li{:role => "presentation"}
-                  %a{:href => "#", :role => "menuitem", :tabindex => "-1"} Something else here
-                %li.divider{:role => "presentation"}
-                %li{:role => "presentation"}
-                  %a{:href => "#", :role => "menuitem", :tabindex => "-1"} Separated link
+            %li{:class => (params[:controller] == "profile" and params[:action] == "profile" ? "active" : "")}
+              = link_to "My Profile", profile_path
+            - unless user_signed_in?
+              %li{:class => (params[:controller] == "sessions" and params[:action] == "new" ? "active" : "")}
+                = link_to "Login", new_user_session_path
+          - if user_signed_in? 
+            %ul.nav.pull-right
+              %li#fat-menu.dropdown
+                %a#drop3.dropdown-toggle{"data-toggle" => "dropdown", :href => "#", :role => "button"}
+                  = @user.name
+                  %b.caret
+                %ul.dropdown-menu{"aria-labelledby" => "drop3", :role => "menu"}
+                  %li{:role => "presentation"}
+                    %a{:href => "#", :role => "menuitem", :tabindex => "-1"} Some action
+                  %li{:role => "presentation"}
+                    %a{:href => "#", :role => "menuitem", :tabindex => "-1"} Something else here
+                  %li.divider{:role => "presentation"}
+                  %li{:role => "presentation"}
+                    - if user_signed_in?
+                      = link_to "Close session", destroy_user_session_path, :method => :delete, :role => "menuitem", :tabindex => "-1"
+                    - else
+                      = link_to "Login", new_user_session_path, :role => "menuitem", :tabindex => "-1"
     .bg.breadcrumb
       .container
         %ul.breadcrumb

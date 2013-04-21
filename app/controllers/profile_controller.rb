@@ -1,4 +1,5 @@
 class ProfileController < ApplicationController
+  before_filter :authenticate_user!, :except => [:public_profile, :all_profiles]
   before_filter :find_user, :except => [:public_profile, :all_profiles]
   layout "public"
 
