@@ -2,6 +2,8 @@
   .row-fluid
     %lengend
       = "#{@user.name}'s profile"
+      - if user_signed_in? and @user.id == current_user.id
+        = link_to "(edit mode)", profile_path
     .well.box-perfil
       %form
         .perfil
@@ -24,23 +26,35 @@
             %button.btn.btn-site{:type => "button"} Contact
           .span10.redes
             .span2
-              =link_to "/", "Facebook", :class => "facebook active"
+              - if has_facebook?
+                = link_to "network_profile", facebook_url, :class => "facebook active"
+              - else
+                = link_to "network_profile", "#", :class => "facebook"
               %span Facebook
             .span2
-              =link_to "/", "Twitter", :class => "twitter active"
+              - if has_twitter?
+                = link_to "network_profile", twitter_url, :class => "twitter active"
+              - else
+                = link_to "network_profile", "#", :class => "twitter"
               %span Twitter
             .span2
-              =link_to "/", "Linkedin", :class => "linkedin"
+              - if has_googleplus?
+                = link_to "network_profile", googleplus_url, :class => "googleplus active"
+              - else
+                = link_to "network_profile", "#", :class => "googleplus"
+              %span Google+
+            .span2
+              - if has_linkedin?
+                = link_to "network_profile", linkedin_url, :class => "linkedin active"
+              - else
+                = link_to "network_profile", "#", :class => "linkedin"
               %span Linkedin
             .span2
-              =link_to "/", "Google+", :class => "googleplus active"
-              %span Google +
-            .span2
-              =link_to "/", "Github", :class => "github"
+              - if has_github?
+                = link_to "network_profile", github_url, :class => "github active"
+              - else
+                = link_to "network_profile", "#", :class => "github"
               %span Github
-            .span2
-              =link_to "/", "Other", :class => "add-more"
-              %span Add Another
           .span10.contacto
             %button.btn.btn-site{:type => "button"} Contact
         .clearfix

@@ -19,7 +19,7 @@ Cmf::Application.routes.draw do
     post "/name" => "profile#set_name", :as => "pf_set_name", :constraints => { provider: /\w+/ }
     post "/save" => "profile#save", :as => "pf_save", :constraints => { name: /\w+/, email: /.+@.+\.\w+/, price: /\d+/ }
   end
-  get "usr/:username" => "profile#public_profile", :constraints  => { :username => /[\w_\-\.]+/}
+  get "usr/:username" => "profile#public_profile", :as => "public_profile", :constraints  => { :username => /[\w_\-\.]+/}
 
   # --- Messages --- #
   resources :messages, :except => [:new]

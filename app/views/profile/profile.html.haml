@@ -2,6 +2,7 @@
   .row-fluid
     %legend 
       Your profile
+      = link_to "(view as sender)", public_profile_path(@user.username)
     .well.box-perfil
       %form
         .perfil.edit

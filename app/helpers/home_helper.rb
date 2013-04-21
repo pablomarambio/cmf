@@ -15,9 +15,27 @@ module HomeHelper
 	def has_github?
 		has_social_network? "github"
 	end
+	def facebook_url
+		social_network_url "facebook"
+	end
+	def github_url
+		social_network_url "github"
+	end
+	def googleplus_url
+		social_network_url "google_oauth2"
+	end
+	def linkedin_url
+		social_network_url "linkedin"
+	end
+	def twitter_url
+		social_network_url "twitter"
+	end
 
 	def has_social_network? sn_name
 		@user.auth_providers.any? {|ap| ap.provider == sn_name}
+	end
+	def social_network_url sn_name
+		@user.auth_providers.where("provider = ?", sn_name).first.profile_uri
 	end
 
 	def name_options

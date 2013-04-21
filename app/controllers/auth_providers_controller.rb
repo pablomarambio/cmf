@@ -78,7 +78,7 @@ class AuthProvidersController < ApplicationController
 		hash[:email] = omniauth['info']['email']
 		hash[:real_name] = omniauth['info']['nickname']
 		hash[:username] = hash[:real_name].gsub(/[\*\-_\.]/,"").gsub(/ /, "_")
-		hash[:profile_uri] = omniauth['extra']['raw_info']['link']
+		hash[:profile_uri] = omniauth['info']['urls']['public_profile']
 		hash[:avatar] = omniauth['info']['image']
 		hash[:provider_name] = omniauth['provider']
 		hash
