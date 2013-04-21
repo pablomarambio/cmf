@@ -396,11 +396,11 @@ transition: background-position 0.1s linear;
 .perfil.edit .descripcion-personalizable label { text-align: left; }
 
 .perfil.edit .precio label { text-align: left; }
-.perfil.edit .precio input, textarea, .uneditable-input { float: left; }
+.perfil.edit .precio textarea, .uneditable-input { float: left; }
 
 .perfil.edit .contacto { padding-top: 10px; }
 .perfil.edit .contacto label { text-align: left; }
-.perfil.edit .contacto input, textarea, .uneditable-input { float: left; }
+.perfil.edit .contacto textarea, .uneditable-input { float: left; }
 
 .social-images { text-align: center; }
 

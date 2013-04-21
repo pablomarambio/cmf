@@ -31,13 +31,15 @@
             .control-group
               %label.control-label{:for => "inputMessage"} Edit message
               .controls
-                %textarea#inputMessage.span12{:placeholder => "Message", :rows => "3"}
+                = text_area_tag :message, @user.comment, :rows => "3", :placeholder => "What is it you compromise to do when someone pays #{number_to_currency(@user.threshold, :precision => 0)}?", :class => "span12"
             .clearfix
           .span5.precio
             .control-group
               %label.control-label{:for => "inputPrice"} Edit price
               .controls
-                %input#inputPrice.span12{:placeholder => "$", :type => "text"}/
+                .input-prepend
+                  %span.add-on $
+                  = text_field_tag :price, @user.threshold.to_i, :placeholder => "Your price in USD"
             .clearfix
           .span5.contacto
             .control-group
@@ -95,6 +97,7 @@
       }); //ajax
     }
 
+    // change picture
     $("#imgoptions img").click(function(){
       provider_name = $(this).siblings("input[type=hidden]").val();
       $.ajax({url: "#{pf_set_img_path}", type: "post",
@@ -107,6 +110,7 @@
       }); //ajax
     });
 
+    // change name
     $("select#uname").change(function(){
       provider_name = $(this).val();
       $.ajax({url: "#{pf_set_name_path}", type: "post",
