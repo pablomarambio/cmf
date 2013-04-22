@@ -1,5 +1,6 @@
 class AnswersController < ApplicationController
   before_filter :find_message, :except => [ :create, :set_evaluation]
+  layout "public"
 
   def index
     @answers = Answer.all

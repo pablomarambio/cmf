@@ -23,11 +23,12 @@
           .span5.precio
             = number_to_currency @user.threshold, :precision => 0
           .span5.contacto
-            %button.btn.btn-site{:type => "button"} 
-              - if @this_is_my_profile 
-                Contact (we won't charge you)
-              - else
-                Contact
+            %a{ :href=>new_message_path(@user.username) }
+              %button.contact-now.btn.btn-site{:type => "button"} 
+                - if @this_is_my_profile 
+                  Contact now (we won't charge you)
+                - else
+                  Contact now
           .span10.redes
             .span2
               - if has_facebook?
@@ -60,13 +61,27 @@
                 = link_to "network_profile", "#", :class => "github"
               %span Github
           .span10.contacto
-            %button.btn.btn-site{:type => "button"} 
-              - if @this_is_my_profile 
-                Contact (try it out, it's free for you!)
-              - else
-                Contact
+            %a{ :href=>new_message_path(@user.username) }
+              %button.contact-now.btn.btn-site{:type => "button"} 
+                Write a message for
+                = "#{@user.name}"
+                - if @this_is_my_profile 
+                  (try it out, it's free for you!)
         .clearfix
     .clearfix
   %footer
     %p Treshhold 2013
   .clearfix
+
+- content_for :breadcrumbs do
+  - if @this_is_my_profile
+    %a{:href => profile_path} Profile
+    %span.divider >
+    %a.active{:href => "#"} Sender's view
+  - else
+    %a.active{:href => "#"} 
+      ="#{@user.username}'s profile"
+
+- content_for :javascript do
+  :plain
+    //hi

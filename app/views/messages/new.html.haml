@@ -1,6 +1,11 @@
-= render 'layouts/messages'
-.hero-unit
+.container
   .row-fluid
-    .span9.offset3
-      %h3 Write the message for #{params[:username] || " "}
-  = render 'form'
+    .well
+      %h1 
+        Write the message for 
+        = "#{@user.username}"
+      %p.lead 
+        Being concise will improve the odds of interesting 
+        = "#{@user.name}"
+        %br
+      = render 'form'

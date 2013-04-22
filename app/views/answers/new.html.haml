@@ -1,5 +1,12 @@
-.hero-unit
+.container
   .row-fluid
-    .span9.offset3
-      %h3 Answer to the request:
-  = render 'form'
+    .well
+      %h3
+        The message reads:
+      %span.comillas> "
+      = @message.message
+      %span.comillas "
+      %h3 Your answer
+      You can use the form below or write directly to
+      %a{mailto: @message.requester_email} #{@message.requester_email}
+      = render 'form'
