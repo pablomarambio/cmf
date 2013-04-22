@@ -111,7 +111,7 @@ class User < ActiveRecord::Base
   def set_name(provider_name)
     provider = get_provider provider_name
     self.name = provider.uname
-    self.username = provider.username
+    self.username = provider.safe_username
   end
 
   # Returns the names from all auth providers
