@@ -3,7 +3,7 @@ ActionMailer::Base.smtp_settings = {
   :port                 => 587,  
   :domain               => "mythreshold.com",  
   :user_name            => "mythreshold.noreply",  
-  :password             => "mythreshold123",  
+  :password             => "iaawqnrpikgwvvit",  
   :authentication       => "plain",  
   :enable_starttls_auto => true  
 }  
