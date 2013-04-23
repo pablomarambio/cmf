@@ -53,7 +53,7 @@ class AuthProvidersController < ApplicationController
 		# el username será su nombre combinado
 		hash[:username] = hash[:real_name].gsub(/[\*\-_\.]/,"").gsub(/ /, "_")
 		hash[:profile_uri] = omniauth['info']['urls']['Facebook']
-		hash[:avatar] = omniauth['info']['image']
+		hash[:avatar] = omniauth['info']['image'].gsub(/(square|small|normal)/, "large")
 		hash[:provider_name] = omniauth['provider']
 		hash
 	end
@@ -64,9 +64,13 @@ class AuthProvidersController < ApplicationController
 		hash[:id] = omniauth['uid']
 		hash[:email] = nil # Twitter API never returns the email address
 		hash[:real_name] = omniauth['info']['name']
-		hash[:avatar] = omniauth['info']['image']
-		hash[:username] = omniauth['info']['nickname']
 		hash[:profile_uri] = omniauth['info']['urls']['Twitter']
+		hash[:username] = omniauth['info']['nickname']
+		hash[:avatar] = omniauth['info']['image']
+		# get the image on its original size only if it's not an egg
+		if omniauth['extra'] && omniauth['extra']['raw_info'] && omniauth['extra']['raw_info']['default_profile_image'] == false
+			hash[:avatar] = omniauth['info']['image'].gsub(/_(normal|bigger|mini)/, "")
+		end
 		hash[:provider_name] = omniauth['provider']
 		hash
 	end
