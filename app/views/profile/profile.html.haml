@@ -22,18 +22,21 @@
                           = hidden_field_tag ap.provider, ap.provider
                           = image_tag ap.image, :alt => @user.name
             .clearfix
-          .span10.nombre-perfil
+          .span8.nombre-perfil
             %h3#name
               = @user.name
             %label Select other name
             = select_tag :uname, options_for_select(name_options)
             .clearfix
+          .span2.helper
+            %button#help.btn.btn-info.btn-small Help OFF
+            .clearfix
           .span10.descripcion-personalizable
             .control-group
-              %label.control-label{:for => "inputMessage"} Edit message
+              %label.control-label{:for => "inputMessage"} Your committment
               .controls
-                = text_area_tag :comment, @user.comment, :rows => "3", :placeholder => "What is it you compromise to do when someone pays #{number_to_currency(@user.threshold, :precision => 0)}?", :class => "span12"
-                %span.help-inline{style: "display:none;"} Please provide a valid message for potential senders.
+                = text_area_tag :comment, @user.comment, :rows => "3", :placeholder => "What is your committment when someone pays #{number_to_currency(@user.threshold, :precision => 0)}?", :class => "span12"
+                %span.help-inline{style: "display:none;"} This is the public message that those interested in contacting you will read.
             .clearfix
           .span5.precio.pull-right
             .control-group
@@ -64,7 +67,7 @@
               = link_to "twitter", "/auth/twitter", :class => classes
             .span2
               - classes = "github #{has_github? ? 'active':''}"
-              = link_to "github", "/auth/github", :class => classes
+              = link_to "github", "/auth/github", :class => classes, :id => "github"
             .span2
               - classes = "googleplus #{has_googleplus? ? 'active':''}"
               = link_to "googleplus", "/auth/google_oauth2", :class => classes
@@ -73,6 +76,7 @@
               = link_to "linkedin", "/auth/linkedin", :class => classes
             .span2
               = link_to "Add More", "#", :class => "add-more"
+          .clearfix
           .span10.contacto.pull-right
             %button#save.btn.btn-site{:type => "button"} 
               - if @user.signing_up? 
@@ -85,6 +89,28 @@
     %p Treshhold 2013
   .clearfix
 
+- content_for :style do
+  :plain
+    .popover {
+      border: 1px solid #888888;
+    }
+    .helper .popover {
+      color: #59b129;
+    }
+    .popover .popover-title {
+      display: none;
+    }
+    .popover-inner {
+      font-size: 12px;
+      font-weight: normal;
+      line-height: 16px;
+    }
+    .popover-inner h4 {
+      margin: 0 0 4px 0;  
+    }
+    .descripcion-personalizable .popover, .redes .popover { width: 400px; }
+    .descripcion-personalizable .popover-inner, .redes .popover-inner { width: 400px; }
+
 - content_for :breadcrumbs do
   - if @user.signing_up?
     %a{:href => "#"} Sign up
@@ -95,6 +121,8 @@
 
 - content_for :javascript do
   :plain
+
+    /* VALIDATION */
 
     function validateProfile(){
       commentOk = validateComment();
@@ -123,13 +151,121 @@
       if(!re.test(input.val())) {
         cGroup.addClass("error");
         errorMsg.show();
+        //popovers have to be re-drawn when errors are shown
+        if(helpOn) showPopovers(true); 
         return false;
       } else {
         cGroup.removeClass("error");
         errorMsg.hide();
+        //popovers have to be re-drawn when errors are shown
+        if(helpOn) showPopovers(true); 
         return true;
       }
     }
+
+    //change message
+    $("textarea#comment").change(function(){
+      validateComment();
+    }).blur(function(){
+      validateComment();
+    });
+
+    //change email
+    $("input#email").change(function(){
+      validateEmail();
+    }).blur(function(){
+      validateEmail();
+    });
+
+    //change price
+    $("input#price").change(function(){
+      validatePrice();
+    }).blur(function(){
+      validatePrice();
+    });
+
+    /* HELP & POPOVERS */
+    var helpOn = false;
+
+    function showPopovers(force) {
+      if(!helpOn || force) {
+        $("textarea#comment").popover({
+          placement: "top",
+          html: "true",
+          trigger: "manual",
+          content: "<h4>Your committment</h4><p>Aside from your name and price, this is what potential senders will see in your public profile. <strong>What will you do when someone pays to write you a message?</strong> Some examples are: <ul><li>'I will only answer business inquiries,'</li> <li>'I will answer every message in under two days,'</li> <li>'Please don't ask me to read lengthy mails, keep it under 100 words,' etc.</li></ul><p>"
+        }).popover('show');
+
+        $("a#github").popover({
+          placement: "bottom",
+          html: "true",
+          trigger: "manual",
+          content: "<h4>Your profile on social networks</h4><p>One of the most important objectives of your profile is proving you're you. Senders won't risk paying to message the wrong person.</p> <p>Linking your public profile on social networks is a way to accomplish this. Potential senders will be able to visit your profile on the social networks you link.<p>"
+        }).popover('show');
+
+        $("#main_picture").popover({
+          placement: "top",
+          html: "true",
+          trigger: "manual",
+          content: "<h4>Your pic</h4><p>When you link more than one social network, you get to choose your profile picture. And your name, too.<p>"
+        }).popover('show');
+        helpOn = true;
+        $("button#help").text("Help ON");
+
+        $("#email").popover({
+          placement: "top",
+          html: "true",
+          trigger: "manual",
+          content: "<h4>Your email</h4><p>Where we notify you when someone pays to contact you.<p>"
+        }).popover('show');
+
+        $("#price").popover({
+          placement: "top",
+          html: "true",
+          trigger: "manual",
+          content: "<h4>Your price</h4><p>You can change it as many times as you want... as everything else.<p>"
+        }).popover('show');
+
+        helpOn = true;
+        $("button#help").text("Help ON");
+      }
+    }
+
+    function hidePopovers() {
+      $("textarea#comment").popover('hide');
+      $("a#github").popover('hide');
+      $("#main_picture").popover('hide');
+      $("#email").popover('hide');
+      $("#price").popover('hide');
+      $("#help").popover('hide');
+      helpOn = false;
+      $("button#help").text("Help OFF");
+    }
+
+    $("button#help").click(function(){
+      if(helpOn) {
+        hidePopovers();
+      } else {
+        window.setTimeout(function(){
+          if(helpOn) {
+            $("#help").popover({
+              placement: "top",
+              html: "true",
+              trigger: "manual",
+              content: "<h4>Don't want help?</h4><p>Just click here :-)<p>"
+            }).popover('show');
+          }
+        }, 4000);
+        showPopovers();
+      }
+      return false; //so that the form doesn't fire
+    });
+
+    //if the page loaded for the first time
+    var firstTime = #{@first_time_in_profile};
+    if(firstTime) $("button#help").click();
+
+    /* SAVING & LOADING FROM SERVER */
 
     function loadProfile(data) {
       //public profile link
@@ -194,27 +330,6 @@
       }); //ajax
     });
 
-    //change message
-    $("textarea#comment").change(function(){
-      validateComment();
-    }).blur(function(){
-      validateComment();
-    });
-
-    //change email
-    $("input#email").change(function(){
-      validateEmail();
-    }).blur(function(){
-      validateEmail();
-    });
-
-    //change price
-    $("input#price").change(function(){
-      validatePrice();
-    }).blur(function(){
-      validatePrice();
-    });
-
     //form save (comment, email and price)
     $("button#save").click(function(){
       comment = $("textarea#comment").val();
@@ -231,4 +346,3 @@
         }); //ajax
       }
     });
-        

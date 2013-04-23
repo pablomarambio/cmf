@@ -4,6 +4,7 @@ class ProfileController < ApplicationController
   layout "public"
 
   def profile
+    @first_time_in_profile = @user.signing_up?
   end
 
   def public_profile
