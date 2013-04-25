@@ -4,12 +4,12 @@ class ProfileController < ApplicationController
   layout "public"
 
   def profile
-    @first_time_in_profile = @user.signing_up?
+    @first_time_in_profile = (@user.signing_up? and @user.auth_providers.count < 2)
   end
 
   def public_profile
     @user = User.find_by_username(params[:username])
-    @this_is_my_profile = user_signed_in? and @user.id == current_user.id
+    @this_is_my_profile = (user_signed_in? and @user.id == current_user.id)
   end
 
   def all_profiles
@@ -43,8 +43,8 @@ class ProfileController < ApplicationController
     @user.comment = params[:comment]
     @user.email = params[:email]
     @user.threshold = params[:price]
-    @user.save!
     @user.complete_profile
+    @user.save!
     render :json => {success: true}
   end
 

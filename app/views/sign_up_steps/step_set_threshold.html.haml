@@ -1,6 +1,8 @@
 .container
   .row-fluid
     .well
+      .progress.progress-striped.active
+        .bar{:style=>"width: 20%;"}
       %h1 1) Set a price tag
       %p.lead I commit to answer to anyone who pays...
       = form_tag step_set_threshold_path do
