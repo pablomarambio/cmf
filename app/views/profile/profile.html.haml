@@ -95,6 +95,19 @@
     %p Treshhold 2013
   .clearfix
 
+  #myModal.modal.hide.fade{ :tabindex => "-1", :role => "dialog", :"aria-labelledby" => "myModalLabel", :"aria-hidden" => "true"}
+    .modal-header
+      %button.close{ :"data-dismiss" => "modal", :"aria-hidden" => "true"} ×
+      %h3#myModalLabel Profile complete!
+    .modal-body
+      %p Your profile is complete. Now you can share the link to your public profile so tht senders start paying to message you!
+      %p 
+        %strong Note:
+        You can change your profile as may times as you want.
+    .modal-footer
+      %button.btn{ :"data-dismiss" => "modal", :"aria-hidden" => "true"} I haven't finished just yet
+      %button#redirect.btn.btn-primary Go to my public profile
+
 - content_for :style do
   :plain
     .popover {
@@ -269,11 +282,13 @@
 
     //if the page loaded for the first time
     var firstTime = #{@first_time_in_profile};
+    var userStatus = "#{@user.status}";
+    var goToPublicProfileAfterSave = false;
     if(firstTime) $("button#help").click();
 
     /* SAVING & LOADING FROM SERVER */
 
-    function loadProfile(data) {
+    function loadProfile(data, just_signed_up) {
       //public profile link
       public_profile_url = "/usr/" + data["username"];
       // selected image and alternatives
@@ -293,16 +308,23 @@
         );
       });
       // if the user has just completed the sign up process
-      if(data["status"] == "signed_up" && /start/i.test($("button#save").text())) {
-        $("button#save").text("Saved! Redirecting...");
-        window.location = public_profile_url;
+      if(data["status"] == "signed_up" && userStatus == "signing_up") {
+        $("#myModal").modal('show');
+        $("#myModal #redirect").click(function(){ window.location = public_profile_url; });
+        $("button#save").text("Save & go to my public profile");
+        goToPublicProfileAfterSave = true;
       }
-      validateProfile();
+      if(validateProfile()) {
+        if(goToPublicProfileAfterSave && userStatus == "signed_up") {
+          window.location = public_profile_url;
+        }
+      }
+      userStatus = data["status"];
     }
 
-    function refreshProfile(){
+    function refreshProfile(just_signed_up){
       $.ajax({url: "#{pf_get_data_path}",
-        success: function(data){
+        success: function(data, just_signed_up){
           loadProfile(data);
         }, error: function(){
           

@@ -43,7 +43,7 @@ class ProfileController < ApplicationController
     @user.comment = params[:comment]
     @user.email = params[:email]
     @user.threshold = params[:price]
-    @user.complete_profile
+    @user.complete_profile if @user.signing_up?
     @user.save!
     render :json => {success: true}
   end
