@@ -16,7 +16,7 @@
     %link{:href => "img/apple-touch-icon-114-precomposed.png", :sizes => "114x114", :rel => "apple-touch-icon-precomposed"}
     %link{:href => "img/apple-touch-icon-72-precomposed.png", :sizes => "72x72", :rel => "apple-touch-icon-precomposed"}
     %link{:href => "img/apple-touch-icon-57-precomposed.png", :rel => "apple-touch-icon-precomposed"}
-    %link{:rel => "shortcut icon", :href => asset_path("favicon.png")}
+    /%link{:rel => "shortcut icon", :href => asset_path("favicon.png")}
     :css
       #{yield :style}
   %body
@@ -43,7 +43,7 @@
                   %b.caret
                 %ul.dropdown-menu{"aria-labelledby" => "drop3", :role => "menu"}
                   %li{:role => "presentation"}
-                    %a{:href => "#", :role => "menuitem", :tabindex => "-1"} Some action
+                    = link_to "[AlphaOnly] Destroy", user_path(current_user), :method => :delete, :role => "menuitem", :tabindex => "-1"
                   %li{:role => "presentation"}
                     %a{:href => "#", :role => "menuitem", :tabindex => "-1"} Something else here
                   %li.divider{:role => "presentation"}

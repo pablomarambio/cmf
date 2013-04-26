@@ -43,7 +43,7 @@ Cmf::Application.routes.draw do
   end
 
   # --- Users --- #
-  resources :users, :only => :update
+  resources :users, :only => [:destroy]
   authenticated :user do
     root :to => 'profile#profile'
   end
