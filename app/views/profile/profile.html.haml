@@ -185,23 +185,17 @@
 
     //change message
     $("textarea#comment").change(function(){
-      validateComment();
-    }).blur(function(){
-      validateComment();
+      if(validateComment()) { saveForm($(this).val()); } // no email, no price
     });
 
     //change email
     $("input#email").change(function(){
-      validateEmail();
-    }).blur(function(){
-      validateEmail();
+      if(validateEmail()) { saveForm(null, $(this).val()); } // no comment, no price
     });
 
     //change price
     $("input#price").change(function(){
-      validatePrice();
-    }).blur(function(){
-      validatePrice();
+      if(validatePrice()) { saveForm(null, null, $(this).val()); } // no comment, no email
     });
 
     /* HELP & POPOVERS */
@@ -372,6 +366,21 @@
       }); //ajax
     });
 
+    function saveForm(comment, email, price) {
+      data = {};
+      if(comment) { data.comment = comment; }
+      if(email) { data.email = email; }
+      if(price) { data.price = price; }
+      $.ajax({url: "#{pf_save_path}", type: "post",
+        data: data,
+        success: function(data){
+          refreshProfile();
+        }, error: function(){
+          alert("form save fail");
+        }, complete: [hideSpinner]
+      }); //ajax
+    }
+
     //form save (comment, email and price)
     $("button#save").click(function(){
       showSpinner();
@@ -379,13 +388,6 @@
       email = $("input#email").val();
       price = $("input#price").val();
       if (validateProfile()) {
-        $.ajax({url: "#{pf_save_path}", type: "post",
-          data: {comment: comment, email: email, price: price},
-          success: function(data){
-            refreshProfile();
-          }, error: function(){
-            alert("form save fail");
-          }, complete: [hideSpinner]
-        }); //ajax
+        saveForm(comment, email, price);
       }
     });

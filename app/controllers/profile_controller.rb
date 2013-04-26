@@ -40,10 +40,11 @@ class ProfileController < ApplicationController
   end
 
   def save
-    @user.comment = params[:comment]
-    @user.email = params[:email]
-    @user.threshold = params[:price]
-    @user.complete_profile if @user.signing_up?
+    @user.comment = params[:comment] if params[:comment]
+    @user.email = params[:email] if params[:email]
+    @user.threshold = params[:price] if params[:price]
+    # We change status only if the request contains the whole form
+    @user.complete_profile if (@user.signing_up? and params[:price] and params[:comment] and params[:email])
     @user.save!
     render :json => {success: true}
   end
