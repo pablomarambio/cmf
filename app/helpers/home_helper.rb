@@ -34,11 +34,28 @@ module HomeHelper
 	def has_social_network? sn_name
 		@user.auth_providers.any? {|ap| ap.provider == sn_name}
 	end
+
 	def social_network_url sn_name
 		@user.auth_providers.where("provider = ?", sn_name).first.profile_uri
 	end
 
 	def name_options
 		@user.auth_providers.map {|ap| ["#{ap.uname} (#{ap.provider})", ap.provider]}
+	end
+
+	def in_edit_profile
+		params[:controller] == "profile" and 
+			params[:action] == "profile"
+	end
+
+	def in_my_public_profile
+		params[:controller] == "profile" and 
+			params[:action] == "public_profile" and
+			@user.id == current_user.id
+	end
+
+	def in_login
+		params[:controller] == "sessions" and 
+			params[:action] == "new"
 	end
 end

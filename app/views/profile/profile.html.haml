@@ -2,8 +2,6 @@
   .row-fluid
     %legend 
       Your profile
-      - if @user.signed_up?
-        = link_to "(view as sender)", public_profile_path(@user.username), :id => "public_profile_link"
     .well.box-perfil
       - if @user.signing_up?
         .progress.progress-striped.active

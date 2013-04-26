@@ -30,12 +30,16 @@
         %a.brand{:href=>"/"} TocToc
         .nav-collapse.collapse
           %ul.nav
-            %li{:class => (params[:controller] == "profile" and params[:action] == "profile" ? "active" : "")}
+            %li{:class => (in_edit_profile ? "active" : "")}
               = link_to "My Profile", profile_path
-            - unless user_signed_in?
-              %li{:class => (params[:controller] == "sessions" and params[:action] == "new" ? "active" : "")}
+            - if user_signed_in?
+              - if current_user.signed_up?
+                %li{:class => (in_my_public_profile ? "active" : "")}
+                  = link_to "View Profile", public_profile_path(current_user.username), :id => :public_profile_link
+            - else
+              %li{:class => (in_login ? "active" : "")}
                 = link_to "Login", new_user_session_path
-          - if user_signed_in? 
+          - if user_signed_in?
             %ul.nav.pull-right
               %li#fat-menu.dropdown
                 %a#drop3.dropdown-toggle{"data-toggle" => "dropdown", :href => "#", :role => "button"}
@@ -44,8 +48,6 @@
                 %ul.dropdown-menu{"aria-labelledby" => "drop3", :role => "menu"}
                   %li{:role => "presentation"}
                     = link_to "[AlphaOnly] Destroy", user_path(current_user), :method => :delete, :role => "menuitem", :tabindex => "-1"
-                  %li{:role => "presentation"}
-                    %a{:href => "#", :role => "menuitem", :tabindex => "-1"} Something else here
                   %li.divider{:role => "presentation"}
                   %li{:role => "presentation"}
                     - if user_signed_in?
