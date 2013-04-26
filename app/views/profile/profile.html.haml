@@ -333,7 +333,7 @@
         success: function(data, just_signed_up){
           loadProfile(data);
         }, error: function(){
-          
+          window.location = "/profile";
         }
       }); //ajax
     }
@@ -347,7 +347,7 @@
         success: function(data){
           refreshProfile();
         }, error: function(){
-          alert("change img fail");
+          window.location = "/profile";
         }, complete: [hideSpinner]
       }); //ajax
     });
@@ -361,7 +361,7 @@
         success: function(data){
           refreshProfile();
         }, error: function(){
-          alert("change name fail");
+          window.location = "/profile";
         }, complete: [hideSpinner]
       }); //ajax
     });
@@ -376,7 +376,7 @@
         success: function(data){
           refreshProfile();
         }, error: function(){
-          alert("form save fail");
+          window.location = "/profile";
         }, complete: [hideSpinner]
       }); //ajax
     }
