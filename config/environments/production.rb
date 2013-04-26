@@ -30,14 +30,16 @@ Cmf::Application.configure do
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   # config.force_ssl = true
 
+  # Config for heroku
+  config.logger = Logger.new(STDOUT) 
+
   # See everything in the log (default is :info)
-  config.logger.level = Logger.const_get((ENV["LOG_LEVEL"] || "INFO").upcase) unless config.logger.nil?
+  log_level = (ENV["LOG_LEVEL"] || "info").to_sym
+  puts "log level is #{log_level}"
+  config.logger.level = log_level
 
   # Prepend all log lines with the following tags
   # config.log_tags = [ :subdomain, :uuid ]
-
-  # Use a different logger for distributed setups
-  config.logger = Logger.new(STDOUT) 
 
   # Use a different cache store in production
   # config.cache_store = :mem_cache_store
