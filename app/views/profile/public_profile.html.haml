@@ -1,9 +1,7 @@
 .container.page
   .row-fluid
-    %lengend
+    %legend
       = "#{@user.name}'s profile"
-      - if @this_is_my_profile
-        = link_to "(edit mode)", profile_path
     .well.box-perfil
       %form
         .perfil
