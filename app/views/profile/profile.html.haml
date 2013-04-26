@@ -36,6 +36,7 @@
             .clearfix
           .span2.helper
             %button#help.btn.btn-info.btn-small Help OFF
+            #upRight
             .clearfix
           .span10.descripcion-personalizable
             .control-group
@@ -95,10 +96,10 @@
     %p Treshhold 2013
   .clearfix
 
-  #myModal.modal.hide.fade{ :tabindex => "-1", :role => "dialog", :"aria-labelledby" => "myModalLabel", :"aria-hidden" => "true"}
+  #modalProfileCompleted.modal.hide.fade{ :tabindex => "-1", :role => "dialog", :"aria-labelledby" => "myModalLabel", :"aria-hidden" => "true"}
     .modal-header
       %button.close{ :"data-dismiss" => "modal", :"aria-hidden" => "true"} ×
-      %h3#myModalLabel Profile complete!
+      %h3#modalProfileCompletedLabel Profile complete!
     .modal-body
       %p Your profile is complete. Now you can share the link to your public profile so tht senders start paying to message you!
       %p 
@@ -288,6 +289,17 @@
 
     /* SAVING & LOADING FROM SERVER */
 
+    var spinner = null;
+
+    function showSpinner() {
+      spinner = new Spinner();
+      $("#upRight").append(spinner.spin().el);
+    }
+
+    function hideSpinner() {
+      if(spinner) { spinner.stop(); }
+    }
+
     function loadProfile(data, just_signed_up) {
       //public profile link
       public_profile_url = "/usr/" + data["username"];
@@ -309,8 +321,8 @@
       });
       // if the user has just completed the sign up process
       if(data["status"] == "signed_up" && userStatus == "signing_up") {
-        $("#myModal").modal('show');
-        $("#myModal #redirect").click(function(){ window.location = public_profile_url; });
+        $("#modalProfileCompleted").modal('show');
+        $("#modalProfileCompleted #redirect").click(function(){ window.location = public_profile_url; });
         $("button#save").text("Save & go to my public profile");
         goToPublicProfileAfterSave = true;
       }
@@ -328,12 +340,13 @@
           loadProfile(data);
         }, error: function(){
           
-        } 
+        }
       }); //ajax
     }
 
     // change picture
     $("#imgoptions img").click(function(){
+      showSpinner();
       provider_name = $(this).siblings("input[type=hidden]").val();
       $.ajax({url: "#{pf_set_img_path}", type: "post",
         data: {provider: provider_name},
@@ -341,12 +354,13 @@
           refreshProfile();
         }, error: function(){
           alert("change img fail");
-        }
+        }, complete: [hideSpinner]
       }); //ajax
     });
 
     // change name
     $("select#uname").change(function(){
+      showSpinner();
       provider_name = $(this).val();
       $.ajax({url: "#{pf_set_name_path}", type: "post",
         data: {provider: provider_name},
@@ -354,12 +368,13 @@
           refreshProfile();
         }, error: function(){
           alert("change name fail");
-        }
+        }, complete: [hideSpinner]
       }); //ajax
     });
 
     //form save (comment, email and price)
     $("button#save").click(function(){
+      showSpinner();
       comment = $("textarea#comment").val();
       email = $("input#email").val();
       price = $("input#price").val();
@@ -370,7 +385,7 @@
             refreshProfile();
           }, error: function(){
             alert("form save fail");
-          }
+          }, complete: [hideSpinner]
         }); //ajax
       }
     });
