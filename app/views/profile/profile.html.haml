@@ -367,6 +367,7 @@
     });
 
     function saveForm(comment, email, price) {
+      showSpinner();
       data = {};
       if(comment) { data.comment = comment; }
       if(email) { data.email = email; }
