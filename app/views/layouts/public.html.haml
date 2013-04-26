@@ -39,7 +39,7 @@
             %ul.nav.pull-right
               %li#fat-menu.dropdown
                 %a#drop3.dropdown-toggle{"data-toggle" => "dropdown", :href => "#", :role => "button"}
-                  = @user.name
+                  = current_user.name
                   %b.caret
                 %ul.dropdown-menu{"aria-labelledby" => "drop3", :role => "menu"}
                   %li{:role => "presentation"}
