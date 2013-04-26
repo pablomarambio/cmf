@@ -40,7 +40,7 @@ module HomeHelper
 	end
 
 	def name_options
-		@user.auth_providers.map {|ap| ["#{ap.uname} (#{ap.provider})", ap.provider]}
+		@user.auth_providers.map{|ap| ["#{ap.uname} (#{ap.provider})", ap.provider]}
 	end
 
 	def in_edit_profile

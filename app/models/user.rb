@@ -110,6 +110,7 @@ class User < ActiveRecord::Base
 
   def set_name(provider_name)
     provider = get_provider provider_name
+    self.provider_name = provider.provider
     self.name = provider.uname
     self.username = provider.safe_username
   end

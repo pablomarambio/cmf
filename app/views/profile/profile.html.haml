@@ -30,7 +30,9 @@
             %h3#name
               = @user.name
             %label Select other name
-            = select_tag :uname, options_for_select(name_options)
+            - Rails.logger.debug name_options
+            - Rails.logger.debug @user.provider_name
+            = select_tag :uname, options_for_select(name_options, @user.provider_name)
             .clearfix
           .span2.helper
             %button#help.btn.btn-info.btn-small Help OFF
@@ -308,7 +310,7 @@
       $("select#uname option").remove();
       $.each(data["alt_names"], function(idx, op){
         $("select#uname").append(
-          "<option value='" + op["provider"] + "'>" + op["name"] + "</option>"
+          "<option value='" + op["provider"] + "'" + (data["provider"] == op["provider"]? " selected='selected'" : "") + ">" + op["name"] + "</option>"
         );
       });
       // if the user has just completed the sign up process

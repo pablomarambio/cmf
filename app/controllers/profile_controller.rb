@@ -23,7 +23,8 @@ class ProfileController < ApplicationController
       main_picture: @user.main_picture, 
       alt_pics: @user.alternative_pictures,
       name: @user.name,
-      alt_names: @user.alternative_names
+      alt_names: @user.alternative_names,
+      provider: @user.provider_name
     }
   end
 
