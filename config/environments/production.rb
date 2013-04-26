@@ -36,7 +36,7 @@ Cmf::Application.configure do
   # See everything in the log (default is :info)
   log_level = (ENV["LOG_LEVEL"] || "info").to_sym
   puts "log level is #{log_level}"
-  config.logger.level = log_level
+  config.log_level = log_level
 
   # Prepend all log lines with the following tags
   # config.log_tags = [ :subdomain, :uuid ]
