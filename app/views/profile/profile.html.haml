@@ -18,6 +18,7 @@
               .row-fluid.full-width
                 .span12
                   Select your profile picture
+                  %i#help-picture.icon-question-sign
                   %hr/
                   .row-fluid#imgoptions
                     - @user.auth_providers.each do |ap|
@@ -29,25 +30,31 @@
           .span8.nombre-perfil
             %h3#name
               = @user.name
-            %label Select other name
+              %i#help-uname.icon-question-sign
+            %label
+              Select other name
+              %i#help-select-uname.icon-question-sign
             - Rails.logger.debug name_options
             - Rails.logger.debug @user.provider_name
             = select_tag :uname, options_for_select(name_options, @user.provider_name)
             .clearfix
           .span2.helper
-            %button#help.btn.btn-info.btn-small Help OFF
             #upRight
             .clearfix
           .span10.descripcion-personalizable
             .control-group
-              %label.control-label{:for => "inputMessage"} Your committment
+              %label.control-label{:for => "inputMessage"}
+                Your committment
+                %i#help-comment.icon-question-sign
               .controls
                 = text_area_tag :comment, @user.comment, :rows => "3", :placeholder => "What is your committment when someone pays #{number_to_currency(@user.threshold, :precision => 0)}?", :class => "span12"
                 %span.help-inline{style: "display:none;"} This is the public message that those interested in contacting you will read.
             .clearfix
           .span5.precio.pull-right
             .control-group
-              %label.control-label{:for => :price} To write me, senders must pay:
+              %label.control-label{:for => :price}
+                To write me, senders must pay:
+                %i#help-price.icon-question-sign
               .controls
                 .input-prepend.input-append
                   %span.add-on
@@ -58,7 +65,9 @@
             .clearfix
           .span5.contacto.pull-right
             .control-group
-              %label.control-label{:for => :email} Send messages to:  
+              %label.control-label{:for => :email}
+                Send messages to:
+                %i#help-email.icon-question-sign
               .controls
                 .input-prepend
                   %span.add-on
@@ -68,6 +77,7 @@
           .span10.pull-right
             %label 
               = "#{@user.name}'s profile on social networks"
+              %i#help-networks.icon-question-sign
           .span10.redes.pull-right
             .span2
               - classes = "facebook #{has_facebook? ? 'active':''}"
@@ -174,14 +184,10 @@
       if(!re.test(input.val())) {
         cGroup.addClass("error");
         errorMsg.show();
-        //popovers have to be re-drawn when errors are shown
-        if(helpOn) showPopovers(true); 
         return false;
       } else {
         cGroup.removeClass("error");
         errorMsg.hide();
-        //popovers have to be re-drawn when errors are shown
-        if(helpOn) showPopovers(true); 
         return true;
       }
     }
@@ -202,87 +208,59 @@
     });
 
     /* HELP & POPOVERS */
-    var helpOn = false;
+    $("i#help-comment").popover({
+      placement: "top",
+      html: "true",
+      trigger: "hover",
+      content: "<h4>Your committment</h4><p>Aside from your name and price, this is what potential senders will see in your public profile. <strong>What will you do when someone pays to write you a message?</strong> Some examples are: <ul><li>'I will only answer business inquiries,'</li> <li>'I will answer every message in under two days,'</li> <li>'Please don't ask me to read lengthy mails, keep it under 100 words,' etc.</li></ul><p>"
+    });
 
-    function showPopovers(force) {
-      if(!helpOn || force) {
-        $("textarea#comment").popover({
-          placement: "top",
-          html: "true",
-          trigger: "manual",
-          content: "<h4>Your committment</h4><p>Aside from your name and price, this is what potential senders will see in your public profile. <strong>What will you do when someone pays to write you a message?</strong> Some examples are: <ul><li>'I will only answer business inquiries,'</li> <li>'I will answer every message in under two days,'</li> <li>'Please don't ask me to read lengthy mails, keep it under 100 words,' etc.</li></ul><p>"
-        }).popover('show');
+    $("i#help-networks").popover({
+      placement: "bottom",
+      html: "true",
+      trigger: "hover",
+      content: "<h4>Your profile on social networks</h4><p>One of the most important objectives of your profile is proving you're you. Senders won't risk paying to message the wrong person.</p> <p>Linking your public profile on social networks is a way to accomplish this. Potential senders will be able to visit your profile on the social networks you link.<p>"
+    });
 
-        $("a#github").popover({
-          placement: "bottom",
-          html: "true",
-          trigger: "manual",
-          content: "<h4>Your profile on social networks</h4><p>One of the most important objectives of your profile is proving you're you. Senders won't risk paying to message the wrong person.</p> <p>Linking your public profile on social networks is a way to accomplish this. Potential senders will be able to visit your profile on the social networks you link.<p>"
-        }).popover('show');
+    $("i#help-picture").popover({
+      placement: "top",
+      html: "true",
+      trigger: "hover",
+      content: "<h4>Your pic</h4><p>When you link more than one social network, you get to choose your profile picture. And your name, too.<p>"
+    });
 
-        $("#main_picture").popover({
-          placement: "top",
-          html: "true",
-          trigger: "manual",
-          content: "<h4>Your pic</h4><p>When you link more than one social network, you get to choose your profile picture. And your name, too.<p>"
-        }).popover('show');
-        helpOn = true;
-        $("button#help").text("Help ON");
+    $("i#help-email").popover({
+      placement: "top",
+      html: "true",
+      trigger: "hover",
+      content: "<h4>Your email</h4><p>Where we notify you when someone pays to contact you.<p>"
+    });
 
-        $("#email").popover({
-          placement: "top",
-          html: "true",
-          trigger: "manual",
-          content: "<h4>Your email</h4><p>Where we notify you when someone pays to contact you.<p>"
-        }).popover('show');
+    $("i#help-price").popover({
+      placement: "top",
+      html: "true",
+      trigger: "hover",
+      content: "<h4>Your price</h4><p>You can change it as many times as you want... as everything else.<p>"
+    });
 
-        $("#price").popover({
-          placement: "top",
-          html: "true",
-          trigger: "manual",
-          content: "<h4>Your price</h4><p>You can change it as many times as you want... as everything else.<p>"
-        }).popover('show');
+    $("i#help-uname").popover({
+      placement: "right",
+      html: "true",
+      trigger: "hover",
+      content: "<h4>Your name</h4><p>It is fixed to whatever you call yourself on your social netowrks, as a measure to prevent impersonation.<p>"
+    });
 
-        helpOn = true;
-        $("button#help").text("Help ON");
-      }
-    }
-
-    function hidePopovers() {
-      $("textarea#comment").popover('hide');
-      $("a#github").popover('hide');
-      $("#main_picture").popover('hide');
-      $("#email").popover('hide');
-      $("#price").popover('hide');
-      $("#help").popover('hide');
-      helpOn = false;
-      $("button#help").text("Help OFF");
-    }
-
-    $("button#help").click(function(){
-      if(helpOn) {
-        hidePopovers();
-      } else {
-        window.setTimeout(function(){
-          if(helpOn) {
-            $("#help").popover({
-              placement: "top",
-              html: "true",
-              trigger: "manual",
-              content: "<h4>Don't want help?</h4><p>Just click here :-)<p>"
-            }).popover('show');
-          }
-        }, 4000);
-        showPopovers();
-      }
-      return false; //so that the form doesn't fire
+    $("i#help-select-uname").popover({
+      placement: "right",
+      html: "true",
+      trigger: "hover",
+      content: "<h4>Change your name</h4><p>You can choose to call yourself any name you have in your social networks. This is a measure to prevent impersonation.<p>"
     });
 
     //if the page loaded for the first time
     var firstTime = #{@first_time_in_profile};
     var userStatus = "#{@user.status}";
     var goToPublicProfileAfterSave = false;
-    if(firstTime) $("button#help").click();
 
     /* SAVING & LOADING FROM SERVER */
 
