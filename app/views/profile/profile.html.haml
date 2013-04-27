@@ -49,9 +49,11 @@
             .control-group
               %label.control-label{:for => :price} To write me, senders must pay:
               .controls
-                .input-prepend
-                  %span.add-on $
-                  = text_field_tag :price, @user.threshold.to_i, :placeholder => "Your price in USD"
+                .input-prepend.input-append
+                  %span.add-on
+                    %i.icon-tag
+                  = text_field_tag :price, @user.threshold.to_i, :placeholder => "Your price in USD", :class => "input-small", :style => "text-align: right;"
+                  %span.add-on USD
                 %span.help-inline{style: "display:none;"} Use only numbers. The price is in USD.
             .clearfix
           .span5.contacto.pull-right
@@ -59,7 +61,8 @@
               %label.control-label{:for => :email} Send messages to:  
               .controls
                 .input-prepend
-                  %span.add-on Email
+                  %span.add-on
+                    %i.icon-envelope
                   = text_field_tag :email, @user.email, :placeholder => "example@mymail.com"
                 %span.help-inline{style: "display:none;"} Please provide a valid email. We will only send you an email when someone pays to write you.
           .span10.pull-right
