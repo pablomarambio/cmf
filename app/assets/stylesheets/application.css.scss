@@ -614,3 +614,27 @@ vertical-align: middle;
 display: table-cell;
 }
 
+
+
+
+
+/*IE9*/
+
+.ie9 .navbar-inner { 
+background-image:none;
+background-color:#59b129; 
+filter:none;
+}
+
+.ie9 select { 
+padding:0 0 0 5px;
+height:40px;
+}
+
+
+
+
+
+
+
+
