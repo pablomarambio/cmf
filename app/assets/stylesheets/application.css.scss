@@ -77,6 +77,18 @@ font-size: 21px;
 font-size: 14px;
 }
 
+.precio, .contacto {
+clear:both;
+width:100%;
+}
+
+.dos-campos.container-fluid {
+padding-right: 0;
+padding-left: 0;
+}
+.dos-campos.container-fluid .contacto{
+margin-left: 0;
+}
 
 }
 
@@ -146,6 +158,15 @@ font-size: 21px;
 .txt-one h2 {
 font-size: 14px;
 }
+
+#price, #email {
+width:84%;
+}
+
+select { float: left; }
+h3#name { text-align:left; }
+
+
 
 
 }
@@ -267,6 +288,7 @@ color: #000;
 
 .box-perfil {
 height: auto;
+margin-top:10px;
 }
 
 .box-perfil h2 {
@@ -628,20 +650,30 @@ text-align:left
 
 /*IE9*/
 
-.ie9 .navbar-inner { 
+.ie8 .navbar-inner, .ie9 .navbar-inner { 
 background-image:none;
 background-color:#59b129; 
 filter:none;
 }
 
-.ie9 select { 
+.ie8 select, .ie9 select { 
 padding:0 0 0 5px;
-height:40px;
+// height:40px;
 }
 
+h1, h2, h3 { color:#666; }
+h3 { border-bottom:1px solid #d1d1d1; margin:0 0 10px 0; padding:0; }
+h3#name { font-weight:300; border-bottom:none; }
 
+.dos-campos.container-fluid {
+padding-left: 0;
+}
 
+.ie8 .dos-campos.container-fluid .span5 {
+width:43%;
+float:left;
 
+}
 
 
 

@@ -1,8 +1,8 @@
 .container.page
   .row-fluid
-    %legend 
-      Your profile
     .well.box-perfil
+      %h3 
+        Your profile
       - if @user.signing_up?
         .progress.progress-striped.active
           - if @first_time_in_profile
@@ -51,8 +51,8 @@
                 %span.help-inline{style: "display:none;"} This is the public message that those interested in contacting you will read.
             .clearfix
           .span10.pull-right
-            .container
-              .row
+            .dos-campos.container-fluid
+              .row-fluid
                 .span5.precio
                   .control-group
                     %label.control-label{:for => :price}
