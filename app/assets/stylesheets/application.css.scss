@@ -167,6 +167,10 @@ float: none;
 margin-left: 5%;
 }
 
+#price, #email {
+width:69%;
+}
+
 
 }
 
@@ -614,7 +618,11 @@ vertical-align: middle;
 display: table-cell;
 }
 
-
+.error, label {
+font-size:12px;
+font-weight:300;
+text-align:left
+}
 
 
 

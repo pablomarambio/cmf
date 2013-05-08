@@ -51,30 +51,32 @@
                 %span.help-inline{style: "display:none;"} This is the public message that those interested in contacting you will read.
             .clearfix
           .span10.pull-right
-            .span5.precio
-              .control-group
-                %label.control-label{:for => :price}
-                  To write me, senders must pay:
-                  %i#help-price.icon-question-sign
-                .controls
-                  .input-prepend.input-append
-                    %span.add-on
-                      %i.icon-tag
-                    = text_field_tag :price, @user.threshold.to_i, :placeholder => "Your price in USD", :class => "input-small", :style => "text-align: right;"
-                    %span.add-on USD
-                  %span.help-inline{style: "display:none;"} Use only numbers. The price is in USD.
-              .clearfix
-            .span5.contacto
-              .control-group
-                %label.control-label{:for => :email}
-                  Send messages to:
-                  %i#help-email.icon-question-sign
-                .controls
-                  .input-prepend
-                    %span.add-on
-                      %i.icon-envelope
-                    = text_field_tag :email, @user.email, :placeholder => "example@mymail.com"
-                  %span.help-inline{style: "display:none;"} Please provide a valid email. We will only send you an email when someone pays to write you.
+            .container
+              .row
+                .span5.precio
+                  .control-group
+                    %label.control-label{:for => :price}
+                      To write me, senders must pay:
+                      %i#help-price.icon-question-sign
+                    .controls
+                      .input-prepend.input-append
+                        %span.add-on
+                          %i.icon-tag
+                        = text_field_tag :price, @user.threshold.to_i, :placeholder => "Your price in USD"
+                        %span.add-on USD
+                      %span.help-inline{style: "display:none;"} Use only numbers. The price is in USD.
+                  .clearfix
+                .span5.contacto
+                  .control-group
+                    %label.control-label{:for => :email}
+                      Send messages to:
+                      %i#help-email.icon-question-sign
+                    .controls
+                      .input-prepend
+                        %span.add-on
+                          %i.icon-envelope
+                        = text_field_tag :email, @user.email, :placeholder => "example@mymail.com"
+                      %span.help-inline{style: "display:none;"} Please provide a valid email. We will only send you an email when someone pays to write you.
           .span10.pull-right
             %label 
               = "#{@user.name}'s profile on social networks"
