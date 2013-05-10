@@ -47,6 +47,10 @@ font-size: 22px;
 font-size: 14px;
 }
 
+.box-forms { 
+max-width: 600px;
+margin: 10px auto;
+}
 
 }
 
@@ -164,7 +168,7 @@ width:84%;
 }
 
 select { float: left; }
-h3#name { text-align:left; }
+h3#dos { text-align:left; }
 
 
 
@@ -607,11 +611,6 @@ text-shadow: 1px 1px 3px #000; /* Chrome, Firefox 3.5+, IE 10+, Opera 9+, Safari
 margin: 0 auto;
 max-width: 310px;
 max-height: 310px;
-border: 30px solid #d1d1d1;
--webkit-border-radius: 50%; /* Android ��� 1.6, iOS 1-3.2, Safari 3-4 */
-       border-radius: 50%; /* Android 2.1+, Chrome, Firefox 4+, IE 9+, iOS 4+, Opera 10.50+, Safari 5+ */
--webkit-box-shadow: 0px 0px 4px 0px #666; /* Android 2.3+, iOS 4.0.2-4.2, Safari 3-4 */
-       box-shadow: 0px 0px 4px 0px #666; /* Chrome 6+, Firefox 4+, IE 9+, iOS 5+, Opera 10.50+ */
 }
 
 .btn-home { 
@@ -672,8 +671,48 @@ padding-left: 0;
 .ie8 .dos-campos.container-fluid .span5 {
 width:43%;
 float:left;
-
 }
+
+footer p{ text-align:center; }
+.ie8 footer p{ text-align:center; }
+
+.btn {
+padding: 10px;
+-webkit-border-radius: 0;
+border-radius: 0;
+color: #fff;
+text-shadow: 0 0 0 white;
+font-size: 16px;
+border-color: #59b129;
+}
+
+.btn:hover {
+color:#fff;
+}
+
+.lead {
+margin-bottom: 10px;
+}
+
+form {
+margin: 0;
+}
+
+.input-append, .input-prepend {
+margin-bottom: 10px;
+font-size: 0;
+}
+
+.progress { margin-bottom: 10px; }
+
+#services a img {
+width:60px;
+height:60px;
+}
+
+
+
+
 
 
 
