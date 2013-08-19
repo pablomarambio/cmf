@@ -15,6 +15,7 @@
     = csrf_meta_tags
 
     = stylesheet_link_tag "application"
+    = stylesheet_link_tag params[:controller]
     %link{:href => "http://fonts.googleapis.com/css?family=Oxygen:400,300,700&subset=latin,latin-ext", :rel => "stylesheet"}/
     /[if lt IE 9]
       %script{:type => "text/javascript", :src => "js/html5shiv.js"}
