@@ -1,0 +1,19 @@
+#wrapper
+  #columns
+    - @users.each do |user|
+      .pin{ :"data-user" => user.id }
+        = image_tag user.local_picture_path, alt: user.name
+        %p
+          %strong= user.name
+        .btn-group.vote-btn
+          %a.btn.btn-primary
+            %i.icon-heart.icon-white
+            %span= "Escoger"
+        .btn-group.voted-btn
+          %a.btn.btn-info
+            %i.icon-ok
+            %span= "No escoger"
+
+-content_for :javascript do
+  :plain
+    //Hi!

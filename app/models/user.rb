@@ -97,6 +97,10 @@ class User < ActiveRecord::Base
     self.main_picture = provider.image
   end
 
+  def local_picture_path
+    "profile_pics/#{local_picture}"
+  end
+
   # Returns the pictures from the auth providers the user isn't using
   def alternative_pictures
     auth_providers.map do |ap|

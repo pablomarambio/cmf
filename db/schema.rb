@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130426203008) do
+ActiveRecord::Schema.define(:version => 20130817180716) do
 
   create_table "answers", :force => true do |t|
     t.integer  "message_id"
@@ -88,6 +88,7 @@ ActiveRecord::Schema.define(:version => 20130426203008) do
     t.string   "main_picture"
     t.string   "username"
     t.string   "provider_name"
+    t.string   "local_picture"
   end
 
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true

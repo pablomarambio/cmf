@@ -1,7 +1,11 @@
 class ProfileController < ApplicationController
-  before_filter :authenticate_user!, :except => [:public_profile, :all_profiles]
-  before_filter :find_user, :except => [:public_profile, :all_profiles]
+  before_filter :authenticate_user!, :except => [:public_profile, :index]
+  before_filter :find_user, :except => [:public_profile, :index]
   layout "public"
+
+  def index
+    @users = User.all
+  end
 
   def profile
     @first_time_in_profile = (@user.signing_up? and @user.auth_providers.count < 2)
@@ -10,10 +14,6 @@ class ProfileController < ApplicationController
   def public_profile
     @user = User.find_by_username(params[:username])
     @this_is_my_profile = (user_signed_in? and @user.id == current_user.id)
-  end
-
-  def all_profiles
-    @users = User.all
   end
 
   def data
