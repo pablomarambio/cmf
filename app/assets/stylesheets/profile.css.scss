@@ -110,3 +110,26 @@ body {
 .message-btn:hover span {
 	display: inline-block;
 }
+
+.footer .crop {
+	heigth: 32px;
+	width: 32px;
+	margin: 0 0 0 10px;
+	overflow:hidden;
+	float: right;
+}
+
+.footer h2 {
+	font: 12px Arial, sans-serif;
+	color: #333;
+	margin: 20px 0 10px 0;
+	white-space: nowrap;
+	overflow: hidden;
+	text-align: right;
+}
+
+.footer .redes a,
+.footer .redes a:hover {
+	line-height: 32px;
+	background-position: top left;
+}

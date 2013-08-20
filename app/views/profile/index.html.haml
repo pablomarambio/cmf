@@ -16,6 +16,12 @@
         .footer
           = "#{user.comment}..."
           = link_to "(view full profile)", @user, class: "profile-link"
+          .links.redes
+            - if user.auth_providers.any? 
+              %h2= "#{user.name}'s profile on..."
+            - user.auth_providers.each do |ap|
+              .crop
+                = link_to "#", "#", :class => "#{ap.provider} active"
 
 -content_for :javascript do
   :plain
