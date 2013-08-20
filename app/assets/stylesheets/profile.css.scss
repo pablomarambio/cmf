@@ -53,6 +53,8 @@ body {
 	font: 18px Arial, sans-serif;
 	color: #333;
 	margin: 0 0 10px 0;
+	white-space: nowrap;
+	overflow: hidden;
 }
 
 @media (min-width: 960px) {
