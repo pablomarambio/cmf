@@ -49,16 +49,11 @@ body {
 	margin-bottom: 5px;
 }
 
-.pin p {
-	font: 12px/18px Arial, sans-serif;
+.pin .heading h1 {
+	font: 18px Arial, sans-serif;
 	color: #333;
-	margin: 0;
+	margin: 0 0 10px 0;
 }
-
-/*
-#columns:hover .pin:not(:hover) {
-	opacity: 0.4;
-}*/
 
 @media (min-width: 960px) {
 	#columns {
@@ -68,32 +63,40 @@ body {
 	}
 }
 
-.pin.ready:hover .vote-btn {
+.pin.ready:hover .message-btn {
 	display: block;
 }
 
-.vote-btn, 
-.voted-btn {
+.message-btn {
 	display: none;
 }
 
-.pin .vote-btn,
-.pin .voted-btn {
+.pin .message-btn {
+	position: absolute;
+	right: 20px;
+	top: 50px;
+}
+
+.pin .message-btn .btn {
+	border: none;
+	background-color: #59b129;
+	background-image: none;
+}
+
+.pin .price-btn {
 	position: absolute;
 	right: 5px;
-	top: 5px;
+	top: 10px;
 }
 
-.chosen .voted-btn {
-	display: block;
+.pin .price-btn .btn {
+	padding: 0px 10px;
 }
 
-.vote-btn span,
-.voted-btn span {
+.message-btn span {
 	display: none;
 }
 
-.vote-btn:hover span,
-.voted-btn:hover span {
+.message-btn:hover span {
 	display: inline-block;
 }

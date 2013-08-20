@@ -1,18 +1,18 @@
 #wrapper
   #columns
     - @users.each do |user|
-      .pin{ :"data-user" => user.id }
+      .pin.ready{ :"data-user" => user.id }
+        .heading
+          %h1= user.name
         = image_tag user.local_picture_path, alt: user.name
-        %p
-          %strong= user.name
-        .btn-group.vote-btn
+        .btn-group.message-btn
           %a.btn.btn-primary
-            %i.icon-heart.icon-white
-            %span= "Escoger"
-        .btn-group.voted-btn
-          %a.btn.btn-info
-            %i.icon-ok
-            %span= "No escoger"
+            %i.icon-envelope.icon-white
+            %span= "Enviar mensaje"
+        .btn-group.price-btn
+          %a.btn.btn-primary
+            %i.icon-tag.icon-white
+            %span= user.threshold
 
 -content_for :javascript do
   :plain
