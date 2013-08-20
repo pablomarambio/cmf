@@ -4,15 +4,18 @@
       .pin.ready{ :"data-user" => user.id }
         .heading
           %h1= user.name
-        = image_tag user.local_picture_path, alt: user.name
         .btn-group.message-btn
           %a.btn.btn-primary
             %i.icon-envelope.icon-white
-            %span= "Enviar mensaje"
+            %span= "Write now!"
         .btn-group.price-btn
           %a.btn.btn-primary
             %i.icon-tag.icon-white
             %span= user.threshold
+        = image_tag user.local_picture_path, alt: user.name
+        .footer
+          = "#{user.comment}..."
+          = link_to "(view full profile)", @user, class: "profile-link"
 
 -content_for :javascript do
   :plain

@@ -67,6 +67,14 @@ body {
 	display: block;
 }
 
+.pin.ready a.profile-link {
+	visibility: hidden;
+}
+
+.pin.ready:hover a.profile-link {
+	visibility: visible;
+}
+
 .message-btn {
 	display: none;
 }
