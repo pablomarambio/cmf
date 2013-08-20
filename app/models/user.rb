@@ -130,6 +130,14 @@ class User < ActiveRecord::Base
     self.name || "User #{self.id}"
   end
 
+  def new_from_this name, pic, email
+    u = self.dup
+    u.name = name
+    u.local_picture = pic
+    u.email = email
+    u.save!
+  end
+
   private
   def get_provider provider_name
     provider = self.auth_providers.where('provider = ?', provider_name).first
